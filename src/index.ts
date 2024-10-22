@@ -1,4 +1,7 @@
 import ELK from 'elkjs';
+import * as fs from 'fs';
+
+import {generateSvg} from './svg';
 
 const elk = new ELK();
 
@@ -18,5 +21,7 @@ const graph = {
 
 (async () => {
   const layout = await elk.layout(graph);
-  console.log(JSON.stringify(layout, null, 2));
+  const svg = generateSvg(layout);
+  console.log(svg);
+  fs.writeFileSync('output.svg', svg);
 })();
