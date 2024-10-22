@@ -15,7 +15,15 @@ export const generateSvg = (layout: ElkNode): string => {
 
   layout.children?.forEach((node) => {
     const { id, x, y, width, height } = node;
-    svgContent += `<rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" fill="lightblue" stroke="black" />`;
+    const textX = x! + width! / 2; // Horizontal center
+    const textY = y! + height! / 2; // Vertical center, adjusted below with alignment
+
+    svgContent += `
+    <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" fill="lightblue" stroke="black" />
+    <text x="${textX}" y="${textY}" font-family="Arial" font-size="12" text-anchor="middle" alignment-baseline="middle">
+      ${id}
+    </text>
+  `;
   });
 
   layout.edges?.forEach((edge) => {
