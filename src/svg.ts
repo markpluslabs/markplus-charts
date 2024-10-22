@@ -1,4 +1,4 @@
-import {ElkNode} from 'elkjs';
+import { ElkNode } from 'elkjs';
 
 export function generateSvg(layout: ElkNode): string {
   const svgWidth = layout.width;
@@ -17,20 +17,20 @@ export function generateSvg(layout: ElkNode): string {
   `;
 
   // Draw nodes (rectangles)
-  layout.children?.forEach((node: any) => {
-    const {id, x, y, width, height} = node;
+  layout.children?.forEach((node) => {
+    const { id, x, y, width, height } = node;
     svgContent += `<rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" fill="lightblue" stroke="black" />`;
   });
 
   // Draw edges (lines with arrowheads)
-  layout.edges?.forEach((edge: any) => {
-    edge.sections.forEach((section: any) => {
-      const {startPoint, endPoint, bendPoints} = section;
+  layout.edges?.forEach((edge) => {
+    edge.sections?.forEach((section) => {
+      const { startPoint, endPoint, bendPoints } = section;
       let path = `M ${startPoint.x} ${startPoint.y} `;
 
       // Handle bend points if they exist
       if (bendPoints) {
-        bendPoints.forEach((bendPoint: any) => {
+        bendPoints.forEach((bendPoint) => {
           path += `L ${bendPoint.x} ${bendPoint.y} `;
         });
       }
