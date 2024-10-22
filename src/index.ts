@@ -10,9 +10,9 @@ const graph = {
   id: 'root',
   layoutOptions: { 'elk.algorithm': 'layered' },
   children: [
-    { id: 'n1', width: 30, height: 30 },
-    { id: 'n2', width: 30, height: 30 },
-    { id: 'n3', width: 30, height: 30 },
+    { id: 'n1', width: 120, height: 60 },
+    { id: 'n2', width: 120, height: 60 },
+    { id: 'n3', width: 120, height: 60 },
   ],
   edges: [
     { id: 'e1', sources: ['n1'], targets: ['n2'] },
@@ -22,6 +22,7 @@ const graph = {
 
 (async () => {
   const layout = await elk.layout(graph);
+  console.log(JSON.stringify(layout, null, 2));
   const svg = generateSvg(layout);
   console.log(svg);
   writeFileSync('output.svg', svg);
