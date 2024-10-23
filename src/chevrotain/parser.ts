@@ -8,7 +8,7 @@ class ElkParser extends CstParser {
     this.performSelfAnalysis();
   }
 
-  flowchart = this.RULE('flowchart', () => {
+  elkchart = this.RULE('elkchart', () => {
     this.MANY(() => {
       this.SUBRULE(this.statement);
     });

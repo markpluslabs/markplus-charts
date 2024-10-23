@@ -26,7 +26,7 @@ class CstVisitor extends BaseCstVisitor {
     this.validateVisitor();
   }
 
-  flowchart({ statement }: { statement: CstNode[] }) {
+  elkchart({ statement }: { statement: CstNode[] }) {
     statement.forEach((statement: CstNode) => {
       this.visit(statement);
     });

@@ -2,7 +2,17 @@ import { writeFileSync } from 'fs';
 
 import ELK, { ElkNode } from 'elkjs';
 
+import { toAst } from './chevrotain';
 import { generateSvg } from './svg';
+
+const input = `
+  A --> B
+  B --> C
+  A --> C
+  B --> D
+`;
+
+const ast = toAst(input);
 
 const elk = new ELK();
 
@@ -15,15 +25,17 @@ declare module 'elkjs' {
 const graph: ElkNode = {
   id: 'root',
   layoutOptions: { 'elk.algorithm': 'layered' },
-  children: [
-    { id: 'n1', width: 120, height: 60, label: 'Hello world' },
-    { id: 'n2', width: 120, height: 60, label: 'AAA\nBBB\nCCC\nDDD\nEEE' },
-    { id: 'n3', width: 120, height: 60, label: 'Christmas' },
-  ],
-  edges: [
-    { id: 'e1', sources: ['n1'], targets: ['n2'] },
-    { id: 'e2', sources: ['n1'], targets: ['n3'] },
-  ],
+  children: ast.nodes.map((n) => ({
+    id: n.id,
+    width: 120,
+    height: 60,
+    label: n.label,
+  })),
+  edges: ast.edges.map((e, idx) => ({
+    id: `e${idx}`,
+    sources: [e.from],
+    targets: [e.to],
+  })),
 };
 
 (async () => {
