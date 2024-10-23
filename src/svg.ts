@@ -20,8 +20,8 @@ export const generateSvg = (layout: ElkNode): string => {
 
   // Draw nodes (rectangles with centered text)
   layout.children?.forEach((node) => {
-    const { id, x, y, width, height } = node;
-    const lines = 'AAA\nBBB\nCCC\nDDD\nEEE'.split('\n'); // Split the name into multiple lines if necessary
+    const { id, x, y, width, height, label } = node;
+    const lines = label.split('\n'); // Split the name into multiple lines if necessary
     const totalTextHeight = lines.length * LINE_HEIGHT; // Total height of the multiline text block
     const centerY = y! + height! / 2; // Vertical center of the rectangle
 

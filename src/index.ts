@@ -10,9 +10,9 @@ const graph = {
   id: 'root',
   layoutOptions: { 'elk.algorithm': 'layered' },
   children: [
-    { id: 'n1', width: 120, height: 60 },
-    { id: 'n2', width: 120, height: 60 },
-    { id: 'n3', width: 120, height: 60 },
+    { id: 'n1', width: 120, height: 60, label: 'Hello world' },
+    { id: 'n2', width: 120, height: 60, label: 'AAA\nBBB\nCCC\nDDD\nEEE' },
+    { id: 'n3', width: 120, height: 60, label: 'Christmas' },
   ],
   edges: [
     { id: 'e1', sources: ['n1'], targets: ['n2'] },
