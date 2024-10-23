@@ -20,8 +20,8 @@ export const generateSvg = (layout: ElkNode): string => {
 
   // Draw nodes (rectangles with centered text)
   layout.children?.forEach((node) => {
-    const { id, x, y, width, height, label } = node;
-    const lines = label.split('\n'); // Split the name into multiple lines if necessary
+    const { id, x, y, width, height } = node;
+    const lines: string[] = node['label']!.split('\n'); // Split the name into multiple lines if necessary
     const totalTextHeight = lines.length * LINE_HEIGHT; // Total height of the multiline text block
     const centerY = y! + height! / 2; // Vertical center of the rectangle
 
@@ -30,7 +30,7 @@ export const generateSvg = (layout: ElkNode): string => {
 
     // Add rectangle for the node
     svgContent += `
-      <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" fill="lightblue" stroke="black" />
+      <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" stroke="black" />
     `;
 
     // Add multiline text using <tspan> elements

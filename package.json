@@ -2,7 +2,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "tsc ./src/*.ts --skipLibCheck --noEmit && eslint . --fix && prettier --write . && sort-package-json",
-    "test": "tsx src/index.ts"
+    "test": "tsx src/index.ts && open temp.svg"
   },
   "dependencies": {
     "elkjs": "^0.9.3"

@@ -31,5 +31,5 @@ const graph: ElkNode = {
   console.log(JSON.stringify(layout, null, 2));
   const svg = generateSvg(layout);
   console.log(svg);
-  writeFileSync('output.svg', svg);
+  writeFileSync('temp.svg', svg);
 })();
