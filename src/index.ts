@@ -1,12 +1,18 @@
 import { writeFileSync } from 'fs';
 
-import ELK from 'elkjs';
+import ELK, { ElkNode } from 'elkjs';
 
 import { generateSvg } from './svg';
 
 const elk = new ELK();
 
-const graph = {
+declare module 'elkjs' {
+  interface ElkNode {
+    label?: string;
+  }
+}
+
+const graph: ElkNode = {
   id: 'root',
   layoutOptions: { 'elk.algorithm': 'layered' },
   children: [
