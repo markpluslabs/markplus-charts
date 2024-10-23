@@ -11,7 +11,7 @@ export const toAst = (input: string) => {
 
   // Parsing
   parser.input = lexingResult.tokens;
-  const cst = parser.elkchart();
+  const cst = parser.parse();
   if (parser.errors.length > 0) {
     throw new Error('Parsing errors detected');
   }

@@ -1,26 +1,25 @@
 import { createToken, Lexer } from 'chevrotain';
 
-// Tokens
-export const Identifier = createToken({
-  name: 'Identifier',
-  pattern: /[a-zA-Z_]\w*/,
-});
-export const Arrow = createToken({ name: 'Arrow', pattern: /-->/ });
-const Newline = createToken({
-  name: 'Newline',
-  pattern: /\n/,
-  group: Lexer.SKIPPED,
-});
 const WhiteSpace = createToken({
   name: 'WhiteSpace',
   pattern: /\s+/,
   group: Lexer.SKIPPED,
 });
+const NewLine = createToken({
+  name: 'NewLine',
+  pattern: /\n/,
+  group: Lexer.SKIPPED,
+});
 
-// All tokens
-export const allTokens = [WhiteSpace, Newline, Arrow, Identifier];
+export const Identifier = createToken({
+  name: 'Identifier',
+  pattern: /[a-zA-Z_]\w*/,
+});
 
-// Create the lexer instance
+export const Arrow = createToken({ name: 'Arrow', pattern: /-->/ });
+
+export const allTokens = [WhiteSpace, NewLine, Identifier, Arrow];
+
 const lexer = new Lexer(allTokens);
 
 export default lexer;

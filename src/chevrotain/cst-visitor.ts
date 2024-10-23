@@ -2,19 +2,17 @@ import { CstNode, IToken } from 'chevrotain';
 
 import parser from './parser';
 
+interface AST {
+  nodes: Node[];
+  edges: Edge[];
+}
 interface Node {
   id: string;
   label: string;
 }
-
 interface Edge {
   from: string;
   to: string;
-}
-
-interface AST {
-  nodes: Node[];
-  edges: Edge[];
 }
 
 const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
@@ -26,27 +24,23 @@ class CstVisitor extends BaseCstVisitor {
     this.validateVisitor();
   }
 
-  // connections is the LABEL in ./parser.ts
-  elkchart({ connections }: { connections: CstNode[] }) {
-    connections.forEach((c: CstNode) => this.visit(c));
+  // statements is the LABEL in ./parser.ts
+  parse({ statements }: { statements: CstNode[] }) {
+    statements.forEach((c: CstNode) => this.visit(c));
     return this.ast;
   }
 
   // from and to are the LABELs in ./parser.ts
-  connection({ from, to }: { from: IToken[]; to: IToken[] }) {
-    const fromToken = from[0];
-    const toToken = to[0];
-
-    const fromId = fromToken.image;
-    const toId = toToken.image;
+  statement({ from, to }: { from: IToken[]; to: IToken[] }) {
+    const fromId = from[0].image;
+    const toId = to[0].image;
 
     // Add nodes if they don't exist
-    if (!this.ast.nodes.find((n) => n.id === fromId)) {
-      this.ast.nodes.push({ id: fromId, label: fromId });
-    }
-    if (!this.ast.nodes.find((n) => n.id === toId)) {
-      this.ast.nodes.push({ id: toId, label: toId });
-    }
+    [fromId, toId].forEach((id) => {
+      if (!this.ast.nodes.find((n) => n.id === id)) {
+        this.ast.nodes.push({ id, label: id });
+      }
+    });
 
     // Add edge
     this.ast.edges.push({ from: fromId, to: toId });

@@ -8,13 +8,13 @@ class ElkParser extends CstParser {
     this.performSelfAnalysis();
   }
 
-  elkchart = this.RULE('elkchart', () => {
+  parse = this.RULE('parse', () => {
     this.MANY(() => {
-      this.SUBRULE(this.connection, { LABEL: 'connections' });
+      this.SUBRULE(this.statement, { LABEL: 'statements' });
     });
   });
 
-  connection = this.RULE('connection', () => {
+  statement = this.RULE('statement', () => {
     this.CONSUME(Identifier, { LABEL: 'from' });
     this.CONSUME(Arrow);
     this.CONSUME2(Identifier, { LABEL: 'to' });
