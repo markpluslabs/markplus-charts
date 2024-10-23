@@ -26,13 +26,13 @@ class CstVisitor extends BaseCstVisitor {
     this.validateVisitor();
   }
 
-  elkchart({ connection }: { connection: CstNode[] }) {
-    connection.forEach((c: CstNode) => {
-      this.visit(c);
-    });
+  // connections is the LABEL in ./parser.ts
+  elkchart({ connections }: { connections: CstNode[] }) {
+    connections.forEach((c: CstNode) => this.visit(c));
     return this.ast;
   }
 
+  // from and to are the LABELs in ./parser.ts
   connection({ from, to }: { from: IToken[]; to: IToken[] }) {
     const fromToken = from[0];
     const toToken = to[0];
