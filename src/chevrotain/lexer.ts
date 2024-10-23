@@ -18,9 +18,9 @@ const WhiteSpace = createToken({
 });
 
 // All tokens
-const allTokens = [WhiteSpace, Newline, Arrow, Identifier];
+export const allTokens = [WhiteSpace, Newline, Arrow, Identifier];
 
 // Create the lexer instance
-const FlowchartLexer = new Lexer(allTokens);
+const lexer = new Lexer(allTokens);
 
-export { allTokens, FlowchartLexer };
+export default lexer;

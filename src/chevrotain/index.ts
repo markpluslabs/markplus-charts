@@ -1,6 +1,6 @@
-import { FlowchartLexer } from './lexer';
-import { parserInstance } from './parser';
-import { toAstVisitorInstance } from './toAst';
+import cstVisitor from './cst-visitor';
+import lexer from './lexer';
+import parser from './parser';
 
 // Example input
 const input = `
@@ -10,19 +10,19 @@ const input = `
 `;
 
 // Lexing
-const lexResult = FlowchartLexer.tokenize(input);
+const lexResult = lexer.tokenize(input);
 if (lexResult.errors.length > 0) {
   throw new Error('Lexing errors detected');
 }
 
 // Parsing
-parserInstance.input = lexResult.tokens;
-const cst = parserInstance.flowchart();
-if (parserInstance.errors.length > 0) {
+parser.input = lexResult.tokens;
+const cst = parser.flowchart();
+if (parser.errors.length > 0) {
   throw new Error('Parsing errors detected');
 }
 
 // CST to AST
-const ast = toAstVisitorInstance.visit(cst);
+const ast = cstVisitor.visit(cst);
 
 console.log(ast);

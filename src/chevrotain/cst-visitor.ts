@@ -1,6 +1,6 @@
 import { CstNode, IToken } from 'chevrotain';
 
-import { parserInstance } from './parser';
+import parser from './parser';
 
 interface Node {
   id: string;
@@ -17,9 +17,9 @@ interface AST {
   edges: Edge[];
 }
 
-const BaseCstVisitor = parserInstance.getBaseCstVisitorConstructor();
+const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
 
-class ToAstVisitor extends BaseCstVisitor {
+class CstVisitor extends BaseCstVisitor {
   ast: AST = { nodes: [], edges: [] };
   constructor() {
     super();
@@ -57,6 +57,6 @@ class ToAstVisitor extends BaseCstVisitor {
   }
 }
 
-const toAstVisitorInstance = new ToAstVisitor();
+const cstVisitor = new CstVisitor();
 
-export { toAstVisitorInstance };
+export default cstVisitor;

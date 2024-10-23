@@ -2,7 +2,7 @@ import { CstParser } from 'chevrotain';
 
 import { allTokens, Arrow, Identifier } from './lexer';
 
-class FlowchartParser extends CstParser {
+class ElkParser extends CstParser {
   constructor() {
     super(allTokens);
     this.performSelfAnalysis();
@@ -25,6 +25,6 @@ class FlowchartParser extends CstParser {
   });
 }
 
-const parserInstance = new FlowchartParser();
+const parser = new ElkParser();
 
-export { parserInstance };
+export default parser;
