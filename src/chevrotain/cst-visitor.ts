@@ -26,15 +26,11 @@ class CstVisitor extends BaseCstVisitor {
     this.validateVisitor();
   }
 
-  elkchart({ statement }: { statement: CstNode[] }) {
-    statement.forEach((statement: CstNode) => {
-      this.visit(statement);
+  elkchart({ connection }: { connection: CstNode[] }) {
+    connection.forEach((c: CstNode) => {
+      this.visit(c);
     });
     return this.ast;
-  }
-
-  statement({ connection }: { connection: CstNode }) {
-    this.visit(connection);
   }
 
   connection({ from, to }: { from: IToken[]; to: IToken[] }) {
