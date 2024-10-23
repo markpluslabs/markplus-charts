@@ -1,14 +1,17 @@
 {
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "lint": "tsc ./src/*.ts --skipLibCheck --noEmit && eslint . --fix && prettier --write . && sort-package-json",
-    "test": "tsx src/index.ts && open temp.svg"
+    "test": "tsx src/index.ts && open temp.svg",
+    "temp": "tsx src/chevrotain/index.ts"
   },
   "dependencies": {
+    "chevrotain": "^11.0.3",
     "elkjs": "^0.9.3"
   },
   "devDependencies": {
-    "@types/node": "^22.7.8",
+    "@types/node": "^22.7.9",
     "eslint-config-tyler": "^0.1.7",
     "sort-package-json": "^2.10.1",
     "tsx": "^4.19.1",
