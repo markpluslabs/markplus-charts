@@ -6,8 +6,8 @@ import { toAst } from './chevrotain';
 import { generateSvg } from './svg';
 
 const input = `
-  A --> B
-  B --> C
+  A --> Bbbb
+  Bbbb --> C
   A --> C
   A --> D
   C --> D
@@ -23,8 +23,9 @@ const CHAR_WIDTH = FONT_SIZE * 0.6;
 const LINE_HEIGHT = FONT_SIZE * 1.2;
 
 const getTextSize = (text: string) => {
-  const width = CHAR_WIDTH * text.length;
-  const height = LINE_HEIGHT * text.split('\n').length;
+  const lines = text.split('\n');
+  const width = CHAR_WIDTH * Math.max(...lines.map((line) => line.length));
+  const height = LINE_HEIGHT * lines.length;
   return { width, height };
 };
 const hPadding = 24;
@@ -49,8 +50,8 @@ const graph: ElkNode = {
     labels: [
       {
         id: `e_${index}_label`,
-        text: 'Label',
-        ...getTextSize('Label'),
+        text: 'Label\nLabel😀',
+        ...getTextSize('Label\nLabel😀'),
       },
     ],
   })),
@@ -60,7 +61,7 @@ const graph: ElkNode = {
   const layout = await elk.layout(graph, {
     layoutOptions: {
       'elk.algorithm': 'layered',
-      'elk.direction': 'RIGHT', // or DOWN/UP/LEFT
+      'elk.direction': 'DOWN', // or DOWN/UP/LEFT
       'elk.edgeRouting': 'SPLINES',
       'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
       'elk.edgeLabels.inline': 'true', // show edge label right on the edge
