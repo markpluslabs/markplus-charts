@@ -6,10 +6,7 @@ const FONT_SIZE = 12; // Font size in pixels
 const LINE_HEIGHT = FONT_SIZE * 1.2; // Approximate line height (slightly larger than font size)
 
 export const generateSvg = (layout: ElkNode): string => {
-  const svgWidth = layout.width;
-  const svgHeight = layout.height;
-
-  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}" fill="none" stroke="black" stroke-width="1">`;
+  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${layout.width}" height="${layout.height}" viewBox="0 0 ${layout.width} ${layout.height}" fill="none" stroke="black" stroke-width="1">`;
   svgContent += `
     <defs>
       <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -18,21 +15,24 @@ export const generateSvg = (layout: ElkNode): string => {
     </defs>
   `;
 
-  // Draw nodes (rectangles with centered text)
-  layout.children?.forEach((node) => {
-    const { id, x, y, width, height } = node;
-    const lines: string[] = node.labels![0].text!.split('\n'); // Split the name into multiple lines if necessary
-    const totalTextHeight = lines.length * LINE_HEIGHT; // Total height of the multiline text block
-    const centerY = y! + height! / 2; // Vertical center of the rectangle
-
-    // Calculate the starting y-position of the first line of text
-    const startY = centerY - totalTextHeight / 2 + BASELINE_RATIO * LINE_HEIGHT;
-
-    // Add rectangle for the node
+  const drawLabel = (
+    label: string,
+    position: {
+      id: string;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    },
+  ) => {
+    const { id, x, y, width, height } = position;
     svgContent += `
-      <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" stroke="black" />
-    `;
-
+        <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" />
+      `;
+    const lines: string[] = label.split('\n'); // Split the name into multiple lines if necessary
+    const totalTextHeight = lines.length * LINE_HEIGHT; // Total height of the multiline text block
+    const centerY = y + height / 2; // Vertical center of the rectangle
+    const startY = centerY - totalTextHeight / 2 + BASELINE_RATIO * LINE_HEIGHT;
     // Add multiline text using <tspan> elements
     svgContent += `<text x="${x! + width! / 2}" font-family="Courier New" font-size="${FONT_SIZE}" text-anchor="middle">`;
     lines.forEach((line, index) => {
@@ -40,6 +40,18 @@ export const generateSvg = (layout: ElkNode): string => {
       svgContent += `<tspan x="${x! + width! / 2}" y="${lineY}">${line}</tspan>`;
     });
     svgContent += `</text>`;
+  };
+
+  // Draw nodes (rectangles with centered text)
+  layout.children?.forEach((node) => {
+    const { id, x, y, width, height } = node;
+    drawLabel(node.labels![0].text!, {
+      id: id,
+      x: x!,
+      y: y!,
+      width: width!,
+      height: height!,
+    });
   });
 
   // Draw edges (lines with arrowheads)
@@ -53,8 +65,18 @@ export const generateSvg = (layout: ElkNode): string => {
         });
       }
       path += `L ${endPoint.x} ${endPoint.y}`;
-      svgContent += `<path d="${path}" fill="none" stroke="black" marker-end="url(#arrowhead)" />`;
+      svgContent += `<path d="${path}" fill="none" marker-end="url(#arrowhead)" />`;
     });
+    if (edge.labels && edge.labels.length > 0) {
+      const label = edge.labels[0];
+      drawLabel(label.text!, {
+        id: label.id!,
+        x: label.x!,
+        y: label.y!,
+        width: label.width!,
+        height: label.height!,
+      });
+    }
   });
 
   svgContent += `</svg>`;

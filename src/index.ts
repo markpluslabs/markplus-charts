@@ -20,7 +20,7 @@ const graph: ElkNode = {
   id: 'root',
   layoutOptions: {
     'elk.algorithm': 'layered',
-    'elk.direction': 'RIGHT', // or DOWN/UP/LEFT
+    'elk.direction': 'DOWN', // or DOWN/UP/LEFT
     'elk.edgeRouting': 'SPLINES',
     'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
     'elk.edgeLabels.inline': 'true', // show edge label right on the edge
