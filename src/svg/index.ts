@@ -1,9 +1,10 @@
 import { ElkNode } from 'elkjs';
 
-import Label from './label';
+import SvgLabel from './svg-label';
+import SvgNode from './svg-node';
 
 export const generateSvg = (layout: ElkNode): string => {
-  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${layout.width}" height="${layout.height}" viewBox="0 0 ${layout.width} ${layout.height}" fill="none" stroke="black" stroke-width="1">`;
+  let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${layout.width}" height="${layout.height}" viewBox="0 0 ${layout.width} ${layout.height}">`;
   svgContent += `
     <defs>
       <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
@@ -15,15 +16,12 @@ export const generateSvg = (layout: ElkNode): string => {
   // Draw nodes (rectangles with centered text)
   layout.children?.forEach((node) => {
     const { x, y, width, height } = node;
-    svgContent += `
-    <rect x="${x}" y="${y}" width="${width}" height="${height}" />
-  `;
-    const label = new Label(node.labels![0].text!, {
-      x: x!,
-      y: y!,
-      width: width!,
-      height: height!,
-    });
+    const svgNode = new SvgNode(
+      { x: x!, y: y!, width: width!, height: height! },
+      { fill: 'none', stroke: 'black', strokeWidth: 1 },
+    );
+    svgContent += svgNode.toSvg();
+    const label = new SvgLabel(node.labels![0].text!, svgNode);
     svgContent += label.toSvg();
   });
 
@@ -38,21 +36,18 @@ export const generateSvg = (layout: ElkNode): string => {
         });
       }
       path += `L ${endPoint.x} ${endPoint.y}`;
-      svgContent += `<path d="${path}" fill="none" marker-end="url(#arrowhead)" />`;
+      svgContent += `<path d="${path}" fill="none" stroke="black" marker-end="url(#arrowhead)" />`;
     });
     if (edge.labels && edge.labels.length > 0) {
-      const _label = edge.labels[0];
-      const { x, y, width, height } = _label;
-      svgContent += `
-      <rect x="${x}" y="${y}" width="${width}" height="${height}" fill="lightgray" stroke="none" />
-    `;
-      const label = new Label(edge.labels[0].text!, {
-        x: _label.x!,
-        y: _label.y!,
-        width: _label.width!,
-        height: _label.height!,
-      });
-      svgContent += label.toSvg();
+      const label = edge.labels[0];
+      const { x, y, width, height } = label;
+      const svgNode = new SvgNode(
+        { x: x!, y: y!, width: width!, height: height! },
+        { fill: 'lightgray', stroke: 'none', strokeWidth: 0 },
+      );
+      svgContent += svgNode.toSvg();
+      const svgLabel = new SvgLabel(edge.labels[0].text!, svgNode);
+      svgContent += svgLabel.toSvg();
     }
   });
 

@@ -1,13 +1,7 @@
 import CONSTS from '../consts';
+import { Rect } from './interfaces';
 
-interface Rect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-class Label {
+class SvgLabel {
   public text: string;
   public frame: Rect;
 
@@ -32,4 +26,4 @@ class Label {
   }
 }
 
-export default Label;
+export default SvgLabel;
