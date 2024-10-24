@@ -18,17 +18,13 @@ export const generateSvg = (layout: ElkNode): string => {
   const drawLabel = (
     label: string,
     position: {
-      id: string;
       x: number;
       y: number;
       width: number;
       height: number;
     },
   ) => {
-    const { id, x, y, width, height } = position;
-    svgContent += `
-        <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" />
-      `;
+    const { x, y, width, height } = position;
     const lines: string[] = label.split('\n'); // Split the name into multiple lines if necessary
     const totalTextHeight = lines.length * LINE_HEIGHT; // Total height of the multiline text block
     const centerY = y + height / 2; // Vertical center of the rectangle
@@ -45,8 +41,10 @@ export const generateSvg = (layout: ElkNode): string => {
   // Draw nodes (rectangles with centered text)
   layout.children?.forEach((node) => {
     const { id, x, y, width, height } = node;
+    svgContent += `
+    <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" />
+  `;
     drawLabel(node.labels![0].text!, {
-      id: id,
       x: x!,
       y: y!,
       width: width!,
@@ -69,8 +67,11 @@ export const generateSvg = (layout: ElkNode): string => {
     });
     if (edge.labels && edge.labels.length > 0) {
       const label = edge.labels[0];
+      const { id, x, y, width, height } = label;
+      svgContent += `
+      <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" fill="lightgray" />
+    `;
       drawLabel(label.text!, {
-        id: label.id!,
         x: label.x!,
         y: label.y!,
         width: label.width!,
