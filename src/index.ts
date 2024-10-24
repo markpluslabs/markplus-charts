@@ -3,6 +3,7 @@ import { writeFileSync } from 'fs';
 import ELK, { ElkNode } from 'elkjs';
 
 import { toAst } from './chevrotain';
+import CONSTS from './consts';
 import { generateSvg } from './svg';
 
 const input = `
@@ -18,14 +19,11 @@ const ast = toAst(input);
 
 const elk = new ELK();
 
-const FONT_SIZE = 12;
-const CHAR_WIDTH = FONT_SIZE * 0.6;
-const LINE_HEIGHT = FONT_SIZE * 1.2;
-
 const getTextSize = (text: string) => {
   const lines = text.split('\n');
-  const width = CHAR_WIDTH * Math.max(...lines.map((line) => line.length));
-  const height = LINE_HEIGHT * lines.length;
+  const width =
+    CONSTS.CHARACTER_WIDTH * Math.max(...lines.map((line) => line.length));
+  const height = CONSTS.LINE_HEIGHT * lines.length;
   return { width, height };
 };
 const hPadding = 24;

@@ -1,9 +1,6 @@
 import { ElkNode } from 'elkjs';
 
-// Constants for "Courier New" font
-const BASELINE_RATIO = 0.75; // Baseline is 75% of the line height
-const FONT_SIZE = 12; // Font size in pixels
-const LINE_HEIGHT = FONT_SIZE * 1.2; // Approximate line height (slightly larger than font size)
+import CONSTS from './consts';
 
 export const generateSvg = (layout: ElkNode): string => {
   let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${layout.width}" height="${layout.height}" viewBox="0 0 ${layout.width} ${layout.height}" fill="none" stroke="black" stroke-width="1">`;
@@ -25,15 +22,15 @@ export const generateSvg = (layout: ElkNode): string => {
     },
   ) => {
     const { x, y, width, height } = position;
-    const lines: string[] = label.split('\n'); // Split the name into multiple lines if necessary
-    const totalTextHeight = lines.length * LINE_HEIGHT; // Total height of the multiline text block
+    const lines = label.split('\n'); // Split the name into multiple lines if necessary
+    const totalTextHeight = lines.length * CONSTS.LINE_HEIGHT; // Total height of the multiline text block
     const centerY = y + height / 2; // Vertical center of the rectangle
-    const startY = centerY - totalTextHeight / 2 + BASELINE_RATIO * LINE_HEIGHT;
+    const startY = centerY - totalTextHeight / 2 + CONSTS.BASELINE_HEIGHT;
     // Add multiline text using <tspan> elements
-    svgContent += `<text x="${x! + width! / 2}" font-family="Courier New" font-size="${FONT_SIZE}" text-anchor="middle">`;
+    svgContent += `<text x="${x + width / 2}" font-family="Courier New" font-size="${CONSTS.FONT_SIZE}" text-anchor="middle">`;
     lines.forEach((line, index) => {
-      const lineY = startY + index * LINE_HEIGHT; // Position each line properly
-      svgContent += `<tspan x="${x! + width! / 2}" y="${lineY}">${line}</tspan>`;
+      const lineY = startY + index * CONSTS.LINE_HEIGHT; // Position each line properly
+      svgContent += `<tspan x="${x + width / 2}" y="${lineY}">${line}</tspan>`;
     });
     svgContent += `</text>`;
   };
@@ -69,7 +66,7 @@ export const generateSvg = (layout: ElkNode): string => {
       const label = edge.labels[0];
       const { id, x, y, width, height } = label;
       svgContent += `
-      <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" fill="lightgray" />
+      <rect id="${id}" x="${x}" y="${y}" width="${width}" height="${height}" fill="lightgray" stroke="none" />
     `;
       drawLabel(label.text!, {
         x: label.x!,
