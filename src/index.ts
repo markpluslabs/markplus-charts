@@ -4,7 +4,7 @@ import ELK, { ElkNode } from 'elkjs';
 
 import { toAst } from './chevrotain';
 import CONSTS from './consts';
-import { generateSvg } from './svg';
+import { toSvg } from './svg';
 
 const input = `
   A --> Bbbb
@@ -67,7 +67,7 @@ const graph: ElkNode = {
     },
   });
   console.log(JSON.stringify(layout, null, 2));
-  const svg = generateSvg(layout);
+  const svg = toSvg(layout);
   console.log(svg);
   writeFileSync('temp.svg', svg);
 })();
