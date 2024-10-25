@@ -14,7 +14,7 @@ const main = async () => {
   // `;
 
   const input = `
-A --- B
+A --> B
 B --- A
 `;
 
