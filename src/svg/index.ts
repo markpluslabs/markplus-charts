@@ -13,14 +13,19 @@ class Svg {
   labels: SvgLabel[] = [];
 
   constructor(elkNode: ElkNode, ast: Ast) {
-    this.width = elkNode.width!;
-    this.height = elkNode.height!;
+    this.width = parseFloat(elkNode.width!.toFixed(1));
+    this.height = parseFloat(elkNode.height!.toFixed(1));
 
     elkNode.children?.forEach((node) => {
       // node
       const { x, y, width, height } = node;
       const svgNode = new SvgNode(
-        { x: x!, y: y!, width: width!, height: height! },
+        {
+          x: parseFloat(x!.toFixed(1)),
+          y: parseFloat(y!.toFixed(1)),
+          width: parseFloat(width!.toFixed(1)),
+          height: parseFloat(height!.toFixed(1)),
+        },
         { fill: 'none', stroke: 'black', strokeWidth: 1 },
       );
       this.nodes.push(svgNode);
@@ -37,6 +42,10 @@ class Svg {
         const { startPoint, endPoint, bendPoints } = section;
         points.push(startPoint, ...(bendPoints ?? []), endPoint);
       });
+      points.forEach((point) => {
+        point.x = parseFloat(point.x.toFixed(1));
+        point.y = parseFloat(point.y.toFixed(1));
+      });
       const svgEdge = new SvgEdge(points, ast.getEdge(edge.id!)!.directional);
       this.edges.push(svgEdge);
 
@@ -46,7 +55,12 @@ class Svg {
         const label = edge.labels[0];
         const { x, y, width, height } = label;
         const svgNode = new SvgNode(
-          { x: x!, y: y!, width: width!, height: height! },
+          {
+            x: parseFloat(x!.toFixed(1)),
+            y: parseFloat(y!.toFixed(1)),
+            width: parseFloat(width!.toFixed(1)),
+            height: parseFloat(height!.toFixed(1)),
+          },
           { fill: 'lightgray', stroke: 'none', strokeWidth: 0 },
         );
         this.nodes.push(svgNode);

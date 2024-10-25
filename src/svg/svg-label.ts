@@ -16,10 +16,11 @@ class SvgLabel {
     const totalTextHeight = lines.length * CONSTS.LINE_HEIGHT;
     const centerY = this.frame.y + this.frame.height / 2;
     const startY = centerY - totalTextHeight / 2 + CONSTS.BASELINE_HEIGHT;
-    r += `<text x="${this.frame.x + this.frame.width / 2}" font-family="${CONSTS.FONT_FAMILY}" font-size="${CONSTS.FONT_SIZE}" text-anchor="middle">`;
+    const x = (this.frame.x + this.frame.width / 2).toFixed(1);
+    r += `<text x="${x}" font-family="${CONSTS.FONT_FAMILY}" font-size="${CONSTS.FONT_SIZE}" text-anchor="middle">`;
     lines.forEach((line, index) => {
-      const lineY = startY + index * CONSTS.LINE_HEIGHT;
-      r += `<tspan x="${this.frame.x + this.frame.width / 2}" y="${lineY}">${line}</tspan>`;
+      const lineY = (startY + index * CONSTS.LINE_HEIGHT).toFixed(1);
+      r += `<tspan x="${x}" y="${lineY}">${line}</tspan>`;
     });
     r += `</text>`;
     return r;
