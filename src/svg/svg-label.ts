@@ -10,7 +10,7 @@ class SvgLabel {
     this.frame = frame;
   }
 
-  public toSvg(): string {
+  public toString(): string {
     let r = ``;
     const lines = this.text.split('\n');
     const totalTextHeight = lines.length * CONSTS.LINE_HEIGHT;

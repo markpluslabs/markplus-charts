@@ -15,7 +15,7 @@ class SvgNode {
     this.svgProps = svgProps;
   }
 
-  public toSvg(): string {
+  public toString(): string {
     return `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}" fill="${this.svgProps.fill}" stroke="${this.svgProps.stroke}" stroke-width="${this.svgProps.strokeWidth}" />`;
   }
 }

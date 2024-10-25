@@ -1,15 +1,16 @@
-import cstVisitor from './cst-visitor';
+import Ast from './ast';
 import lexer from './lexer';
 import parser from './parser';
+import visitor from './visitor';
 
-export const toAst = (input: string) => {
-  // Lexing
+export const generateAst = (input: string): Ast => {
+  // lexing
   const lexingResult = lexer.tokenize(input);
   if (lexingResult.errors.length > 0) {
     throw new Error('Lexing errors detected');
   }
 
-  // Parsing
+  // parsing
   parser.input = lexingResult.tokens;
   const cst = parser.parse();
   if (parser.errors.length > 0) {
@@ -17,6 +18,6 @@ export const toAst = (input: string) => {
   }
 
   // CST to AST
-  const ast = cstVisitor.visit(cst);
+  const ast = visitor.visit(cst);
   return ast;
 };

@@ -1,25 +1,12 @@
 import { CstNode, IToken } from 'chevrotain';
 
+import Ast from './ast';
 import parser from './parser';
 
-interface AST {
-  nodes: Node[];
-  edges: Edge[];
-}
-interface Node {
-  id: string;
-  label: string;
-}
-interface Edge {
-  from: string;
-  to: string;
-  directional: boolean;
-}
+const BaseVisitor = parser.getBaseCstVisitorConstructor<void, Ast>();
 
-const BaseCstVisitor = parser.getBaseCstVisitorConstructor<void, AST>();
-
-class CstVisitor extends BaseCstVisitor {
-  ast: AST = { nodes: [], edges: [] };
+class Visitor extends BaseVisitor {
+  ast = new Ast();
   constructor() {
     super();
     this.validateVisitor();
@@ -31,7 +18,7 @@ class CstVisitor extends BaseCstVisitor {
     return this.ast;
   }
 
-  // from and to are the LABELs in ./parser.ts
+  // from, link and to are the LABELs in ./parser.ts
   statement({
     from,
     link,
@@ -57,6 +44,5 @@ class CstVisitor extends BaseCstVisitor {
   }
 }
 
-const cstVisitor = new CstVisitor();
-
-export default cstVisitor;
+const visitor = new Visitor();
+export default visitor;

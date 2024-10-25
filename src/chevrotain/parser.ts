@@ -2,7 +2,7 @@ import { CstParser } from 'chevrotain';
 
 import { allTokens, Identifier, Link } from './lexer';
 
-class ElkParser extends CstParser {
+class Parser extends CstParser {
   constructor() {
     super(allTokens);
     this.performSelfAnalysis();
@@ -21,6 +21,5 @@ class ElkParser extends CstParser {
   });
 }
 
-const parser = new ElkParser();
-
+const parser = new Parser();
 export default parser;

@@ -21,5 +21,4 @@ export const Link = createToken({ name: 'Link', pattern: /--[>-]/ });
 export const allTokens = [WhiteSpace, NewLine, Identifier, Link];
 
 const lexer = new Lexer(allTokens);
-
 export default lexer;

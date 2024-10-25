@@ -7,7 +7,7 @@ class SvgEdge {
     this.directional = directional;
   }
 
-  public toSvg(): string {
+  public toString(): string {
     const path =
       'M' +
       this.points
