@@ -2,6 +2,8 @@
 
 ## Todo
 
+- custom label text
 - use react-dom/server to render?
-- dual arrowhead
-- no arrowhead
+- single node without edges
+- thick link
+- some chevrotain methods don't have return typing

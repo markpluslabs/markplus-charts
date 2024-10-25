@@ -35,7 +35,7 @@ export const toSvg = (layout: ElkNode): string => {
       const { startPoint, endPoint, bendPoints } = section;
       points.push(startPoint, ...(bendPoints ?? []), endPoint);
     });
-    const svgEdge = new SvgEdge(points);
+    const svgEdge = new SvgEdge(points, edge['directional']);
     r += svgEdge.toSvg();
 
     // edge label

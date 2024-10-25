@@ -1,6 +1,6 @@
 import { CstParser } from 'chevrotain';
 
-import { allTokens, Arrow, Identifier } from './lexer';
+import { allTokens, Identifier, Link } from './lexer';
 
 class ElkParser extends CstParser {
   constructor() {
@@ -16,7 +16,7 @@ class ElkParser extends CstParser {
 
   statement = this.RULE('statement', () => {
     this.CONSUME(Identifier, { LABEL: 'from' });
-    this.CONSUME(Arrow);
+    this.CONSUME(Link, { LABEL: 'link' });
     this.CONSUME2(Identifier, { LABEL: 'to' });
   });
 }

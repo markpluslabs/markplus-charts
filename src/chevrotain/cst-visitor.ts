@@ -13,6 +13,7 @@ interface Node {
 interface Edge {
   from: string;
   to: string;
+  directional: boolean;
 }
 
 const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
@@ -31,8 +32,17 @@ class CstVisitor extends BaseCstVisitor {
   }
 
   // from and to are the LABELs in ./parser.ts
-  statement({ from, to }: { from: IToken[]; to: IToken[] }) {
+  statement({
+    from,
+    link,
+    to,
+  }: {
+    from: IToken[];
+    link: IToken[];
+    to: IToken[];
+  }) {
     const fromId = from[0].image;
+    const directional = link[0].image.endsWith('>');
     const toId = to[0].image;
 
     // Add nodes if they don't exist
@@ -43,7 +53,7 @@ class CstVisitor extends BaseCstVisitor {
     });
 
     // Add edge
-    this.ast.edges.push({ from: fromId, to: toId });
+    this.ast.edges.push({ from: fromId, to: toId, directional });
   }
 }
 

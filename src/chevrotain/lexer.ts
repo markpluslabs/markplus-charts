@@ -16,9 +16,9 @@ export const Identifier = createToken({
   pattern: /[a-zA-Z_]\w*/,
 });
 
-export const Arrow = createToken({ name: 'Arrow', pattern: /-->/ });
+export const Link = createToken({ name: 'Link', pattern: /--[>-]/ });
 
-export const allTokens = [WhiteSpace, NewLine, Identifier, Arrow];
+export const allTokens = [WhiteSpace, NewLine, Identifier, Link];
 
 const lexer = new Lexer(allTokens);
 

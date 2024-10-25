@@ -6,16 +6,24 @@ import { toAst } from './chevrotain';
 import CONSTS from './consts';
 import { toSvg } from './svg';
 
+// const input = `
+//   A --> Bbbb
+//   Bbbb --> C
+//   A --> C
+//   A --> D
+//   C --> D
+//   D --> A
+// `;
+
 const input = `
-  A --> Bbbb
-  Bbbb --> C
-  A --> C
-  A --> D
-  C --> D
-  D --> A
+A --- B
+B --- A
+A --> C
 `;
 
 const ast = toAst(input);
+
+console.log(JSON.stringify(ast, null, 2));
 
 const elk = new ELK();
 
@@ -45,6 +53,7 @@ const graph: ElkNode = {
     id: `e_${index}`,
     sources: [e.from],
     targets: [e.to],
+    directional: e.directional,
     labels: [
       {
         id: `e_${index}_label`,
