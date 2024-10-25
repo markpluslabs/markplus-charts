@@ -2,15 +2,15 @@ import CONSTS from '../consts';
 import { Rect } from './interfaces';
 
 class SvgLabel {
-  public text: string;
-  public frame: Rect;
+  text: string;
+  frame: Rect;
 
-  public constructor(text: string, frame: Rect) {
+  constructor(text: string, frame: Rect) {
     this.text = text;
     this.frame = frame;
   }
 
-  public toString(): string {
+  toString(): string {
     let r = ``;
     const lines = this.text.split('\n');
     const totalTextHeight = lines.length * CONSTS.LINE_HEIGHT;

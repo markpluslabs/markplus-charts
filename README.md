@@ -8,3 +8,4 @@
 - thick link
 - preview it in real time
   - turn the demo into a SPA
+- position & size number toFixed(1)

@@ -1,13 +1,13 @@
 class SvgEdge {
-  public points: { x: number; y: number }[];
-  public directional: boolean;
+  points: { x: number; y: number }[];
+  directional: boolean;
 
-  public constructor(points: { x: number; y: number }[], directional: boolean) {
+  constructor(points: { x: number; y: number }[], directional: boolean) {
     this.points = points;
     this.directional = directional;
   }
 
-  public toString(): string {
+  toString(): string {
     const path =
       'M' +
       this.points
