@@ -1,4 +1,4 @@
-import ELK from 'elkjs';
+import ELK, { ElkExtendedEdge, ElkNode } from 'elkjs';
 
 import Ast from '../chevrotain/ast';
 import CONSTS from '../consts';
@@ -24,6 +24,7 @@ interface LayoutConfig {
 }
 
 export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
+  ast.createIndex();
   const addPadding = (size: { width: number; height: number }) => ({
     width: size.width + config.node.hPadding * 2,
     height: size.height + config.node.vPadding * 2,
@@ -32,25 +33,30 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
   const elkNode = await elk.layout(
     {
       id: 'root',
-      children: ast.nodes.map((n, index) => ({
-        id: n.id,
-        ...addPadding(getTextSize(n.label)),
-        layoutOptions: { 'elk.position': `(${index},${index})` }, // preserve sub-nodes order
-        labels: [{ text: n.label }],
-      })),
-      edges: ast.edges.map((e, index) => ({
-        id: `e_${index}`,
-        sources: [e.from],
-        targets: [e.to],
-        directional: e.directional,
-        labels: [
-          {
-            id: `e_${index}_label`,
-            text: 'Label\nLabel😀',
-            ...getTextSize('Label\nLabel😀'),
-          },
-        ],
-      })),
+      children: ast.nodes.map((n, index) => {
+        const r: ElkNode = {
+          id: n.id,
+          ...addPadding(getTextSize(n.label)),
+          layoutOptions: { 'elk.position': `(${index},${index})` }, // preserve sub-nodes order
+          labels: [{ text: n.label }],
+        };
+        return r;
+      }),
+      edges: ast.edges.map((e) => {
+        const r: ElkExtendedEdge = {
+          id: e.id,
+          sources: [e.from],
+          targets: [e.to],
+          labels: [
+            {
+              id: `${e.id}_label`,
+              text: 'Label\nLabel😀',
+              ...getTextSize('Label\nLabel😀'),
+            },
+          ],
+        };
+        return r;
+      }),
     },
     {
       layoutOptions: {
@@ -86,7 +92,7 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
       const { startPoint, endPoint, bendPoints } = section;
       points.push(startPoint, ...(bendPoints ?? []), endPoint);
     });
-    const svgEdge = new SvgEdge(points, edge['directional']); // todo: better way to pass edge['directional']
+    const svgEdge = new SvgEdge(points, ast.getEdge(edge.id!)!.directional);
     svg.edges.push(svgEdge);
 
     // edge label

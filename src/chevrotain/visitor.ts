@@ -5,6 +5,7 @@ import parser from './parser';
 
 const BaseVisitor = parser.getBaseCstVisitorConstructor<void, Ast>();
 
+let id = 0;
 class Visitor extends BaseVisitor {
   ast = new Ast();
   constructor() {
@@ -40,7 +41,12 @@ class Visitor extends BaseVisitor {
     });
 
     // Add edge
-    this.ast.edges.push({ from: fromId, to: toId, directional });
+    this.ast.edges.push({
+      id: `e_${id++}`,
+      from: fromId,
+      to: toId,
+      directional,
+    });
   }
 }
 
