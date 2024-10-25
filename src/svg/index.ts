@@ -58,14 +58,15 @@ class Svg {
     });
   }
 
-  // todo: do not add arrowhead if no edge is directional
   toString(): string {
-    let r = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.width}" height="${this.height}" viewBox="0 0 ${this.width} ${this.height}">
-<defs>
+    let r = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.width}" height="${this.height}" viewBox="0 0 ${this.width} ${this.height}">`;
+    if (this.edges.some((edge) => edge.directional)) {
+      r += `\n<defs>
   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
     <polygon points="0 0, 10 3.5, 0 7" fill="black" />
   </marker>
 </defs>`;
+    }
     this.nodes.forEach((node) => {
       r += '\n' + node.toString();
     });

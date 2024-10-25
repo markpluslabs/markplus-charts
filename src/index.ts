@@ -16,8 +16,6 @@ const main = async () => {
   const input = `
 A --- B
 B --- A
-A --> C
-A --> C
 `;
 
   const ast = generateAst(input);
