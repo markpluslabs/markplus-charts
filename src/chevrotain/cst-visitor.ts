@@ -16,7 +16,7 @@ interface Edge {
   directional: boolean;
 }
 
-const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
+const BaseCstVisitor = parser.getBaseCstVisitorConstructor<void, AST>();
 
 class CstVisitor extends BaseCstVisitor {
   ast: AST = { nodes: [], edges: [] };
