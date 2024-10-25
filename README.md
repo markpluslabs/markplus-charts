@@ -2,6 +2,7 @@
 
 ## Todo
 
+- custom direction
 - custom node label
 - use react-dom/server to render svg?
 - single node without edges
@@ -13,3 +14,8 @@
 - simplify svg code
   - low priority, https://github.com/svg/svgo
 - what if \t in label?
+- more node shapes
+
+## Tips
+
+Post existing code to chatGPT, and ask him how to add a new feature.

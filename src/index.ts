@@ -4,15 +4,6 @@ import { generateAst } from './chevrotain';
 import { layout } from './elk';
 
 const main = async () => {
-  // const input = `
-  //   A --> Bbbb
-  //   Bbbb --> C
-  //   A --> C
-  //   A --> D
-  //   C --> D
-  //   D --> A
-  // `;
-
   const input = `
 A -->|Go| B
 B -->|first line\nsecond line\nthird line| C
