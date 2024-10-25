@@ -81,15 +81,21 @@ class Svg {
   </marker>
 </defs>`;
     }
-    this.nodes.forEach((node) => {
-      r += '\n' + node.toString();
-    });
+
+    // edges must be rendered before everything else
     this.edges.forEach((edge) => {
       r += '\n' + edge.toString();
     });
+
+    this.nodes.forEach((node) => {
+      r += '\n' + node.toString();
+    });
+
+    // labels must be rendered after everything else
     this.labels.forEach((label) => {
       r += '\n' + label.toString();
     });
+
     r += `\n</svg>`;
     return r;
   }

@@ -43,14 +43,16 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
           id: e.id,
           sources: [e.from],
           targets: [e.to],
-          labels: [
+        };
+        if (e.label) {
+          r.labels = [
             {
               id: `${e.id}_label`,
-              text: 'Label\nLabel😀',
-              ...getTextSize('Label\nLabel😀'),
+              text: e.label,
+              ...getTextSize(e.label),
             },
-          ],
-        };
+          ];
+        }
         return r;
       }),
     },

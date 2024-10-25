@@ -1,6 +1,6 @@
 import { CstParser } from 'chevrotain';
 
-import { allTokens, Identifier, Link } from './lexer';
+import { allTokens, Identifier, Label, Link } from './lexer';
 
 class Parser extends CstParser {
   constructor() {
@@ -17,6 +17,9 @@ class Parser extends CstParser {
   statement = this.RULE('statement', () => {
     this.CONSUME(Identifier, { LABEL: 'from' });
     this.CONSUME(Link, { LABEL: 'link' });
+    this.OPTION(() => {
+      this.CONSUME(Label, { LABEL: 'label' });
+    });
     this.CONSUME2(Identifier, { LABEL: 'to' });
   });
 }

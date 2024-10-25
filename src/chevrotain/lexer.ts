@@ -18,7 +18,12 @@ export const Identifier = createToken({
 
 export const Link = createToken({ name: 'Link', pattern: /--[>-]/ });
 
-export const allTokens = [WhiteSpace, NewLine, Identifier, Link];
+export const Label = createToken({
+  name: 'Label',
+  pattern: /\|[^|]+\|/,
+});
+
+export const allTokens = [WhiteSpace, NewLine, Identifier, Link, Label];
 
 const lexer = new Lexer(allTokens);
 export default lexer;

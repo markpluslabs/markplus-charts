@@ -7,6 +7,7 @@ interface Edge {
   from: string;
   to: string;
   directional: boolean;
+  label?: string;
 }
 
 class Ast {

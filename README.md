@@ -2,7 +2,7 @@
 
 ## Todo
 
-- custom label text
+- custom node label
 - use react-dom/server to render svg?
 - single node without edges
 - thick link
@@ -10,3 +10,6 @@
   - turn the demo into a SPA
 - strokeWidth takes space
   - low priority, strike width 1 just works
+- simplify svg code
+  - low priority, https://github.com/svg/svgo
+- what if \t in label?

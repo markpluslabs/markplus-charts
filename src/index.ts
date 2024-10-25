@@ -14,8 +14,8 @@ const main = async () => {
   // `;
 
   const input = `
-A --> B
-B --- A
+A -->|Go| B
+B -->|first line\nsecond line\nthird line| C
 `;
 
   const ast = generateAst(input);

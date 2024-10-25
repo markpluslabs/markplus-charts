@@ -24,10 +24,12 @@ class Visitor extends BaseVisitor {
     from,
     link,
     to,
+    label,
   }: {
     from: IToken[];
     link: IToken[];
     to: IToken[];
+    label: IToken[];
   }) {
     const fromId = from[0].image;
     const directional = link[0].image.endsWith('>');
@@ -41,11 +43,17 @@ class Visitor extends BaseVisitor {
     });
 
     // Add edge
+    let labelStr: string | undefined = undefined;
+    if (label) {
+      labelStr = label[0].image;
+      labelStr = labelStr.slice(1, labelStr.length - 1);
+    }
     this.ast.edges.push({
       id: `e_${id++}`,
       from: fromId,
       to: toId,
       directional,
+      label: labelStr,
     });
   }
 }
