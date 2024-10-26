@@ -5,8 +5,12 @@ import { layout } from './elk';
 
 const main = async () => {
   const input = `
-A -->|Go| B
-B -->|first line\nsecond line\nthird line| C
+A --> B
+B --> C
+C --> D
+C --> E
+C --> F
+F --> A
 `;
 
   const ast = generateAst(input);

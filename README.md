@@ -15,6 +15,7 @@
   - low priority, https://github.com/svg/svgo
 - what if \t in label?
 - more node shapes
+- how to handle syntax error
 
 ## Tips
 
