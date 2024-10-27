@@ -1,4 +1,4 @@
-import { createToken, Lexer } from 'chevrotain';
+import { createToken, CstParser, Lexer } from 'chevrotain';
 import { describe, expect, test } from 'vitest';
 
 const WhiteSpace = createToken({
@@ -66,8 +66,50 @@ export const multiModeLexerDefinition = {
 
 const lexer = new Lexer(multiModeLexerDefinition);
 
-describe('poc lexer', () => {
-  test('simple', () => {
+class Parser extends CstParser {
+  constructor() {
+    super(multiModeLexerDefinition);
+    this.performSelfAnalysis();
+  }
+
+  parse = this.RULE('parse', () => {
+    this.MANY(() => {
+      this.SUBRULE(this.statement, { LABEL: 'statements' });
+    });
+  });
+
+  statement = this.RULE('statement', () => {
+    this.CONSUME(Node, { LABEL: 'fromNode' });
+    this.OPTION(() => {
+      this.SUBRULE(this.properties, { LABEL: 'fromNodeProps' });
+    });
+    this.OPTION1(() => {
+      this.CONSUME(Link, { LABEL: 'link' });
+      this.OPTION2(() => {
+        this.SUBRULE1(this.properties, { LABEL: 'linkProps' });
+      });
+      this.CONSUME1(Node, { LABEL: 'toNode' });
+      this.OPTION3(() => {
+        this.SUBRULE2(this.properties, { LABEL: 'toNodeProps' });
+      });
+    });
+  });
+
+  properties = this.RULE('properties', () => {
+    this.MANY(() => {
+      this.SUBRULE(this.property);
+    });
+  });
+
+  property = this.RULE('property', () => {
+    this.CONSUME(PropKey);
+    this.CONSUME1(PropValue);
+  });
+}
+const parser = new Parser();
+
+describe('poc', () => {
+  test('lexer', () => {
     const r = lexer.tokenize('A{prop3: c; prop4: d} -->{prop1: 4} B{prop2: 5}');
     if (r.errors.length > 0) {
       console.log(r.errors);
@@ -87,5 +129,16 @@ describe('poc lexer', () => {
       'PropKey: prop2',
       'PropValue: 5',
     ]);
+  });
+  test('parser', () => {
+    const r = lexer.tokenize('A{prop3: c; prop4: d} -->{prop1: 4} B{prop2: 5}');
+    parser.input = r.tokens;
+    const cst = parser.parse();
+    if (parser.errors.length > 0) {
+      console.log(parser.errors);
+    }
+    expect(parser.errors.length).toBe(0);
+    console.log(JSON.stringify(cst, null, 2));
+    expect(cst.children.statements.length).toBe(1); // 1 statement
   });
 });
