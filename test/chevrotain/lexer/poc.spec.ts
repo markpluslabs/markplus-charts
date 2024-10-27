@@ -16,6 +16,7 @@ const LCurly = createToken({
   name: 'LCurly',
   pattern: /\{/,
   push_mode: 'props_mode',
+  group: Lexer.SKIPPED,
 });
 
 export const Link = createToken({
@@ -32,6 +33,7 @@ const Colon = createToken({
   name: 'Colon',
   pattern: /:/,
   push_mode: 'value_mode',
+  group: Lexer.SKIPPED,
 });
 
 const PropValue = createToken({
@@ -43,12 +45,14 @@ const PropValue = createToken({
 const Semicolon = createToken({
   name: 'Semicolon',
   pattern: /;/,
+  group: Lexer.SKIPPED,
 });
 
 const RCurly = createToken({
   name: 'RCurly',
   pattern: /\}/,
   pop_mode: true,
+  group: Lexer.SKIPPED,
 });
 
 export const multiModeLexerDefinition = {
@@ -72,27 +76,16 @@ describe('poc lexer', () => {
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
     expect(tokens).toEqual([
       'Node: A',
-      'LCurly: {',
       'PropKey: prop3',
-      'Colon: :',
       'PropValue: c',
-      'Semicolon: ;',
       'PropKey: prop4',
-      'Colon: :',
       'PropValue: d',
-      'RCurly: }',
       'Link: -->',
-      'LCurly: {',
       'PropKey: prop1',
-      'Colon: :',
       'PropValue: 4',
-      'RCurly: }',
       'Node: B',
-      'LCurly: {',
       'PropKey: prop2',
-      'Colon: :',
       'PropValue: 5',
-      'RCurly: }',
     ]);
   });
 });
