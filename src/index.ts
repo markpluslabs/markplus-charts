@@ -5,12 +5,7 @@ import { layout } from './elk';
 
 const main = async () => {
   const input = `
-A --> B
-B --> C
-C --> D
-C --> E
-C --> F
-F --> A
+A{label:Step 1} -->{label:Step 2;direction: both} B{label:Step 3}
 `;
 
   const ast = generateAst(input);
@@ -20,6 +15,6 @@ F --> A
     node: { hPadding: 24, vPadding: 16 },
   });
 
-  writeFileSync('temp.svg', svg.toString());
+  writeFileSync('demo.svg', svg.toString());
 };
 main();

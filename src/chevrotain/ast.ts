@@ -1,33 +1,42 @@
-interface Node {
-  id: string;
-  label: string;
+export interface AstProps {
+  [key: string]: string;
 }
-interface Edge {
+export interface AstNode {
+  id: string;
+  props: AstProps;
+}
+export interface AstLink {
   id: string;
   from: string;
   to: string;
-  directional: boolean;
-  label?: string;
+  props: AstProps;
 }
 
 class Ast {
-  nodes: Node[] = [];
-  edges: Edge[] = [];
+  nodes: AstNode[] = [];
+  links: AstLink[] = [];
 
-  private nodeMap: Map<string, Node>;
-  private edgeMap: Map<string, Edge>;
+  private nodeMap: Map<string, AstNode>;
+  private linkMap: Map<string, AstLink>;
 
   createIndex() {
     this.nodeMap = new Map(this.nodes.map((n) => [n.id, n]));
-    this.edgeMap = new Map(this.edges.map((e) => [e.id, e]));
+    this.linkMap = new Map(this.links.map((e) => [e.id, e]));
   }
 
   getNode(id: string) {
     return this.nodeMap.get(id);
   }
 
-  getEdge(id: string) {
-    return this.edgeMap.get(id);
+  getLink(id: string) {
+    return this.linkMap.get(id);
+  }
+
+  get plainObject() {
+    return {
+      nodes: this.nodes,
+      links: this.links,
+    };
   }
 }
 

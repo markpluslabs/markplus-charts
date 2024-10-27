@@ -1,15 +1,15 @@
 import { ElkNode } from 'elkjs';
 
 import Ast from '../chevrotain/ast';
-import SvgEdge from './svg-edge';
 import SvgLabel from './svg-label';
+import SvgLink from './svg-link';
 import SvgNode from './svg-node';
 
 class Svg {
   width: number;
   height: number;
   nodes: SvgNode[] = [];
-  edges: SvgEdge[] = [];
+  links: SvgLink[] = [];
   labels: SvgLabel[] = [];
 
   constructor(elkNode: ElkNode, ast: Ast) {
@@ -46,8 +46,8 @@ class Svg {
         point.x = parseFloat(point.x.toFixed(1));
         point.y = parseFloat(point.y.toFixed(1));
       });
-      const svgEdge = new SvgEdge(points, ast.getEdge(edge.id!)!.directional);
-      this.edges.push(svgEdge);
+      const svgLink = new SvgLink(points, ast.getLink(edge.id!)!.props);
+      this.links.push(svgLink);
 
       // edge label
       if (edge.labels && edge.labels.length > 0) {
@@ -74,17 +74,15 @@ class Svg {
 
   toString(): string {
     let r = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.width}" height="${this.height}" viewBox="0 0 ${this.width} ${this.height}">`;
-    if (this.edges.some((edge) => edge.directional)) {
-      r += `\n<defs>
-  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    r += `\n<defs>
+  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto-start-reverse">
     <polygon points="0 0, 10 3.5, 0 7" fill="black" />
   </marker>
 </defs>`;
-    }
 
-    // edges must be rendered before everything else
-    this.edges.forEach((edge) => {
-      r += '\n' + edge.toString();
+    // links must be rendered before everything else
+    this.links.forEach((link) => {
+      r += '\n' + link.toString();
     });
 
     this.nodes.forEach((node) => {

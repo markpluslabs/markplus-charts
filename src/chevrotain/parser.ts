@@ -1,10 +1,16 @@
 import { CstParser } from 'chevrotain';
 
-import { allTokens, Identifier, Label, Link } from './lexer';
+import {
+  Link,
+  multiModeLexerDefinition,
+  Node,
+  PropKey,
+  PropValue,
+} from './lexer';
 
 class Parser extends CstParser {
   constructor() {
-    super(allTokens);
+    super(multiModeLexerDefinition);
     this.performSelfAnalysis();
   }
 
@@ -15,12 +21,31 @@ class Parser extends CstParser {
   });
 
   statement = this.RULE('statement', () => {
-    this.CONSUME(Identifier, { LABEL: 'from' });
-    this.CONSUME(Link, { LABEL: 'link' });
+    this.CONSUME(Node, { LABEL: 'fromNode' });
     this.OPTION(() => {
-      this.CONSUME(Label, { LABEL: 'label' });
+      this.SUBRULE(this.properties, { LABEL: 'fromNodeProps' });
     });
-    this.CONSUME2(Identifier, { LABEL: 'to' });
+    this.OPTION1(() => {
+      this.CONSUME(Link, { LABEL: 'link' });
+      this.OPTION2(() => {
+        this.SUBRULE1(this.properties, { LABEL: 'linkProps' });
+      });
+      this.CONSUME1(Node, { LABEL: 'toNode' });
+      this.OPTION3(() => {
+        this.SUBRULE2(this.properties, { LABEL: 'toNodeProps' });
+      });
+    });
+  });
+
+  properties = this.RULE('properties', () => {
+    this.MANY(() => {
+      this.SUBRULE(this.property, { LABEL: 'properties' });
+    });
+  });
+
+  property = this.RULE('property', () => {
+    this.CONSUME(PropKey, { LABEL: 'propKey' });
+    this.CONSUME1(PropValue, { LABEL: 'propValue' });
   });
 }
 

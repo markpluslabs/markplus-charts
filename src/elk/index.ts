@@ -30,26 +30,27 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
     {
       id: 'root',
       children: ast.nodes.map((n, index) => {
+        const label = n.props.label || n.id;
         const r: ElkNode = {
           id: n.id,
-          ...addPadding(getTextSize(n.label)),
+          ...addPadding(getTextSize(label)),
           layoutOptions: { 'elk.position': `(${index},${index})` }, // preserve sub-nodes order
-          labels: [{ text: n.label }],
+          labels: [{ text: label }],
         };
         return r;
       }),
-      edges: ast.edges.map((e) => {
+      edges: ast.links.map((e) => {
         const r: ElkExtendedEdge = {
           id: e.id,
           sources: [e.from],
           targets: [e.to],
         };
-        if (e.label) {
+        if (e.props.label) {
           r.labels = [
             {
               id: `${e.id}_label`,
-              text: e.label,
-              ...getTextSize(e.label),
+              text: e.props.label,
+              ...getTextSize(e.props.label),
             },
           ];
         }

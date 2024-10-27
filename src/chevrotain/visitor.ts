@@ -1,60 +1,81 @@
-import { CstNode, IToken } from 'chevrotain';
+import { CstNode } from 'chevrotain';
 
-import Ast from './ast';
+import Ast, { AstLink, AstNode, AstProps } from './ast';
 import parser from './parser';
 
-const BaseVisitor = parser.getBaseCstVisitorConstructor<void, Ast>();
-
-let id = 0;
+const BaseVisitor = parser.getBaseCstVisitorConstructor();
 class Visitor extends BaseVisitor {
-  ast = new Ast();
   constructor() {
     super();
     this.validateVisitor();
   }
 
-  // statements is the LABEL in ./parser.ts
-  parse({ statements }: { statements: CstNode[] }) {
-    statements.forEach((c: CstNode) => this.visit(c));
-    return this.ast;
-  }
-
-  // from, link and to are the LABELs in ./parser.ts
-  statement({
-    from,
-    link,
-    to,
-    label,
-  }: {
-    from: IToken[];
-    link: IToken[];
-    to: IToken[];
-    label: IToken[];
-  }) {
-    const fromId = from[0].image;
-    const directional = link[0].image.endsWith('>');
-    const toId = to[0].image;
-
-    // Add nodes if they don't exist
-    [fromId, toId].forEach((id) => {
-      if (!this.ast.nodes.find((n) => n.id === id)) {
-        this.ast.nodes.push({ id, label: id });
+  parse(ctx) {
+    const ast = new Ast();
+    ctx.statements.forEach((c: CstNode) => {
+      const { nodes, link } = this.visit(c);
+      nodes.forEach((n) => {
+        const existingNode = ast.nodes.find((m) => m.id === n.id);
+        if (existingNode) {
+          Object.assign(existingNode.props, n.props);
+        } else {
+          ast.nodes.push(n);
+        }
+      });
+      if (link) {
+        while (ast.links.find((l) => l.id === link.id)) {
+          link.id += '-';
+        }
+        ast.links.push(link);
       }
     });
+    return ast;
+  }
 
-    // Add edge
-    let labelStr: string | undefined = undefined;
-    if (label) {
-      labelStr = label[0].image;
-      labelStr = labelStr.slice(1, labelStr.length - 1);
+  statement(ctx) {
+    const nodes: AstNode[] = [];
+    const fromNodeId = ctx.fromNode[0].image;
+    let fromNodeProps = {};
+    if (ctx.fromNodeProps) {
+      fromNodeProps = this.visit(ctx.fromNodeProps[0]);
     }
-    this.ast.edges.push({
-      id: `e_${id++}`,
-      from: fromId,
-      to: toId,
-      directional,
-      label: labelStr,
+    nodes.push({ id: fromNodeId, props: fromNodeProps });
+
+    let link: AstLink | undefined = undefined;
+    if (ctx.link) {
+      const toNodeId = ctx.toNode[0].image;
+      let toNodeProps = {};
+      if (ctx.toNodeProps) {
+        toNodeProps = this.visit(ctx.toNodeProps[0]);
+      }
+      nodes.push({ id: toNodeId, props: toNodeProps });
+
+      let linkProps = {};
+      if (ctx.linkProps) {
+        linkProps = this.visit(ctx.linkProps[0]);
+      }
+      link = {
+        id: `${fromNodeId}-${toNodeId}`,
+        props: linkProps,
+        from: fromNodeId,
+        to: toNodeId,
+      };
+    }
+    return { nodes, link };
+  }
+
+  properties(ctx) {
+    const props: AstProps = {};
+    ctx.properties?.forEach((c: CstNode) => {
+      Object.assign(props, this.visit(c));
     });
+    return props;
+  }
+
+  property(ctx) {
+    const propKey = ctx.propKey[0].image;
+    const propValue = ctx.propValue[0].image.trim();
+    return { [propKey]: propValue };
   }
 }
 
