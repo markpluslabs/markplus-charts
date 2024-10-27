@@ -1,5 +1,9 @@
-import { createToken, CstParser, Lexer } from 'chevrotain';
+import { createToken, CstNode, CstParser, Lexer } from 'chevrotain';
 import { describe, expect, test } from 'vitest';
+
+//
+// start of lexer
+//
 
 const WhiteSpace = createToken({
   name: 'WhiteSpace',
@@ -66,6 +70,10 @@ export const multiModeLexerDefinition = {
 
 const lexer = new Lexer(multiModeLexerDefinition);
 
+//
+// start of parser
+//
+
 class Parser extends CstParser {
   constructor() {
     super(multiModeLexerDefinition);
@@ -97,20 +105,123 @@ class Parser extends CstParser {
 
   properties = this.RULE('properties', () => {
     this.MANY(() => {
-      this.SUBRULE(this.property);
+      this.SUBRULE(this.property, { LABEL: 'properties' });
     });
   });
 
   property = this.RULE('property', () => {
-    this.CONSUME(PropKey);
-    this.CONSUME1(PropValue);
+    this.CONSUME(PropKey, { LABEL: 'propKey' });
+    this.CONSUME1(PropValue, { LABEL: 'propValue' });
   });
 }
 const parser = new Parser();
 
+//
+// start of visitor
+//
+
+type AstProps = { [key: string]: string };
+class Ast {
+  nodes: AstNode[] = [];
+  links: AstLink[] = [];
+}
+interface AstNode {
+  id: string;
+  props: AstProps;
+}
+interface AstLink {
+  id: string;
+  from: string;
+  to: string;
+  props: AstProps;
+}
+
+const BaseVisitor = parser.getBaseCstVisitorConstructor();
+class Visitor extends BaseVisitor {
+  constructor() {
+    super();
+    this.validateVisitor();
+  }
+
+  parse(ctx) {
+    const ast = new Ast();
+    ctx.statements.forEach((c: CstNode) => {
+      const { nodes, link } = this.visit(c);
+      nodes.forEach((n) => {
+        const existingNode = ast.nodes.find((m) => m.id === n.id);
+        if (existingNode) {
+          Object.assign(existingNode.props, n.props);
+        } else {
+          ast.nodes.push(n);
+        }
+      });
+      if (link) {
+        while (ast.links.find((l) => l.id === link.id)) {
+          link.id += '-';
+        }
+        ast.links.push(link);
+      }
+    });
+    return ast;
+  }
+
+  statement(ctx) {
+    const nodes: AstNode[] = [];
+    const fromNodeId = ctx.fromNode[0].image;
+    let fromNodeProps = {};
+    if (ctx.fromNodeProps) {
+      fromNodeProps = this.visit(ctx.fromNodeProps[0]);
+    }
+    nodes.push({ id: fromNodeId, props: fromNodeProps });
+
+    let link: AstLink | undefined = undefined;
+    if (ctx.link) {
+      const toNodeId = ctx.toNode[0].image;
+      let toNodeProps = {};
+      if (ctx.toNodeProps) {
+        toNodeProps = this.visit(ctx.toNodeProps[0]);
+      }
+      nodes.push({ id: toNodeId, props: toNodeProps });
+
+      let linkProps = {};
+      if (ctx.linkProps) {
+        linkProps = this.visit(ctx.linkProps[0]);
+      }
+      link = {
+        id: `${fromNodeId}-${toNodeId}`,
+        props: linkProps,
+        from: fromNodeId,
+        to: toNodeId,
+      };
+    }
+    return { nodes, link };
+  }
+
+  properties({ properties }: { properties: CstNode[] }) {
+    const props: AstProps = {};
+    properties.forEach((c: CstNode) => {
+      Object.assign(props, this.visit(c));
+    });
+    return props;
+  }
+
+  property(ctx) {
+    const propKey = ctx.propKey[0].image;
+    const propValue = ctx.propValue[0].image;
+    return { [propKey]: propValue };
+  }
+}
+
+const visitor = new Visitor();
+
+//
+// start of tests
+//
+
 describe('poc', () => {
+  const input = 'A{prop3: c; prop4: d} -->{prop1: 4} B{prop2: 5}';
   test('lexer', () => {
-    const r = lexer.tokenize('A{prop3: c; prop4: d} -->{prop1: 4} B{prop2: 5}');
+    const r = lexer.tokenize(input);
     if (r.errors.length > 0) {
       console.log(r.errors);
     }
@@ -131,14 +242,26 @@ describe('poc', () => {
     ]);
   });
   test('parser', () => {
-    const r = lexer.tokenize('A{prop3: c; prop4: d} -->{prop1: 4} B{prop2: 5}');
+    const r = lexer.tokenize(input);
     parser.input = r.tokens;
     const cst = parser.parse();
     if (parser.errors.length > 0) {
       console.log(parser.errors);
     }
     expect(parser.errors.length).toBe(0);
-    console.log(JSON.stringify(cst, null, 2));
     expect(cst.children.statements.length).toBe(1); // 1 statement
+  });
+  test('visitor', () => {
+    const r = lexer.tokenize(input);
+    parser.input = r.tokens;
+    const cst = parser.parse();
+    const ast = visitor.visit(cst);
+    expect(ast).toEqual({
+      nodes: [
+        { id: 'A', props: { prop3: 'c', prop4: 'd' } },
+        { id: 'B', props: { prop2: '5' } },
+      ],
+      links: [{ id: 'A-B', from: 'A', to: 'B', props: { prop1: '4' } }],
+    });
   });
 });
