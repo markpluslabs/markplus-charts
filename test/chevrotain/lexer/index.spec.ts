@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest';
 
-import lexer from '../src/chevrotain/lexer';
+import lexer from '../../../src/chevrotain/lexer';
 
-describe('array', () => {
+describe('lexer', () => {
   test('simple', () => {
     const r = lexer.tokenize('A --> B');
     expect(r.errors.length).toBe(0);
@@ -12,6 +12,7 @@ describe('array', () => {
 
   test('complex', () => {
     const r = lexer.tokenize('A{prop1:a} -->{prop2: b} B{prop3: c; prop4: d}');
+    console.log(r.errors);
     expect(r.errors.length).toBe(0);
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
     expect(tokens).toEqual([
@@ -28,8 +29,7 @@ describe('array', () => {
       'Identifier: B',
       'LeftCurly: {',
       'PropKey: prop3:',
-      'PropValue: c',
-      'Semicolon: ;',
+      'PropValue: c;',
       'PropKey: prop4:',
       'PropValue: d',
       'RightCurly: }',

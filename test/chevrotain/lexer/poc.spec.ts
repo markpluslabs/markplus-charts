@@ -7,7 +7,10 @@ const WhiteSpace = createToken({
   group: Lexer.SKIPPED,
 });
 const LCurly = createToken({ name: 'LCurly', pattern: /\{/ });
-const PropKey = createToken({ name: 'PropKey', pattern: /\w+/ });
+export const PropKey = createToken({
+  name: 'PropKey',
+  pattern: /[a-zA-Z][a-zA-Z0-9-]*/,
+});
 const Colon = createToken({
   name: 'Colon',
   pattern: /:/,
@@ -15,7 +18,7 @@ const Colon = createToken({
 });
 const PropValue = createToken({
   name: 'PropValue',
-  pattern: /(?:[^{};\\]|\\.)+/,
+  pattern: /(?:[^};\\]|\\.)+/,
   pop_mode: true,
 });
 const Semicolon = createToken({ name: 'Semicolon', pattern: /;/ });
@@ -23,7 +26,7 @@ const RCurly = createToken({ name: 'RCurly', pattern: /\}/ });
 
 export const multiModeLexerDefinition = {
   modes: {
-    props_mode: [WhiteSpace, LCurly, PropKey, Semicolon, Colon, RCurly],
+    props_mode: [WhiteSpace, LCurly, PropKey, Colon, Semicolon, RCurly],
     value_mode: [WhiteSpace, PropValue],
   },
   defaultMode: 'props_mode',
@@ -34,6 +37,9 @@ const lexer = new Lexer(multiModeLexerDefinition);
 describe('poc lexer', () => {
   test('simple', () => {
     const r = lexer.tokenize('{prop3: c; prop4: d}');
+    if (r.errors.length > 0) {
+      console.log(r.errors);
+    }
     expect(r.errors.length).toBe(0);
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
     expect(tokens).toEqual([
