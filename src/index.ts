@@ -23,6 +23,7 @@ F --> A
   const ast = generateAst(input);
 
   const svg = await layout(ast, {
+    debug: true,
     direction: 'DOWN',
     node: { hPadding: 24, vPadding: 16 },
   });

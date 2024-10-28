@@ -13,6 +13,7 @@ const getTextSize = (text: string) => {
 };
 
 interface LayoutConfig {
+  debug?: boolean;
   direction: 'DOWN' | 'UP' | 'LEFT' | 'RIGHT';
   node: {
     hPadding: number;
@@ -26,6 +27,16 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
     height: size.height + config.node.vPadding * 2,
   });
   const elk = new ELK();
+  if (config.debug) {
+    console.log(JSON.stringify(ast, null, 2));
+    const temp = elk.layout.bind(elk);
+    elk.layout = async (graph, options) => {
+      console.log(JSON.stringify({ graph, options }, null, 2));
+      const result = await temp(graph, options);
+      console.log(JSON.stringify(result, null, 2));
+      return result;
+    };
+  }
   const elkNode = await elk.layout(
     {
       id: 'root',
@@ -112,7 +123,7 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
       layoutOptions: {
         'elk.algorithm': 'layered',
         'elk.direction': config.direction,
-        'elk.edgeRouting': 'SPLINES',
+        'elk.edgeRouting': 'ORTHOGONAL',
         'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
         'elk.edgeLabels.inline': 'true', // show edge label right on the edge
         'elk.layered.crossingMinimization.forceNodeModelOrder': 'true',
