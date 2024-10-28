@@ -41,28 +41,28 @@ const Colon = createToken({
   group: Lexer.SKIPPED,
 });
 
+const indexOfSpecial = (
+  text: string,
+  startIndex: number,
+): number | undefined => {
+  for (let i = startIndex; i < text.length; i++) {
+    if (
+      text[i] === ';' ||
+      text[i] === '}' ||
+      (text[i] === '/' && text[i + 1] === '/')
+    ) {
+      return i;
+    }
+  }
+  return undefined;
+};
 const matchPropValue = (text: string, startOffset: number): [string] | null => {
-  if (text.length === startOffset) {
-    return null;
+  let specialIndex = indexOfSpecial(text, startOffset);
+  while (specialIndex && text[specialIndex - 1] === '\\') {
+    specialIndex = indexOfSpecial(text, specialIndex + 1);
   }
-  const indexes = [
-    text.indexOf(';', startOffset),
-    text.indexOf('}', startOffset),
-    text.indexOf('//', startOffset),
-  ].filter((i) => i !== -1);
-  const specialIndex = indexes.length > 0 ? Math.min(...indexes) : -1;
-  if (specialIndex === -1) {
-    return [text.substring(startOffset)];
-  }
-  if (specialIndex === startOffset) {
-    return null;
-  }
-  if (text[specialIndex - 1] === '\\') {
-    const r1 = text.substring(startOffset, specialIndex + 1);
-    const r2 = matchPropValue(text, specialIndex + 1);
-    return r2 === null ? [r1] : [r1 + r2[0]];
-  }
-  return [text.substring(startOffset, specialIndex)];
+  const r = text.substring(startOffset, specialIndex); // specialIndex could be undefined
+  return r.length > 0 ? [r] : null;
 };
 export const PropValue = createToken({
   name: 'PropValue',

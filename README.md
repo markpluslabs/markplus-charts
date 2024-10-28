@@ -12,6 +12,7 @@
 - more node shapes
 - how to handle syntax error
 - subgraph
+- write doc
 
 ## Tips
 
