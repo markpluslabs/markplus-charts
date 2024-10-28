@@ -14,25 +14,55 @@ describe('elk', () => {
             height: 100,
             ports: [
               {
-                id: '57da7b5dfffd97e2179e06df_0',
-                properties: {
-                  'port.side': 'NORTH',
-                },
+                id: 'A1',
+                x: 50,
+                y: 0,
               },
               {
-                id: '57da7b5dfffd97e2179e06df_1',
-                properties: {
-                  'port.side': 'SOUTH',
-                },
+                id: 'A2',
+                x: 50,
+                y: 100,
               },
             ],
             properties: {
-              portConstraints: 'FIXED_ORDER',
+              portConstraints: 'FIXED_POS',
+            },
+          },
+          {
+            id: 'B',
+            width: 100,
+            height: 100,
+            ports: [
+              {
+                id: 'B1',
+                x: 50,
+                y: 0,
+              },
+              {
+                id: 'B2',
+                x: 50,
+                y: 100,
+              },
+            ],
+            properties: {
+              portConstraints: 'FIXED_POS',
             },
           },
         ],
+        edges: [
+          {
+            id: 'E',
+            sources: ['A2'],
+            targets: ['B1'],
+          },
+        ],
       },
-      { layoutOptions: { 'elk.algorithm': 'layered' } },
+      {
+        layoutOptions: {
+          'elk.algorithm': 'layered',
+          'elk.direction': 'DOWN',
+        },
+      },
     );
     console.log(JSON.stringify(r, null, 2));
   });
