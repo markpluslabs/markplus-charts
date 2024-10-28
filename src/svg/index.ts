@@ -37,7 +37,7 @@ class Svg {
 
     elkNode.edges?.forEach((edge) => {
       // edge
-      const points: { x: number; y: number }[] = [];
+      let points: { x: number; y: number }[] = [];
       edge.sections?.forEach((section) => {
         const { startPoint, endPoint, bendPoints } = section;
         points.push(startPoint, ...(bendPoints ?? []), endPoint);
@@ -46,6 +46,12 @@ class Svg {
         point.x = parseFloat(point.x.toFixed(1));
         point.y = parseFloat(point.y.toFixed(1));
       });
+
+      // remove adjacent duplicates
+      points = points.filter(
+        (p, i) => i === 0 || p.x !== points[i - 1].x || p.y !== points[i - 1].y,
+      );
+
       const svgLink = new SvgLink(points, ast.getLink(edge.id!)!.props);
       this.links.push(svgLink);
 

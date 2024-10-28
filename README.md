@@ -11,6 +11,8 @@
   - low priority, https://github.com/svg/svgo
 - more node shapes
 - how to handle syntax error
+- comments in diagram
+  - start with '#'
 
 ## Tips
 
