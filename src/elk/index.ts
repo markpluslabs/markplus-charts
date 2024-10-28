@@ -29,7 +29,7 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
   const elkNode = await elk.layout(
     {
       id: 'root',
-      children: ast.nodes.map((n) => {
+      children: ast.nodes.map((n, idx) => {
         const label = n.props.label || n.id;
         const { width, height } = addPadding(getTextSize(label));
         const r: ElkNode = {
@@ -61,6 +61,7 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
           ],
           properties: {
             portConstraints: 'FIXED_POS',
+            partition: idx > 0 ? 1 : 0, // first node always first
           },
         };
         return r;
@@ -115,6 +116,7 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
         'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
         'elk.edgeLabels.inline': 'true', // show edge label right on the edge
         'elk.layered.crossingMinimization.forceNodeModelOrder': 'true',
+        'elk.partitioning.activate': 'true',
       },
     },
   );

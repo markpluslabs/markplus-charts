@@ -4,6 +4,7 @@ declare module 'elkjs' {
   interface ElkNode {
     properties?: {
       portConstraints: 'FIXED_POS';
+      partition: 0 | 1;
     };
   }
 }
