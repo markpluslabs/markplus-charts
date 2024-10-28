@@ -29,21 +29,38 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
   const elkNode = await elk.layout(
     {
       id: 'root',
-      children: ast.nodes.map((n, index) => {
+      children: ast.nodes.map((n) => {
         const label = n.props.label || n.id;
+        const { width, height } = addPadding(getTextSize(label));
         const r: ElkNode = {
           id: n.id,
-          ...addPadding(getTextSize(label)),
-          layoutOptions: { 'elk.position': `(${index},${index})` }, // preserve sub-nodes order
+          width,
+          height,
           labels: [{ text: label }],
+          ports: [
+            {
+              id: `${n.id}_pn`,
+              x: width / 2,
+              y: 0,
+            },
+            {
+              id: `${n.id}_ps`,
+              x: width / 2,
+              y: height,
+            },
+          ],
+          properties: {
+            portConstraints: 'FIXED_POS',
+          },
         };
         return r;
       }),
       edges: ast.links.map((e) => {
         const r: ElkExtendedEdge = {
           id: e.id,
-          sources: [e.from],
-          targets: [e.to],
+          // todo: should based on elk.direction
+          sources: [`${e.from}_ps`],
+          targets: [`${e.to}_pn`],
         };
         if (e.props.label) {
           r.labels = [
@@ -64,7 +81,7 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
         'elk.edgeRouting': 'SPLINES',
         'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
         'elk.edgeLabels.inline': 'true', // show edge label right on the edge
-        'elk.layered.crossingMinimization.semiInteractive': 'true', // preserve sub-nodes order
+        'elk.layered.crossingMinimization.forceNodeModelOrder': 'true',
       },
     },
   );
