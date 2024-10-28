@@ -5,20 +5,25 @@ import { layout } from './elk';
 
 const main = async () => {
   const input = `
-Christmas --> B{label: Go shopping}
-B --> C{label: Let me
-think}
-C -->{
-  label: One
-} Laptop
-C -->{label: Two} iPhone
-C -->{label: Three} Car
+A{label: Christmas}
+B{label: Go shopping}
+C{label: Let me\nthink}
+D{label: Laptop}
+E{label: iPhone}
+F{label: Car}
+
+A --> B
+B --> C
+C -->{label: One} D
+C -->{label: Two} E
+C -->{label: Three} F
+F --> A
 `;
 
   const ast = generateAst(input);
 
   const svg = await layout(ast, {
-    direction: 'LEFT',
+    direction: 'DOWN',
     node: { hPadding: 24, vPadding: 16 },
   });
 
