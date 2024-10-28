@@ -37,4 +37,30 @@ describe('visitor', () => {
       links: [],
     });
   });
+
+  test('whole line comments', () => {
+    const ast = generateAst(`// comment
+A{b: c}
+ //comment`);
+    expect(ast.plainObject).toEqual({
+      nodes: [{ id: 'A', props: { b: 'c' } }],
+      links: [],
+    });
+  });
+
+  test('line end comments', () => {
+    const ast = generateAst(`A{b: c} // comment`);
+    expect(ast.plainObject).toEqual({
+      nodes: [{ id: 'A', props: { b: 'c' } }],
+      links: [],
+    });
+  });
+
+  test('Escape comments', () => {
+    const ast = generateAst(`A{b: https:\\//www.google.com} `);
+    expect(ast.plainObject).toEqual({
+      nodes: [{ id: 'A', props: { b: 'https://www.google.com' } }],
+      links: [],
+    });
+  });
 });
