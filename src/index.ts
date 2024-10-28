@@ -5,7 +5,14 @@ import { layout } from './elk';
 
 const main = async () => {
   const input = `
-A{label:Step 1} -->{label:Step 2;direction: both} B{label:Step 3}
+Christmas --> B{label: Go shopping}
+B --> C{label: Let me
+think}
+C -->{
+  label: One
+} Laptop
+C -->{label: Two} iPhone
+C -->{label: Three} Car
 `;
 
   const ast = generateAst(input);

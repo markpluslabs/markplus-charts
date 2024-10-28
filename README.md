@@ -2,21 +2,17 @@
 
 ## Todo
 
-- custom direction
-- custom node label
 - use react-dom/server to render svg?
-- single node without edges
-- thick link
 - preview it in real time
   - turn the demo into a SPA
 - strokeWidth takes space
   - low priority, strike width 1 just works
 - simplify svg code
   - low priority, https://github.com/svg/svgo
-- what if \t in label?
 - more node shapes
 - how to handle syntax error
 
 ## Tips
 
 Post existing code to chatGPT, and ask him how to add a new feature.
+Use a text editor to edit your question, then post to the most advanced chatGPT model.
