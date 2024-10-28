@@ -10,7 +10,7 @@ B{label: Go shopping}
 C{label: Let me\nthink}
 D{label: Laptop}
 E{label: iPhone}
-F{label: Car}
+F{label: Ca\\;r}
 
 A --> B
 B --> C

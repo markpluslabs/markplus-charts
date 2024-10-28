@@ -12,7 +12,8 @@
 - more node shapes
 - how to handle syntax error
 - comments in diagram
-  - start with '#'
+  - start with '#' or '//'?
+- subgraph
 
 ## Tips
 
