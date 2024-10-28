@@ -18,7 +18,7 @@ C -->{label: Three} Car
   const ast = generateAst(input);
 
   const svg = await layout(ast, {
-    direction: 'DOWN',
+    direction: 'LEFT',
     node: { hPadding: 24, vPadding: 16 },
   });
 

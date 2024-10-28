@@ -39,14 +39,24 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
           labels: [{ text: label }],
           ports: [
             {
-              id: `${n.id}_pn`,
+              id: `${n.id}_u`,
               x: width / 2,
               y: 0,
             },
             {
-              id: `${n.id}_ps`,
+              id: `${n.id}_r`,
+              x: width,
+              y: height / 2,
+            },
+            {
+              id: `${n.id}_d`,
               x: width / 2,
               y: height,
+            },
+            {
+              id: `${n.id}_l`,
+              x: 0,
+              y: height / 2,
             },
           ],
           properties: {
@@ -56,11 +66,34 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
         return r;
       }),
       edges: ast.links.map((e) => {
+        let sourcePort = '';
+        let targetPort = '';
+        switch (config.direction) {
+          case 'DOWN': {
+            sourcePort = `${e.from}_d`;
+            targetPort = `${e.to}_u`;
+            break;
+          }
+          case 'UP': {
+            sourcePort = `${e.from}_u`;
+            targetPort = `${e.to}_d`;
+            break;
+          }
+          case 'LEFT': {
+            sourcePort = `${e.from}_l`;
+            targetPort = `${e.to}_r`;
+            break;
+          }
+          case 'RIGHT': {
+            sourcePort = `${e.from}_r`;
+            targetPort = `${e.to}_l`;
+            break;
+          }
+        }
         const r: ElkExtendedEdge = {
           id: e.id,
-          // todo: should based on elk.direction
-          sources: [`${e.from}_ps`],
-          targets: [`${e.to}_pn`],
+          sources: [sourcePort],
+          targets: [targetPort],
         };
         if (e.props.label) {
           r.labels = [
