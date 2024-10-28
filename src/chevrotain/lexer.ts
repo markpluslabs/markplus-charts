@@ -6,6 +6,12 @@ const WhiteSpace = createToken({
   group: Lexer.SKIPPED,
 });
 
+const Comment = createToken({
+  name: 'Comment',
+  pattern: /\/\/[^\n]*/,
+  group: Lexer.SKIPPED,
+});
+
 export const Node = createToken({
   name: 'Node',
   pattern: /[a-zA-Z0-9_]+/,
@@ -35,10 +41,34 @@ const Colon = createToken({
   group: Lexer.SKIPPED,
 });
 
+const matchPropValue = (text: string, startOffset: number): [string] | null => {
+  if (text.length === startOffset) {
+    return null;
+  }
+  const indexes = [
+    text.indexOf(';', startOffset),
+    text.indexOf('}', startOffset),
+    text.indexOf('//', startOffset),
+  ].filter((i) => i !== -1);
+  const specialIndex = indexes.length > 0 ? Math.min(...indexes) : -1;
+  if (specialIndex === -1) {
+    return [text.substring(startOffset)];
+  }
+  if (specialIndex === startOffset) {
+    return null;
+  }
+  if (text[specialIndex - 1] === '\\') {
+    const r1 = text.substring(startOffset, specialIndex + 1);
+    const r2 = matchPropValue(text, specialIndex + 1);
+    return r2 === null ? [r1] : [r1 + r2[0]];
+  }
+  return [text.substring(startOffset, specialIndex)];
+};
 export const PropValue = createToken({
   name: 'PropValue',
-  pattern: /(?:[^};\\]|\\.)+/,
+  pattern: matchPropValue,
   pop_mode: true,
+  line_breaks: true,
 });
 
 const Semicolon = createToken({
@@ -56,9 +86,9 @@ const RCurly = createToken({
 
 export const multiModeLexerDefinition = {
   modes: {
-    statement_mode: [WhiteSpace, Node, LCurly, Link],
-    props_mode: [WhiteSpace, PropKey, Colon, Semicolon, RCurly],
-    value_mode: [WhiteSpace, PropValue],
+    statement_mode: [WhiteSpace, Comment, Node, LCurly, Link],
+    props_mode: [WhiteSpace, Comment, PropKey, Colon, Semicolon, RCurly],
+    value_mode: [WhiteSpace, Comment, PropValue],
   },
   defaultMode: 'statement_mode',
 };

@@ -8,9 +8,12 @@ const main = async () => {
 A{label: Christmas}
 B{label: Go shopping}
 C{label: Let me\nthink}
-D{label: Laptop}
-E{label: iPhone}
-F{label: Ca\\;r}
+D{label: Laptop https:\\//example.com}
+E{label: iPhone} // line end comment
+// line comment
+F{
+label: Car // comment
+}
 
 A --> B
 B --> C
