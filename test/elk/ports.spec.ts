@@ -15,20 +15,14 @@ describe('elk', () => {
             ports: [
               {
                 id: '57da7b5dfffd97e2179e06df_0',
-                width: 1,
-                height: 1,
                 properties: {
                   'port.side': 'NORTH',
-                  'port.index': '0',
                 },
               },
               {
                 id: '57da7b5dfffd97e2179e06df_1',
-                width: 1,
-                height: 1,
                 properties: {
                   'port.side': 'SOUTH',
-                  'port.index': '0',
                 },
               },
             ],
