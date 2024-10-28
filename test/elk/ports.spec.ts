@@ -48,12 +48,37 @@ describe('elk', () => {
               portConstraints: 'FIXED_POS',
             },
           },
+          {
+            id: 'C',
+            width: 100,
+            height: 100,
+            ports: [
+              {
+                id: 'C1',
+                x: 50,
+                y: 0,
+              },
+              {
+                id: 'C2',
+                x: 50,
+                y: 100,
+              },
+            ],
+            properties: {
+              portConstraints: 'FIXED_POS',
+            },
+          },
         ],
         edges: [
           {
-            id: 'E',
+            id: 'E1',
             sources: ['A2'],
             targets: ['B1'],
+          },
+          {
+            id: 'E2',
+            sources: ['A2'],
+            targets: ['C1'],
           },
         ],
       },
