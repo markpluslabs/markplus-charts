@@ -129,7 +129,7 @@ export const layout = async (
       layoutOptions: {
         'elk.algorithm': 'layered',
         'elk.direction': config.direction,
-        'elk.edgeRouting': 'ORTHOGONAL', // enum: ORTHOGONAL, POLYLINE, SPLINES, default: ORTHOGONAL
+        'elk.edgeRouting': 'SPLINES', // enum: ORTHOGONAL, POLYLINE, SPLINES, default: ORTHOGONAL
         'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
         'elk.edgeLabels.inline': 'true', // show edge label right on the edge
         'elk.layered.crossingMinimization.forceNodeModelOrder': 'true',

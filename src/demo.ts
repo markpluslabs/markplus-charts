@@ -4,7 +4,7 @@ import { generate } from '.';
 
 const main = async () => {
   const input = `
-A{label: Christmas; cornerRadius: 8}
+A{label: Christmas; radius: 8}
 B{label: Go shopping}
 C{label: Let me\nthink; shape: diamond}
 // You will need to escape "//":
@@ -17,11 +17,11 @@ shape: circle
 Z{label: stand alone}
 
 A --> B
-B --> C
-C -->{label: One} D
+B -->{style: dashed;} C
+C -->{label: One; style: dotted;} D
 C -->{label: Two} E
-C -->{label: Three} F
-F --> A
+C -->{label: Three;direction:none} F
+F -->{direction:both;} A
 `;
 
   const svgStr = await generate(input, true);

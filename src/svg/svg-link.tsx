@@ -5,8 +5,15 @@ import { Point } from './interfaces';
 
 const SvgLink = (props: { points: Point[]; astLink: AstLink }) => {
   const { points, astLink } = props;
+  let strokeDasharray: string | undefined = undefined;
+  if (astLink.props.style === 'dotted') {
+    strokeDasharray = '2 2';
+  } else if (astLink.props.style === 'dashed') {
+    strokeDasharray = '5 5';
+  }
   return (
     <path
+      strokeDasharray={strokeDasharray}
       d={`M${points
         .map((p) => `L ${p.x} ${p.y}`)
         .join(' ')

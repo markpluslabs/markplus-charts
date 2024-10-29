@@ -4,12 +4,11 @@
   - turn the demo into a SPA
 - strokeWidth takes space
   - low priority, strike width 1 just works
-- simplify svg code
-  - low priority, https://github.com/svg/svgo
-- more node shapes
 - how to handle syntax error
 - subgraph
 - write doc
+- global config
+  - direction, line style...etc
 
 ## Tips
 

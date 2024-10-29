@@ -66,7 +66,7 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
   switch (astNode.props.shape ?? 'rect') {
     case 'rect': {
       const svgProps = commonProps as React.SVGProps<SVGRectElement>;
-      svgProps.rx = svgProps.ry = astNode.props.cornerRadius;
+      svgProps.rx = svgProps.ry = astNode.props.radius;
       return <RectShape frame={frame} svgProps={svgProps} />;
     }
     case 'circle':
