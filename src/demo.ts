@@ -16,12 +16,12 @@ shape: circle
 }
 Z{label: stand alone}
 
-A --> B
-B -->{style: dashed;} C
-C -->{label: One; style: dotted;} D
-C -->{label: Two} E
-C -->{label: Three;direction:none} F
-F -->{direction:both;} A
+A -> B
+B ->{style: dashed;} C
+C ->{label: One; style: dotted;} D
+C ->{label: Two} E
+C ->{label: Three;direction:none} F
+F ->{direction:both;} A
 `;
 
   const svgStr = await generate(input, true);

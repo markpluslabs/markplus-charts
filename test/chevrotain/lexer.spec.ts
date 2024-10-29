@@ -4,7 +4,7 @@ import lexer from '../../src/chevrotain/lexer';
 
 describe('lexer', () => {
   test('default', () => {
-    const input = 'A{prop3: c; prop4: d} -->{prop1: 4} B{prop2: 5}';
+    const input = 'A{prop3: c; prop4: d} ->{prop1: 4} B{prop2: 5}';
     const r = lexer.tokenize(input);
     if (r.errors.length > 0) {
       console.log(r.errors);
@@ -17,7 +17,7 @@ describe('lexer', () => {
       'PropValue: c',
       'PropKey: prop4',
       'PropValue: d',
-      'Link: -->',
+      'Link: ->',
       'PropKey: prop1',
       'PropValue: 4',
       'Node: B',
@@ -25,16 +25,29 @@ describe('lexer', () => {
       'PropValue: 5',
     ]);
   });
+
   test('singler node', () => {
     const r = lexer.tokenize('A');
     expect(r.errors.length).toBe(0);
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
     expect(tokens).toEqual(['Node: A']);
   });
+
   test('no props', () => {
-    const r = lexer.tokenize('A --> B');
+    const r = lexer.tokenize('A -> B');
     expect(r.errors.length).toBe(0);
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
-    expect(tokens).toEqual(['Node: A', 'Link: -->', 'Node: B']);
+    expect(tokens).toEqual(['Node: A', 'Link: ->', 'Node: B']);
   });
+
+  // test('global props', () => {
+  //   const r = lexer.tokenize('direction: down\nA -> B');
+  //   expect(r.errors.length).toBe(0);
+  //   const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
+  //   expect(tokens).toEqual([
+  //     'GlobalPropKey: direction:',
+  //     'GlobalPropValue: ',
+  //     'Node: A',
+  //   ]);
+  // });
 });

@@ -11,6 +11,8 @@
 - support colors
   - node fill, node border, link, node text, label text, label background...ect
 - some elk sample shows very smooth links
+- line end to terminate a propValue
+- sequence diagram is easier
 
 ## Tips
 

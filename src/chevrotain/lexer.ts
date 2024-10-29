@@ -26,7 +26,7 @@ const LCurly = createToken({
 
 export const Link = createToken({
   name: 'Link',
-  pattern: /-->/,
+  pattern: /->/,
 });
 
 export const PropKey = createToken({

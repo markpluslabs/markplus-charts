@@ -4,7 +4,7 @@ import { generateAst } from '../../src/chevrotain';
 
 describe('visitor', () => {
   test('default', () => {
-    const input = 'A{prop3: c; prop4: d} -->{prop1: 4} B{prop2: 5}';
+    const input = 'A{prop3: c; prop4: d} ->{prop1: 4} B{prop2: 5}';
     const ast = generateAst(input);
     expect(ast.plainObject).toEqual({
       nodes: [
