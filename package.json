@@ -3,15 +3,19 @@
   "type": "module",
   "scripts": {
     "lint": "tsc ./src/*.ts --skipLibCheck --noEmit && eslint . --fix && prettier --write . && sort-package-json",
-    "demo": "tsx src/index.ts && open demo.svg",
+    "demo": "tsx src/index.tsx && open demo.svg",
     "test": "vitest run"
   },
   "dependencies": {
     "chevrotain": "^11.0.3",
-    "elkjs": "^0.9.3"
+    "elkjs": "^0.9.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/node": "^22.8.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "eslint-config-tyler": "^0.1.8",
     "sort-package-json": "^2.10.1",
     "tsx": "^4.19.2",

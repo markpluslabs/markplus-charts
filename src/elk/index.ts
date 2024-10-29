@@ -2,7 +2,6 @@ import ELK, { ElkExtendedEdge, ElkNode } from 'elkjs';
 
 import Ast from '../chevrotain/ast';
 import CONSTS from '../consts';
-import Svg from '../svg';
 
 const getTextSize = (text: string) => {
   const lines = text.split('\n');
@@ -21,7 +20,10 @@ interface LayoutConfig {
   };
 }
 
-export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
+export const layout = async (
+  ast: Ast,
+  config: LayoutConfig,
+): Promise<ElkNode> => {
   const addPadding = (size: { width: number; height: number }) => ({
     width: size.width + config.node.hPadding * 2,
     height: size.height + config.node.vPadding * 2,
@@ -131,6 +133,5 @@ export const layout = async (ast: Ast, config: LayoutConfig): Promise<Svg> => {
       },
     },
   );
-  const svg = new Svg(elkNode, ast);
-  return svg;
+  return elkNode;
 };

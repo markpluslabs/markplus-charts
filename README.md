@@ -2,7 +2,6 @@
 
 ## Todo
 
-- use react-dom/server to render svg?
 - preview it in real time
   - turn the demo into a SPA
 - strokeWidth takes space
