@@ -4,7 +4,7 @@ import { generate } from '.';
 
 const main = async () => {
   const input = `
-A{label: Christmas}
+A{label: Christmas; cornerRadius: 8}
 B{label: Go shopping}
 C{label: Let me\nthink; shape: diamond}
 // You will need to escape "//":
@@ -24,7 +24,7 @@ C -->{label: Three} F
 F --> A
 `;
 
-  const svgStr = await generate(input);
+  const svgStr = await generate(input, true);
   writeFileSync('demo.svg', svgStr);
 };
 main();
