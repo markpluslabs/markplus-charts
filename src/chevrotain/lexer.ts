@@ -86,11 +86,11 @@ const RCurly = createToken({
 
 export const multiModeLexerDefinition = {
   modes: {
-    statement_mode: [WhiteSpace, Comment, Node, LCurly, Link],
+    statements_mode: [WhiteSpace, Comment, Node, LCurly, Link],
     props_mode: [WhiteSpace, Comment, PropKey, Colon, Semicolon, RCurly],
     value_mode: [WhiteSpace, Comment, PropValue],
   },
-  defaultMode: 'statement_mode',
+  defaultMode: 'statements_mode',
 };
 
 const lexer = new Lexer(multiModeLexerDefinition);
