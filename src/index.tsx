@@ -1,5 +1,3 @@
-import { writeFileSync } from 'fs';
-
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
@@ -7,28 +5,7 @@ import { generateAst } from './chevrotain';
 import { layout } from './elk';
 import Svg from './svg';
 
-const main = async () => {
-  const input = `
-A{label: Christmas}
-B{label: Go shopping}
-C{label: Let me\nthink; shape: circle}
-// You will need to escape "//":
-D{label: Laptop https:\\//example.com; shape: circle}
-E{label: iPhone} // line end comment
-F{
-label: Car; // comment
-shape: circle
-}
-Z{label: stand alone}
-
-A --> B
-B --> C
-C -->{label: One} D
-C -->{label: Two} E
-C -->{label: Three} F
-F --> A
-`;
-
+export const generate = async (input: string): Promise<string> => {
   const ast = generateAst(input);
 
   const elkNode = await layout(ast, {
@@ -40,6 +17,5 @@ F --> A
   const svgStr = ReactDOMServer.renderToString(
     <Svg ast={ast} elkNode={elkNode} />,
   );
-  writeFileSync('demo.svg', svgStr);
+  return svgStr;
 };
-main();

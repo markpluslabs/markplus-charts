@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "lint": "tsc ./src/*.ts --skipLibCheck --noEmit && eslint . --fix && prettier --write . && sort-package-json",
-    "demo": "tsx src/index.tsx && open demo.svg",
+    "demo": "tsx src/demo.ts && open demo.svg",
     "test": "vitest run"
   },
   "dependencies": {
