@@ -41,6 +41,17 @@ export const EllipseShape = (props: { frame: Rect; svgProps: SvgProps }) => {
   );
 };
 
+export const DiamondShape = (props: { frame: Rect; svgProps: SvgProps }) => {
+  const { frame, svgProps } = props;
+  const { x, y, width, height } = frame;
+  return (
+    <polygon
+      points={`${x + width / 2},${y} ${x + width},${y + height / 2} ${x + width / 2},${y + height} ${x},${y + height / 2}`}
+      {...svgProps}
+    />
+  );
+};
+
 export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
   const { frame, astNode } = props;
   const svgProps = { fill: 'none', stroke: 'black', strokeWidth: 1 };
@@ -51,6 +62,8 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
       return <CircleShape frame={frame} svgProps={svgProps} />;
     case 'ellipse':
       return <EllipseShape frame={frame} svgProps={svgProps} />;
+    case 'diamond':
+      return <DiamondShape frame={frame} svgProps={svgProps} />;
   }
 };
 

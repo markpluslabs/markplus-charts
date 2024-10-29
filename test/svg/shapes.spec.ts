@@ -27,4 +27,9 @@ describe('shapes', () => {
     const svgStr = await generate('A{shape:ellipse}');
     expect(svgStr).toContain('<ellipse');
   });
+
+  test('diamond', async () => {
+    const svgStr = await generate('A{shape:diamond}');
+    expect(svgStr).toContain('<polygon');
+  });
 });

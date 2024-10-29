@@ -44,12 +44,9 @@ export const layout = async (
       id: 'root',
       children: ast.nodes.map((n, idx) => {
         const label = n.props.label || n.id;
-        const circleShaped = n.props.shape === 'circle';
-        let { width, height } = addPadding(
-          getTextSize(label),
-          circleShaped ? 0.5 : 1, // circle less padding
-        );
-        if (circleShaped) {
+        const regularShaped = ['circle', 'diamond'].includes(n.props.shape); // width === height
+        let { width, height } = addPadding(getTextSize(label));
+        if (regularShaped) {
           width = height = Math.max(width, height);
         }
         const r: ElkNode = {
