@@ -24,9 +24,9 @@ export const layout = async (
   ast: Ast,
   config: LayoutConfig,
 ): Promise<ElkNode> => {
-  const addPadding = (size: { width: number; height: number }) => ({
-    width: size.width + config.node.hPadding * 2,
-    height: size.height + config.node.vPadding * 2,
+  const addPadding = (size: { width: number; height: number }, scale = 1) => ({
+    width: size.width + config.node.hPadding * 2 * scale,
+    height: size.height + config.node.vPadding * 2 * scale,
   });
   const elk = new ELK();
   if (config.debug) {
@@ -44,7 +44,14 @@ export const layout = async (
       id: 'root',
       children: ast.nodes.map((n, idx) => {
         const label = n.props.label || n.id;
-        const { width, height } = addPadding(getTextSize(label));
+        const circleShaped = n.props.shape === 'circle';
+        let { width, height } = addPadding(
+          getTextSize(label),
+          circleShaped ? 0.5 : 1, // circle less padding
+        );
+        if (circleShaped) {
+          width = height = Math.max(width, height);
+        }
         const r: ElkNode = {
           id: n.id,
           width,

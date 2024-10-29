@@ -11,12 +11,13 @@ const main = async () => {
   const input = `
 A{label: Christmas}
 B{label: Go shopping}
-C{label: Let me\nthink}
+C{label: Let me\nthink; shape: circle}
 // You will need to escape "//":
-D{label: Laptop https:\\//example.com}
+D{label: Laptop https:\\//example.com; shape: circle}
 E{label: iPhone} // line end comment
 F{
-label: Car // comment
+label: Car; // comment
+shape: circle
 }
 Z{label: stand alone}
 

@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { AstNode } from '../chevrotain/ast';
 import { Rect, SvgProps } from './interfaces';
 
-const SvgNode = (props: { frame: Rect; svgProps: SvgProps }) => {
+const RectShape = (props: { frame: Rect; svgProps: SvgProps }) => {
   const { frame, svgProps } = props;
   return (
     <rect
@@ -15,18 +16,32 @@ const SvgNode = (props: { frame: Rect; svgProps: SvgProps }) => {
   );
 };
 
-export const NodeShape = (props: { frame: Rect }) => {
+const CircleShape = (props: { frame: Rect; svgProps: SvgProps }) => {
+  const { frame, svgProps } = props;
   return (
-    <SvgNode
-      frame={props.frame}
-      svgProps={{ fill: 'none', stroke: 'black', strokeWidth: 1 }}
+    <circle
+      cx={frame.x + frame.width / 2}
+      cy={frame.y + frame.height / 2}
+      r={Math.min(frame.width, frame.height) / 2}
+      {...svgProps}
     />
   );
 };
 
+export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
+  const { frame, astNode } = props;
+  const svgProps = { fill: 'none', stroke: 'black', strokeWidth: 1 };
+  switch (astNode.props.shape ?? 'rect') {
+    case 'rect':
+      return <RectShape frame={frame} svgProps={svgProps} />;
+    case 'circle':
+      return <CircleShape frame={frame} svgProps={svgProps} />;
+  }
+};
+
 export const TextSpan = (props: { frame: Rect }) => {
   return (
-    <SvgNode
+    <RectShape
       frame={props.frame}
       svgProps={{ fill: 'lightgray', stroke: 'none', strokeWidth: 0 }}
     />

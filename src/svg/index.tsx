@@ -26,7 +26,9 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }) => {
       height: parseFloat(n.height!.toFixed(1)),
     };
     // node shape
-    shapes.push(<NodeShape key={n.id} frame={frame} />);
+    shapes.push(
+      <NodeShape key={n.id} frame={frame} astNode={ast.getNode(n.id)} />,
+    );
     // node label text
     shapeTexts.push(
       <SvgText key={n.id} text={n.labels[0].text} frame={frame} />,
