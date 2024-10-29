@@ -8,7 +8,7 @@ A{label: Christmas}
 B{label: Go shopping}
 C{label: Let me\nthink; shape: circle}
 // You will need to escape "//":
-D{label: Laptop https:\\//example.com; shape: circle}
+D{label: Laptop https:\\//example.com; shape: ellipse}
 E{label: iPhone} // line end comment
 F{
 label: Car; // comment

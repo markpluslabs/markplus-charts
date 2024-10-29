@@ -28,6 +28,19 @@ const CircleShape = (props: { frame: Rect; svgProps: SvgProps }) => {
   );
 };
 
+export const EllipseShape = (props: { frame: Rect; svgProps: SvgProps }) => {
+  const { frame, svgProps } = props;
+  return (
+    <ellipse
+      cx={frame.x + frame.width / 2}
+      cy={frame.y + frame.height / 2}
+      rx={frame.width / 2}
+      ry={frame.height / 2}
+      {...svgProps}
+    />
+  );
+};
+
 export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
   const { frame, astNode } = props;
   const svgProps = { fill: 'none', stroke: 'black', strokeWidth: 1 };
@@ -36,6 +49,8 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
       return <RectShape frame={frame} svgProps={svgProps} />;
     case 'circle':
       return <CircleShape frame={frame} svgProps={svgProps} />;
+    case 'ellipse':
+      return <EllipseShape frame={frame} svgProps={svgProps} />;
   }
 };
 
