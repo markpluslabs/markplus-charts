@@ -17,7 +17,8 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
     .map((i) => parseInt(i))
     .map((i) => (isNaN(i) ? 0 : i));
   vPadding = Math.max(vPadding ?? 0, 0);
-  hPadding = Math.max(hPadding ?? 0, 0);
+  hPadding = hPadding ?? vPadding;
+  hPadding = Math.max(hPadding, 0);
   const addPadding = (size: { width: number; height: number }, scale = 1) => ({
     width: size.width + hPadding * 2 * scale,
     height: size.height + vPadding * 2 * scale,
@@ -33,7 +34,10 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
       return result;
     };
   }
-  const direction = ast.props.direction?.toUpperCase() || 'RIGHT';
+  let direction = ast.props.direction?.toUpperCase();
+  if (!['UP', 'DOWN', 'LEFT', 'RIGHT'].includes(direction)) {
+    direction = 'RIGHT';
+  }
   const elkNode = await elk.layout(
     {
       id: 'root',
