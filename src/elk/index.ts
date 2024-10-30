@@ -11,24 +11,19 @@ const getTextSize = (text: string) => {
   return { width, height };
 };
 
-interface LayoutConfig {
-  debug?: boolean;
-  node: {
-    hPadding: number;
-    vPadding: number;
-  };
-}
-
-export const layout = async (
-  ast: Ast,
-  config: LayoutConfig,
-): Promise<ElkNode> => {
+export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
+  let [vPadding, hPadding] = (ast.props.nodePadding ?? '16 32')
+    .split(/\s+/)
+    .map((i) => parseInt(i))
+    .map((i) => (isNaN(i) ? 0 : i));
+  vPadding = Math.max(vPadding ?? 0, 0);
+  hPadding = Math.max(hPadding ?? 0, 0);
   const addPadding = (size: { width: number; height: number }, scale = 1) => ({
-    width: size.width + config.node.hPadding * 2 * scale,
-    height: size.height + config.node.vPadding * 2 * scale,
+    width: size.width + hPadding * 2 * scale,
+    height: size.height + vPadding * 2 * scale,
   });
   const elk = new ELK();
-  if (config.debug) {
+  if (debug) {
     console.log(JSON.stringify(ast, null, 2));
     const temp = elk.layout.bind(elk);
     elk.layout = async (graph, options) => {

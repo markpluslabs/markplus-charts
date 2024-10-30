@@ -12,10 +12,7 @@ export const generate = async (
 ): Promise<string> => {
   const ast = generateAst(input);
 
-  const elkNode = await layout(ast, {
-    debug,
-    node: { hPadding: 32, vPadding: 16 },
-  });
+  const elkNode = await layout(ast, debug);
 
   let svgStr = ReactDOMServer.renderToString(
     <Svg ast={ast} elkNode={elkNode} />,

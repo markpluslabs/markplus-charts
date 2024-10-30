@@ -4,7 +4,10 @@ import { generate } from '.';
 
 const main = async () => {
   const input = `
-direction: up
+// global settings
+direction: up;
+nodePadding: 64 32;
+
 A{label: Christmas; radius: 8}
 B{label: Go shopping}
 C{label: Let me\\nthink; shape: diamond}

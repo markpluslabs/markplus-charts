@@ -14,6 +14,8 @@
 - line end to terminate a propValue
 - sequence diagram is easier
 - name it charts.md?
+- support theme: light/dark/auto
+  - use <style> in <svg>
 
 ## Tips
 
