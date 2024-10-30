@@ -140,8 +140,18 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
         edgeRouting: routingStyle,
         'spacing.baseValue': String(spacing),
         'edgeLabels.inline': 'true',
-        'crossingMinimization.forceNodeModelOrder': 'true', // todo: https://github.com/kieler/elkjs/issues/304
+
+        // to preserve the order of nodes in the same layer
+        'crossingMinimization.forceNodeModelOrder': 'true',
+        // below is required: https://github.com/kieler/elkjs/issues/304
+        'considerModelOrder.strategy': 'NODES_AND_EDGES',
+
+        // to make first node always appear in first layer
         'partitioning.activate': 'true',
+
+        // todo: https://github.com/kieler/elkjs/issues/304
+        // to make long edges choose the shorter path. This is not needed in future versions of ELK
+        'considerModelOrder.longEdgeStrategy': 'DUMMY_NODE_UNDER',
       },
     },
   );

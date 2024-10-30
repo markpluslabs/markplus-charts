@@ -5,7 +5,7 @@ import { generate } from '.';
 const main = async () => {
   const input = `
 // global settings
-direction: left;
+direction: down;
 routingStyle: splines;
 spacing: 64;
 // nodePadding: 64 32;
