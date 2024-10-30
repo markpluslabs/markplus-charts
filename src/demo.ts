@@ -4,6 +4,7 @@ import { generate } from '.';
 
 const main = async () => {
   const input = `
+direction: up
 A{label: Christmas; radius: 8}
 B{label: Go shopping}
 C{label: Let me\\nthink; shape: diamond}

@@ -7,9 +7,9 @@ const SvgLink = (props: { points: Point[]; astLink: AstLink }) => {
   const { points, astLink } = props;
   let strokeDasharray: string | undefined = undefined;
   if (astLink.props.style === 'dotted') {
-    strokeDasharray = '2 2';
+    strokeDasharray = '1 3';
   } else if (astLink.props.style === 'dashed') {
-    strokeDasharray = '5 5';
+    strokeDasharray = '4 4';
   }
   return (
     <path

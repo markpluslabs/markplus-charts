@@ -13,7 +13,6 @@ const getTextSize = (text: string) => {
 
 interface LayoutConfig {
   debug?: boolean;
-  direction: 'DOWN' | 'UP' | 'LEFT' | 'RIGHT';
   node: {
     hPadding: number;
     vPadding: number;
@@ -39,6 +38,7 @@ export const layout = async (
       return result;
     };
   }
+  const direction = ast.props.direction?.toUpperCase() || 'RIGHT';
   const elkNode = await elk.layout(
     {
       id: 'root',
@@ -86,7 +86,7 @@ export const layout = async (
       edges: ast.links.map((e) => {
         let sourcePort = '';
         let targetPort = '';
-        switch (config.direction) {
+        switch (direction) {
           case 'DOWN': {
             sourcePort = `${e.from}_d`;
             targetPort = `${e.to}_u`;
@@ -128,7 +128,7 @@ export const layout = async (
     {
       layoutOptions: {
         'elk.algorithm': 'layered',
-        'elk.direction': config.direction,
+        'elk.direction': direction,
         'elk.edgeRouting': 'SPLINES', // enum: ORTHOGONAL, POLYLINE, SPLINES, default: ORTHOGONAL
         'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
         'elk.edgeLabels.inline': 'true', // show edge label right on the edge

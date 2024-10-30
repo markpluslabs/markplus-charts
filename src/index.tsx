@@ -14,7 +14,6 @@ export const generate = async (
 
   const elkNode = await layout(ast, {
     debug,
-    direction: 'DOWN',
     node: { hPadding: 32, vPadding: 16 },
   });
 
