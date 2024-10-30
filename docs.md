@@ -1,64 +1,78 @@
 ## Global Settings
 
-### sample
+### Sample
 
-### direction
-
-```
-direction: right;
-```
-
-Default value is "right".
-
-The flowchart direction:
-
-- right
-- down
-- left
-- up
-
-### routingStyle
+### Direction
 
 ```
-routingStyle: orthogonal;
+direction: right
 ```
 
-Dedault value is "orthogonal".
+**Default**: `right`
 
-Link routing styles:
+Sets the overall flowchart direction. Options include:
 
-- orthogonal
-- splines
-- polyline
+- `right`
+- `down`
+- `left`
+- `up`
 
-### spacing
-
-```
-spacing: 64;
-```
-
-Default value is 64. Minimum value is 16.
-
-It is the distance between two adjacent nodes.
-
-### nodePadding
+### Routing Style
 
 ```
-nodePadding: 16 32;
+routingStyle: orthogonal
 ```
 
-Default value is "16 32". Minimum value is "0".
+**Default**: `orthogonal`
 
-The distance from node sides to text in nodes. It can affect the size of nodes.
-If the value is small, the node may not be big enough to hold its text.
+Defines the style for routing links between nodes. Options are:
 
-If you specify only one number, this number will be used for both vertical and horizontal padding.
+- `orthogonal`
+- `splines`
+- `polyline`
 
-You may specify two numbers, the first number will be used for vertical padding and the second number will be used as horizontal padding.
+### Spacing
+
+```
+spacing: 64
+```
+
+**Default**: `64`  
+**Minimum**: `16`
+
+This setting defines the space between adjacent nodes.
+
+### Node Padding
+
+```
+nodePadding: 16 32
+```
+
+**Default**: `16 32`  
+**Minimum**: `0`
+
+Sets global padding for all nodes, controlling the space between text inside a node and its edges. This padding may affect the overall node size.
+
+You can override this setting for individual nodes:
+
+```
+A {
+  padding: 24 // overrides the default
+}
+```
+
+**Note:** Padding assumes a rectangular node shape. For non-rectangular shapes, they are fully contained within this rectangle. If padding is too small for non-rectangular shapes, text may not fit properly.
+
+Padding values can be set as:
+
+- A single number for uniform vertical and horizontal padding.
+- Two numbers where the first applies to vertical padding, and the second to horizontal padding.
+
+---
 
 ## Node Settings
 
-### shape
+### Shape
 
 ```
 A {
@@ -66,9 +80,24 @@ A {
 }
 ```
 
-Default value is "rect".
+**Default**: `rect`
 
-- rect
-- circle
-- ellipse
-- diamond
+Defines the node shape. Options are:
+
+- `rect`
+- `circle`
+- `ellipse`
+- `diamond`
+
+### Padding
+
+```
+A {
+  padding: 16 32
+}
+```
+
+**Default**: `16 32`  
+**Minimum**: `0`
+
+This setting overrides the global `nodePadding` for individual nodes. For details, see the [Global Node Padding](#node-padding) section.

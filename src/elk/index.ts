@@ -2,6 +2,7 @@ import ELK, { ElkExtendedEdge, ElkNode } from 'elkjs';
 
 import Ast from '../chevrotain/ast';
 import CONSTS from '../consts';
+import { normalizePadding } from './normalizer';
 
 const getTextSize = (text: string) => {
   const lines = text.split('\n');
@@ -12,17 +13,6 @@ const getTextSize = (text: string) => {
 };
 
 export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
-  let [vPadding, hPadding] = (ast.props.nodePadding ?? '16 32')
-    .split(/\s+/)
-    .map((i) => parseInt(i))
-    .map((i) => (isNaN(i) ? 0 : i));
-  vPadding = Math.max(vPadding ?? 0, 0);
-  hPadding = hPadding ?? vPadding;
-  hPadding = Math.max(hPadding, 0);
-  const addPadding = (size: { width: number; height: number }, scale = 1) => ({
-    width: size.width + hPadding * 2 * scale,
-    height: size.height + vPadding * 2 * scale,
-  });
   const elk = new ELK();
   if (debug) {
     console.log(JSON.stringify(ast, null, 2));
@@ -47,13 +37,25 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
     spacing = 64;
   }
   spacing = Math.max(spacing, 16);
+  const [vPaddingG, hPaddingG] = normalizePadding(ast.props.nodePadding);
   const elkNode = await elk.layout(
     {
       id: 'root',
       children: ast.nodes.map((n, idx) => {
         const label = n.props.label || n.id;
         const regularShaped = ['circle', 'diamond'].includes(n.props.shape); // width === height
-        let { width, height } = addPadding(getTextSize(label));
+        let vPadding = 16;
+        let hPadding = 32;
+        if (
+          (n.props.padding ?? ast.props.nodePadding) === ast.props.nodePadding
+        ) {
+          [vPadding, hPadding] = [vPaddingG, hPaddingG];
+        } else {
+          [vPadding, hPadding] = normalizePadding(n.props.padding);
+        }
+        let { width, height } = getTextSize(label);
+        width += hPadding * 2;
+        height += vPadding * 2;
         if (regularShaped) {
           width = height = Math.max(width, height);
         }
