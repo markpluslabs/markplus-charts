@@ -12,6 +12,12 @@ const Comment = createToken({
   group: Lexer.SKIPPED,
 });
 
+// very first node
+export const Node0 = createToken({
+  name: 'Node0',
+  pattern: /[a-zA-Z0-9_]+/,
+  push_mode: 'statements_mode',
+});
 export const Node = createToken({
   name: 'Node',
   pattern: /[a-zA-Z0-9_]+/,
@@ -31,14 +37,8 @@ export const Link = createToken({
 
 export const PropKey = createToken({
   name: 'PropKey',
-  pattern: /[a-zA-Z][a-zA-Z0-9-]*/,
-});
-
-const Colon = createToken({
-  name: 'Colon',
-  pattern: /:/,
+  pattern: /[a-zA-Z][a-zA-Z0-9-]*\s*:/,
   push_mode: 'value_mode',
-  group: Lexer.SKIPPED,
 });
 
 const indexOfSpecial = (
@@ -87,11 +87,12 @@ const RCurly = createToken({
 
 export const multiModeLexerDefinition = {
   modes: {
+    global_mode: [WhiteSpace, Comment, PropKey, Semicolon, Node0],
     statements_mode: [WhiteSpace, Comment, Node, LCurly, Link],
-    props_mode: [WhiteSpace, Comment, PropKey, Colon, Semicolon, RCurly],
+    props_mode: [WhiteSpace, Comment, PropKey, Semicolon, RCurly],
     value_mode: [WhiteSpace, Comment, PropValue],
   },
-  defaultMode: 'statements_mode',
+  defaultMode: 'global_mode',
 };
 
 const lexer = new Lexer(multiModeLexerDefinition);

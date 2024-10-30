@@ -13,6 +13,7 @@
 - some elk sample shows very smooth links
 - line end to terminate a propValue
 - sequence diagram is easier
+- name it charts.md?
 
 ## Tips
 

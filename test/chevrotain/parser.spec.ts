@@ -9,9 +9,6 @@ describe('parser', () => {
     const r = lexer.tokenize(input);
     parser.input = r.tokens;
     const cst = parser.parse();
-    if (parser.errors.length > 0) {
-      console.log(parser.errors);
-    }
     expect(parser.errors.length).toBe(0);
     expect(cst.children.statements.length).toBe(1);
   });

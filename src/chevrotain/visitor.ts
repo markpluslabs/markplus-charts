@@ -12,6 +12,9 @@ class Visitor extends BaseVisitor {
 
   parse(ctx) {
     const ast = new Ast();
+    if (ctx.globalProps) {
+      ast.props = this.visit(ctx.globalProps[0]);
+    }
     ctx.statements.forEach((c: CstNode) => {
       const { nodes, link } = this.visit(c);
       nodes.forEach((n) => {
@@ -73,7 +76,7 @@ class Visitor extends BaseVisitor {
   }
 
   property(ctx) {
-    const propKey = ctx.propKey[0].image;
+    const propKey = ctx.propKey[0].image.replace(/:$/, '').trim();
     const propValue = ctx.propValue[0].image
       .trim()
       .replace(/\\;/g, ';')

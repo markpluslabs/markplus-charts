@@ -13,6 +13,7 @@ export interface AstLink {
 }
 
 class Ast {
+  props: AstProps = {};
   nodes: AstNode[] = [];
   links: AstLink[] = [];
 
@@ -34,6 +35,7 @@ class Ast {
 
   get plainObject() {
     return {
+      props: this.props,
       nodes: this.nodes,
       links: this.links,
     };

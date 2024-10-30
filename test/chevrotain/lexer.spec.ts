@@ -12,16 +12,16 @@ describe('lexer', () => {
     expect(r.errors.length).toBe(0);
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
     expect(tokens).toEqual([
-      'Node: A',
-      'PropKey: prop3',
+      'Node0: A',
+      'PropKey: prop3:',
       'PropValue: c',
-      'PropKey: prop4',
+      'PropKey: prop4:',
       'PropValue: d',
       'Link: ->',
-      'PropKey: prop1',
+      'PropKey: prop1:',
       'PropValue: 4',
       'Node: B',
-      'PropKey: prop2',
+      'PropKey: prop2:',
       'PropValue: 5',
     ]);
   });
@@ -30,24 +30,26 @@ describe('lexer', () => {
     const r = lexer.tokenize('A');
     expect(r.errors.length).toBe(0);
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
-    expect(tokens).toEqual(['Node: A']);
+    expect(tokens).toEqual(['Node0: A']);
   });
 
   test('no props', () => {
     const r = lexer.tokenize('A -> B');
     expect(r.errors.length).toBe(0);
     const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
-    expect(tokens).toEqual(['Node: A', 'Link: ->', 'Node: B']);
+    expect(tokens).toEqual(['Node0: A', 'Link: ->', 'Node: B']);
   });
 
-  // test('global props', () => {
-  //   const r = lexer.tokenize('direction: down\nA -> B');
-  //   expect(r.errors.length).toBe(0);
-  //   const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
-  //   expect(tokens).toEqual([
-  //     'GlobalPropKey: direction:',
-  //     'GlobalPropValue: ',
-  //     'Node: A',
-  //   ]);
-  // });
+  test('global props', () => {
+    const r = lexer.tokenize('direction: down\nA -> B');
+    expect(r.errors.length).toBe(0);
+    const tokens = r.tokens.map((t) => `${t.tokenType.name}: ${t.image}`);
+    expect(tokens).toEqual([
+      'PropKey: direction:',
+      'PropValue: down',
+      'Node0: A',
+      'Link: ->',
+      'Node: B',
+    ]);
+  });
 });

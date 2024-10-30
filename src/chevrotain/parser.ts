@@ -4,6 +4,7 @@ import {
   Link,
   multiModeLexerDefinition,
   Node,
+  Node0,
   PropKey,
   PropValue,
 } from './lexer';
@@ -15,22 +16,36 @@ class Parser extends CstParser {
   }
 
   parse = this.RULE('parse', () => {
+    this.OPTION(() => {
+      this.SUBRULE(this.properties, { LABEL: 'globalProps' });
+    });
     this.MANY(() => {
-      this.SUBRULE(this.statement, { LABEL: 'statements' });
+      this.SUBRULE1(this.statement, { LABEL: 'statements' });
     });
   });
 
   statement = this.RULE('statement', () => {
-    this.CONSUME(Node, { LABEL: 'fromNode' });
+    this.OR([
+      {
+        ALT: () => {
+          this.CONSUME(Node0, { LABEL: 'fromNode' });
+        },
+      },
+      {
+        ALT: () => {
+          this.CONSUME1(Node, { LABEL: 'fromNode' });
+        },
+      },
+    ]);
     this.OPTION(() => {
       this.SUBRULE(this.properties, { LABEL: 'fromNodeProps' });
     });
     this.OPTION1(() => {
-      this.CONSUME(Link, { LABEL: 'link' });
+      this.CONSUME2(Link, { LABEL: 'link' });
       this.OPTION2(() => {
         this.SUBRULE1(this.properties, { LABEL: 'linkProps' });
       });
-      this.CONSUME1(Node, { LABEL: 'toNode' });
+      this.CONSUME3(Node, { LABEL: 'toNode' });
       this.OPTION3(() => {
         this.SUBRULE2(this.properties, { LABEL: 'toNodeProps' });
       });

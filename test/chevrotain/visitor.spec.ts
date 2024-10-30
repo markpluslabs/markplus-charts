@@ -7,6 +7,7 @@ describe('visitor', () => {
     const input = 'A{prop3: c; prop4: d} ->{prop1: 4} B{prop2: 5}';
     const ast = generateAst(input);
     expect(ast.plainObject).toEqual({
+      props: {},
       nodes: [
         { id: 'A', props: { prop3: 'c', prop4: 'd' } },
         { id: 'B', props: { prop2: '5' } },
@@ -17,6 +18,7 @@ describe('visitor', () => {
   test('single node', () => {
     const ast = generateAst('A');
     expect(ast.plainObject).toEqual({
+      props: {},
       nodes: [{ id: 'A', props: {} }],
       links: [],
     });
@@ -25,6 +27,7 @@ describe('visitor', () => {
   test('single node with props', () => {
     const ast = generateAst('A{b: c}');
     expect(ast.plainObject).toEqual({
+      props: {},
       nodes: [{ id: 'A', props: { b: 'c' } }],
       links: [],
     });
@@ -33,6 +36,7 @@ describe('visitor', () => {
   test('trailing space in propValue', () => {
     const ast = generateAst('A{b: c }');
     expect(ast.plainObject).toEqual({
+      props: {},
       nodes: [{ id: 'A', props: { b: 'c' } }],
       links: [],
     });
@@ -43,6 +47,7 @@ describe('visitor', () => {
 A{b: c}
  //comment`);
     expect(ast.plainObject).toEqual({
+      props: {},
       nodes: [{ id: 'A', props: { b: 'c' } }],
       links: [],
     });
@@ -51,14 +56,25 @@ A{b: c}
   test('line end comments', () => {
     const ast = generateAst(`A{b: c} // comment`);
     expect(ast.plainObject).toEqual({
+      props: {},
       nodes: [{ id: 'A', props: { b: 'c' } }],
       links: [],
     });
   });
 
-  test('Escape comments', () => {
-    const ast = generateAst(`A{b: https:\\//www.google.com} `);
+  test('escape comments', () => {
+    const ast = generateAst(`A{b: https:\\//www.google.com}`);
     expect(ast.plainObject).toEqual({
+      props: {},
+      nodes: [{ id: 'A', props: { b: 'https://www.google.com' } }],
+      links: [],
+    });
+  });
+
+  test('global props', () => {
+    const ast = generateAst(`direction: up\nA{b: https:\\//www.google.com}`);
+    expect(ast.plainObject).toEqual({
+      props: { direction: 'up' },
       nodes: [{ id: 'A', props: { b: 'https://www.google.com' } }],
       links: [],
     });
