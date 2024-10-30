@@ -48,6 +48,7 @@ const indexOfSpecial = (
   for (let i = startIndex; i < text.length; i++) {
     if (
       text[i] === ';' ||
+      text[i] === '\n' ||
       text[i] === '}' ||
       (text[i] === '/' && text[i + 1] === '/')
     ) {

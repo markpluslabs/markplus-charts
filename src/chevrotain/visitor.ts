@@ -77,6 +77,7 @@ class Visitor extends BaseVisitor {
     const propValue = ctx.propValue[0].image
       .trim()
       .replace(/\\;/g, ';')
+      .replace(/\\n/g, '\n')
       .replace(/\\}/g, '}')
       .replace(/\\\//g, '/');
     return { [propKey]: propValue };

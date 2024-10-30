@@ -6,7 +6,7 @@ const main = async () => {
   const input = `
 A{label: Christmas; radius: 8}
 B{label: Go shopping}
-C{label: Let me\nthink; shape: diamond}
+C{label: Let me\\nthink; shape: diamond}
 // You will need to escape "//":
 D{label: Laptop https:\\//example.com; shape: ellipse}
 E{label: iPhone} // line end comment
