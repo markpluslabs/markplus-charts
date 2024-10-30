@@ -135,13 +135,13 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
     },
     {
       layoutOptions: {
-        'elk.algorithm': 'layered',
+        algorithm: 'layered',
         'elk.direction': direction,
-        'elk.edgeRouting': routingStyle,
-        'elk.layered.spacing.baseValue': String(spacing),
-        'elk.edgeLabels.inline': 'true', // show edge label right on the edge
-        'elk.layered.crossingMinimization.forceNodeModelOrder': 'true',
-        'elk.partitioning.activate': 'true',
+        edgeRouting: routingStyle,
+        'spacing.baseValue': String(spacing),
+        'edgeLabels.inline': 'true',
+        'crossingMinimization.forceNodeModelOrder': 'true', // todo: https://github.com/kieler/elkjs/issues/304
+        'partitioning.activate': 'true',
       },
     },
   );

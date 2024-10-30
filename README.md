@@ -25,3 +25,5 @@ Use a text editor to edit your question, then post to the most advanced chatGPT 
 ## Reference
 
 - https://reaflow.dev/?path=/story/demos-basic--simple
+- https://rtsys.informatik.uni-kiel.de/elklive/conversion.html
+  - convert between elkt and json
