@@ -5,8 +5,10 @@ import { generate } from '.';
 const main = async () => {
   const input = `
 // global settings
-direction: up;
-nodePadding: 64 32;
+direction: left;
+// routingStyle: polyline;
+spacing: 64;
+// nodePadding: 64 32;
 
 A{label: Christmas; radius: 8}
 B{label: Go shopping}

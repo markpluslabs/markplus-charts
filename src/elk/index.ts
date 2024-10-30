@@ -38,6 +38,15 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
   if (!['UP', 'DOWN', 'LEFT', 'RIGHT'].includes(direction)) {
     direction = 'RIGHT';
   }
+  let routingStyle = ast.props.routingStyle?.toUpperCase();
+  if (!['ORTHOGONAL', 'POLYLINE', 'SPLINES'].includes(routingStyle)) {
+    routingStyle = 'ORTHOGONAL';
+  }
+  let spacing = parseInt(ast.props.spacing ?? '64');
+  if (isNaN(spacing)) {
+    spacing = 64;
+  }
+  spacing = Math.max(spacing, 16);
   const elkNode = await elk.layout(
     {
       id: 'root',
@@ -128,8 +137,8 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
       layoutOptions: {
         'elk.algorithm': 'layered',
         'elk.direction': direction,
-        'elk.edgeRouting': 'SPLINES', // enum: ORTHOGONAL, POLYLINE, SPLINES, default: ORTHOGONAL
-        'elk.layered.spacing.baseValue': '64', // todo: generate this value based on average node size
+        'elk.edgeRouting': routingStyle,
+        'elk.layered.spacing.baseValue': String(spacing),
         'elk.edgeLabels.inline': 'true', // show edge label right on the edge
         'elk.layered.crossingMinimization.forceNodeModelOrder': 'true',
         'elk.partitioning.activate': 'true',
