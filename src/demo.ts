@@ -26,7 +26,7 @@ A -> B
 B ->{style: dashed} C
 C ->{label: One; style: dotted} D
 C ->{label: Two} E
-C ->{label: Three; direction:none} F
+C ->{label: Three} F
 F ->{direction:both} A
 `;
 
