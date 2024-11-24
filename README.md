@@ -1,29 +1,11 @@
-## Todo
+# MarkPlus Charts
 
-- preview it in real time
-  - turn the demo into a SPA
-- how to handle syntax error
-- subgraph
-- write doc
-- global config
-  - direction, line style...etc
-- chrome extension to generate structure for an article
-- support colors
-  - node fill, node border, link, node text, label text, label background...ect
-- some elk sample shows very smooth links
-- line end to terminate a propValue
-- sequence diagram is easier
-- name it charts.md?
-- support theme: light/dark/auto
-  - use <style> in <svg>
+MarkPlus Charts is a versatile library for generating charts in SVG format. It works seamlessly in both browser and server-side environments, without relying on the DOM or Canvas, making it lightweight and highly adaptable.
 
-## Tips
+## Philosophy
 
-Post existing code to chatGPT, and ask him how to add a new feature.
-Use a text editor to edit your question, then post to the most advanced chatGPT model.
+This library aims to offer features comparable to [mermaid](https://mermaid.js.org/) and [Chart.js](https://www.chartjs.org/), but without relying on the DOM or Canvas.
 
-## Reference
+## Why?
 
-- https://reaflow.dev/?path=/story/demos-basic--simple
-- https://rtsys.informatik.uni-kiel.de/elklive/conversion.html
-  - convert between elkt and json
+While I appreciate the capabilities of Mermaid and Chart.js, their heavy dependencies make them less suitable for server-side or Node.js environments. This inspired me to create a lightweight alternative that operates independently of browser-specific technologies.
