@@ -66,7 +66,7 @@ export const DiamondShape = (props: { frame: Rect; svgProps: SvgProps }) => {
 
 export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
   const { frame, astNode } = props;
-  const commonProps = { fill: 'none', stroke: 'black', strokeWidth: 16 };
+  const commonProps = { fill: 'none', stroke: 'black', strokeWidth: 2 };
   switch (astNode.props.shape ?? 'rect') {
     case 'rect': {
       const svgProps = commonProps as React.SVGProps<SVGRectElement>;
