@@ -4,7 +4,7 @@ MarkPlus Charts is a versatile library for generating charts in SVG format. It w
 
 ## Philosophy
 
-This library aims to offer features comparable to [mermaid](https://mermaid.js.org/) and [Chart.js](https://www.chartjs.org/), but without relying on the DOM or Canvas.
+This library aims to offer features comparable to [Mermaid](https://mermaid.js.org/) and [Chart.js](https://www.chartjs.org/), but without relying on the DOM or Canvas.
 
 ## Why?
 

@@ -4,6 +4,7 @@ import Ast, { AstLink, AstNode, AstProps } from './ast';
 import parser from './parser';
 
 const BaseVisitor = parser.getBaseCstVisitorConstructor();
+
 class Visitor extends BaseVisitor {
   constructor() {
     super();

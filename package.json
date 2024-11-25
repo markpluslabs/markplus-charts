@@ -1,10 +1,12 @@
 {
+  "name": "markplus-charts",
+  "version": "0.1.0",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "demo": "tsx src/demo.ts && open demo.svg",
     "lint": "eslint . --fix && prettier --write . && sort-package-json",
-    "test": "vitest run"
+    "release": "rm -rf .parcel-cache && parcel build src/index.html --dist-dir docs --public-url ./ && gh-pages -d docs && rm -rf docs",
+    "serve": "rm -rf .parcel-cache temp && parcel src/index.html --dist-dir temp"
   },
   "dependencies": {
     "chevrotain": "^11.0.3",
@@ -13,12 +15,18 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@parcel/transformer-typescript-tsc": "^2.13.1",
     "@types/node": "^22.9.3",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "antd": "^5.22.2",
     "eslint-config-tyler": "^0.2.2",
+    "gh-pages": "^6.2.0",
+    "parcel": "^2.13.1",
+    "process": "^0.11.10",
     "sort-package-json": "^2.12.0",
     "tsx": "^4.19.2",
+    "ttpt": "^0.13.0",
     "typescript": "^5.7.2",
     "vitest": "^2.1.5",
     "yarn-upgrade-all": "^0.7.4"
