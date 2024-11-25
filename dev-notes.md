@@ -1,7 +1,5 @@
 ## Todo
 
-- preview it in real time
-  - turn the demo into a SPA
 - how to handle syntax error
 - subgraph
 - write doc
