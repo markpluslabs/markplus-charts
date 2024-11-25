@@ -2,6 +2,9 @@
   "compilerOptions": {
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react",
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node"
   }
 }
