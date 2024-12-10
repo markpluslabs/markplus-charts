@@ -1,3 +1,29 @@
+## Instructions
+
+Run tests:
+
+```
+vitest run
+```
+
+Build demo website:
+
+```
+bun packle
+```
+
+Server demo website:
+
+```
+bun serve public
+```
+
+Release demo website to GitHub Pages:
+
+```
+bun release
+```
+
 ## Todo
 
 - how to handle syntax error

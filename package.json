@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint . --fix && prettier --write . && sort-package-json",
-    "release": "gh-pages -d public",
-    "test": "vitest"
+    "release": "bun packle -p && gh-pages -d public"
   },
   "dependencies": {
     "chevrotain": "^11.0.3",
