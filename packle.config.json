@@ -1,4 +1,0 @@
-{
-  "copyFiles": ["./src/index.html", "./src/icon.svg"],
-  "jsEntries": ["./src/demo.tsx"]
-}
