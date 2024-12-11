@@ -1,6 +1,6 @@
 import prettier from 'prettier';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 
 import { generateAst } from './chevrotain';
 import { layout } from './elk';
@@ -14,9 +14,7 @@ export const generate = async (
 
   const elkNode = await layout(ast, debug);
 
-  let svgStr = ReactDOMServer.renderToString(
-    <Svg ast={ast} elkNode={elkNode} />,
-  );
+  let svgStr = renderToString(<Svg ast={ast} elkNode={elkNode} />);
   if (debug) {
     svgStr = await prettier.format(svgStr, { parser: 'html' });
   }
