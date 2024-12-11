@@ -1,4 +1,11 @@
-{
-  "copyFiles": ["./src/index.html", "./src/icon.svg"],
-  "jsEntries": ["./src/demo.tsx"]
-}
+[
+  {
+    "copyFiles": ["./src/index.html", "./src/icon.svg"],
+    "jsEntries": ["./src/demo.tsx"]
+  },
+  {
+    "outDir": "./lib",
+    "target": "node",
+    "jsEntries": ["./src/index.tsx"]
+  }
+]
