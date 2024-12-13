@@ -9,3 +9,17 @@ This library aims to offer features comparable to [Mermaid](https://mermaid.js.o
 ## Why?
 
 While I appreciate the capabilities of Mermaid and Chart.js, their heavy dependencies make them less suitable for server-side or Node.js environments. This inspired me to create a lightweight alternative that operates independently of browser-specific technologies.
+
+## Install
+
+```
+bun add markplus-charts
+```
+
+## Usage
+
+```ts
+import { generate } from 'markplus-charts';
+
+const svgStr = generate('A -> B');
+```
