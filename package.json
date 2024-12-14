@@ -2,10 +2,13 @@
   "name": "markplus-charts",
   "version": "0.1.5",
   "license": "MIT",
-  "main": "src/index.tsx",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint . --fix && prettier --write . && sort-package-json",
-    "release": "bun packle -p && gh-pages -d public"
+    "release": "bun packle -p && gh-pages -d public",
+    "prepublishOnly": "bun packle",
+    "postpublish": "rm -rf lib"
   },
   "dependencies": {
     "chevrotain": "^11.0.3",

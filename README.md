@@ -18,10 +18,6 @@ While I appreciate the capabilities of Mermaid and Chart.js, their heavy depende
 bun add markplus-charts
 ```
 
-## TypeScript only
-
-For now, this library is TypeScript only. I am so tired of the ESM vs CJS chaos. It wasted me so much time handling issues which don't exist if I use TypeScript only.
-
 ## Usage
 
 ```ts
