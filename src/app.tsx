@@ -1,4 +1,5 @@
 import { Divider, Input, Typography } from 'antd';
+import { ElkNode } from 'elkjs';
 import React, { useEffect } from 'react';
 
 import { generateAst } from './chevrotain';
@@ -38,8 +39,8 @@ F ->{direction:both} A
 `.trim(),
   );
 
-  const [ast, setAst] = React.useState<Ast>(undefined);
-  const [elkNode, setElkNode] = React.useState(undefined);
+  const [ast, setAst] = React.useState<Ast | undefined>(undefined);
+  const [elkNode, setElkNode] = React.useState<ElkNode | undefined>(undefined);
 
   useEffect(() => {
     const ast = generateAst(code);

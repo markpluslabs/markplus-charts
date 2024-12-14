@@ -27,18 +27,18 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }) => {
     };
     // node shape
     shapes.push(
-      <NodeShape key={n.id} frame={frame} astNode={ast.getNode(n.id)} />,
+      <NodeShape key={n.id} frame={frame} astNode={ast.getNode(n.id)!} />,
     );
     // node label text
     shapeTexts.push(
-      <SvgText key={n.id} text={n.labels[0].text} frame={frame} />,
+      <SvgText key={n.id} text={n.labels![0].text!} frame={frame} />,
     );
   }
 
   for (const e of elkNode.edges ?? []) {
     // link
-    const points: Point[] = e.sections
-      ?.reduce<Point[]>(
+    const points: Point[] = e
+      .sections!.reduce<Point[]>(
         (r, s) => [...r, s.startPoint, ...(s.bendPoints ?? []), s.endPoint],
         [],
       )
@@ -49,7 +49,7 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }) => {
       // remove adjacent duplicates
       .filter((p, i, a) => i === 0 || p.x !== a[i - 1].x || p.y !== a[i - 1].y);
     links.push(
-      <SvgLink key={e.id} points={points} astLink={ast.getLink(e.id)} />,
+      <SvgLink key={e.id} points={points} astLink={ast.getLink(e.id)!} />,
     );
 
     // label
