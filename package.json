@@ -1,9 +1,10 @@
 {
   "name": "markplus-charts",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "type": "module",
   "scripts": {
     "lint": "eslint . --fix && prettier --write . && sort-package-json",
     "prepublishOnly": "bun packle",
