@@ -1,6 +1,6 @@
 {
   "name": "markplus-charts",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -19,7 +19,7 @@
     "@types/bun": "^1.1.14",
     "@types/node": "^22.10.2",
     "eslint-config-tyler": "^0.2.2",
-    "packle": "^0.2.9",
+    "packle": "^0.2.11",
     "sort-package-json": "^2.12.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
