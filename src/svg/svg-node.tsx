@@ -1,12 +1,13 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'jsx2str';
 
 import { AstNode } from '../chevrotain/ast';
 import { Rect, SvgProps } from './interfaces';
 
 const RectShape = (props: {
   frame: Rect;
-  svgProps: React.SVGProps<SVGRectElement>;
-}) => {
+  svgProps: { [key: string]: number | string };
+}): string => {
   const { frame, svgProps } = props;
   const strokeWidth = svgProps.strokeWidth as number;
   return (
@@ -20,7 +21,7 @@ const RectShape = (props: {
   );
 };
 
-const CircleShape = (props: { frame: Rect; svgProps: SvgProps }) => {
+const CircleShape = (props: { frame: Rect; svgProps: SvgProps }): string => {
   const { frame, svgProps } = props;
   const strokeWidth = svgProps.strokeWidth as number;
   return (
@@ -33,7 +34,10 @@ const CircleShape = (props: { frame: Rect; svgProps: SvgProps }) => {
   );
 };
 
-export const EllipseShape = (props: { frame: Rect; svgProps: SvgProps }) => {
+export const EllipseShape = (props: {
+  frame: Rect;
+  svgProps: SvgProps;
+}): string => {
   const { frame, svgProps } = props;
   const strokeWidth = svgProps.strokeWidth as number;
   return (
@@ -47,7 +51,10 @@ export const EllipseShape = (props: { frame: Rect; svgProps: SvgProps }) => {
   );
 };
 
-export const DiamondShape = (props: { frame: Rect; svgProps: SvgProps }) => {
+export const DiamondShape = (props: {
+  frame: Rect;
+  svgProps: SvgProps;
+}): string => {
   const { frame, svgProps } = props;
   const { x, y, width, height } = frame;
   const strokeWidth = svgProps.strokeWidth as number;
@@ -64,12 +71,19 @@ export const DiamondShape = (props: { frame: Rect; svgProps: SvgProps }) => {
   );
 };
 
-export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
+export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
   const { frame, astNode } = props;
-  const commonProps = { fill: 'none', stroke: 'black', strokeWidth: 2 };
+  const commonProps = {
+    fill: 'none',
+    stroke: 'black',
+    strokeWidth: 2,
+  };
   switch (astNode.props.shape ?? 'rect') {
     case 'rect': {
-      const svgProps = commonProps as React.SVGProps<SVGRectElement>;
+      const svgProps = commonProps as typeof commonProps & {
+        rx?: string;
+        ry?: string;
+      };
       svgProps.rx = svgProps.ry = astNode.props.radius;
       return <RectShape frame={frame} svgProps={svgProps} />;
     }
@@ -82,7 +96,7 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }) => {
   }
 };
 
-export const TextSpan = (props: { frame: Rect }) => {
+export const TextSpan = (props: { frame: Rect }): string => {
   return (
     <RectShape
       frame={props.frame}

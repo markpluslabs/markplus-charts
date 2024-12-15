@@ -1,6 +1,5 @@
-import prettier from 'prettier';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
+/** @jsx jsx */
+import { jsx, options } from 'jsx2str';
 
 import { generateAst } from './chevrotain';
 import { layout } from './elk';
@@ -11,12 +10,10 @@ export const generate = async (
   debug = false,
 ): Promise<string> => {
   const ast = generateAst(input);
-
   const elkNode = await layout(ast, debug);
-
-  let svgStr = renderToString(<Svg ast={ast} elkNode={elkNode} />);
-  if (debug) {
-    svgStr = await prettier.format(svgStr, { parser: 'html' });
-  }
+  const oldVal = options.formatOutput;
+  options.formatOutput = debug;
+  const svgStr = (<Svg ast={ast} elkNode={elkNode} />) as string;
+  options.formatOutput = oldVal;
   return svgStr;
 };

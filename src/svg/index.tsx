@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import { ElkNode } from 'elkjs';
-import React from 'react';
+import { jsx } from 'jsx2str';
 
 import Ast from '../chevrotain/ast';
 import { Point } from './interfaces';
@@ -7,16 +8,16 @@ import SvgLink from './svg-link';
 import { NodeShape, TextSpan } from './svg-node';
 import SvgText from './svg-text';
 
-const Svg = (props: { ast: Ast; elkNode: ElkNode }) => {
+const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
   const { ast, elkNode } = props;
   const width = parseFloat(elkNode.width!.toFixed(1));
   const height = parseFloat(elkNode.height!.toFixed(1));
 
-  const shapes: React.JSX.Element[] = [];
-  const shapeTexts: React.JSX.Element[] = [];
-  const links: React.JSX.Element[] = [];
-  const labels: React.JSX.Element[] = [];
-  const labelTexts: React.JSX.Element[] = [];
+  const shapes: string[] = [];
+  const shapeTexts: string[] = [];
+  const links: string[] = [];
+  const labels: string[] = [];
+  const labelTexts: string[] = [];
 
   for (const n of elkNode.children ?? []) {
     const frame = {
@@ -26,13 +27,9 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }) => {
       height: parseFloat(n.height!.toFixed(1)),
     };
     // node shape
-    shapes.push(
-      <NodeShape key={n.id} frame={frame} astNode={ast.getNode(n.id)!} />,
-    );
+    shapes.push(<NodeShape frame={frame} astNode={ast.getNode(n.id)!} />);
     // node label text
-    shapeTexts.push(
-      <SvgText key={n.id} text={n.labels![0].text!} frame={frame} />,
-    );
+    shapeTexts.push(<SvgText text={n.labels![0].text!} frame={frame} />);
   }
 
   for (const e of elkNode.edges ?? []) {
@@ -48,9 +45,7 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }) => {
       }))
       // remove adjacent duplicates
       .filter((p, i, a) => i === 0 || p.x !== a[i - 1].x || p.y !== a[i - 1].y);
-    links.push(
-      <SvgLink key={e.id} points={points} astLink={ast.getLink(e.id)!} />,
-    );
+    links.push(<SvgLink points={points} astLink={ast.getLink(e.id)!} />);
 
     // label
     if (!(e.labels && e.labels.length > 0)) {
@@ -64,9 +59,9 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }) => {
       width: parseFloat(width!.toFixed(1)),
       height: parseFloat(height!.toFixed(1)),
     };
-    labels.push(<TextSpan key={e.id} frame={frame} />);
+    labels.push(<TextSpan frame={frame} />);
     // label text
-    labelTexts.push(<SvgText key={e.id} text={label.text!} frame={frame} />);
+    labelTexts.push(<SvgText text={label.text!} frame={frame} />);
   }
 
   return (

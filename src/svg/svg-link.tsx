@@ -1,9 +1,10 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'jsx2str';
 
 import { AstLink } from '../chevrotain/ast';
 import { Point } from './interfaces';
 
-const SvgLink = (props: { points: Point[]; astLink: AstLink }) => {
+const SvgLink = (props: { points: Point[]; astLink: AstLink }): string => {
   const { points, astLink } = props;
   let strokeDasharray: string | undefined = undefined;
   if (astLink.props.style === 'dotted') {

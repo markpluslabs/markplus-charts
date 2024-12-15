@@ -1,9 +1,5 @@
 [
   {
-    "copyFiles": ["./src/index.html", "./src/icon.svg"],
-    "jsEntries": ["./src/demo.tsx"]
-  },
-  {
     "target": "node",
     "outDir": "./lib",
     "jsEntries": ["./src/index.tsx", "./src/@types/index.d.ts"]

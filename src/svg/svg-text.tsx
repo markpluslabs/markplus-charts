@@ -1,9 +1,10 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from 'jsx2str';
 
 import CONSTS from '../consts';
 import { Rect } from './interfaces';
 
-const SvgText = (props: { text: string; frame: Rect }) => {
+const SvgText = (props: { text: string; frame: Rect }): string => {
   const { text, frame } = props;
   const lines = text.split('\n');
   const totalTextHeight = lines.length * CONSTS.LINE_HEIGHT;
