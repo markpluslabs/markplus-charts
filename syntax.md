@@ -157,6 +157,15 @@ Here are all the settings that applies to nodes to override global settings:
 - `borderWidth` overrides global `borderWidth`
 - `shape` overrides global `nodeShape`
 
+### Label
+
+```
+A { label: User A }
+```
+
+Label of the node. If not specified, the node ID (`A` in the sample about) will be used as label.
+Label will show in the center of the node.
+
 ---
 
 ## Link Settings
@@ -165,3 +174,12 @@ Here are all the settings that applies to nodes to override global settings:
 
 - `style` overrrides global `linkStyle`
 - `arrowHeads`overrides global `arrowHeads`
+
+### label
+
+```
+A ->{label: ❤️} B
+```
+
+Show a label on the link.
+It is optional.
