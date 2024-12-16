@@ -71,6 +71,9 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       height={height}
       viewBox={`0 0 ${width} ${height}`}
     >
+      {ast.props.bgColor && ast.props.bgColor !== 'none' && (
+        <rect width="100%" height="100%" fill={ast.props.bgColor} />
+      )}
       {ast.links.some((l) => l.props.arrowHeads !== 'none') && (
         <defs>
           <marker

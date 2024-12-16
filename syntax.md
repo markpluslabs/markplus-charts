@@ -162,6 +162,17 @@ This value could be overriden per node:
 A { rectRadius: 8 }
 ```
 
+### bgColor
+
+```
+bgColor: none
+```
+
+The overall background color for the whole chart. By default it is transparent.
+Transparent background may not look very well in some dark-themed pages. Since the background color or foreground color will be too similar. In such case, you can specify a `bgColor`, such as `white`.
+
+`none` or not specified at all means background is transparent.
+
 ---
 
 ## Node Settings

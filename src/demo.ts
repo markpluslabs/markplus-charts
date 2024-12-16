@@ -14,6 +14,7 @@ linkStyle: dashed
 arrowHeads: none
 rectRadius: 8
 nodeShape: rect
+bgColor: skyblue
 
 A{label: Christmas; rectRadius: 8; padding: 8}
 B{label: Go shopping}
