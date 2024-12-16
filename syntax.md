@@ -166,6 +166,15 @@ A { label: User A }
 Label of the node. If not specified, the node ID (`A` in the sample about) will be used as label.
 Label will show in the center of the node.
 
+### radius
+
+```
+A {radius: 8}
+```
+
+This option can be specified when the node shape is `rect`.
+It will make the rectangle to have round corners.
+
 ---
 
 ## Link Settings
@@ -183,3 +192,28 @@ A ->{label: ❤️} B
 
 Show a label on the link.
 It is optional.
+
+---
+
+## Comments
+
+Anything followed by `//` are considerd as comments:
+
+```
+// global settings
+direction: down // other options are up, left and right
+routingStyle: splines
+```
+
+Code above is equivalent to:
+
+```
+direction: down
+routingStyle: splines
+```
+
+If label text contains `//`, you will need to escape it:
+
+```
+A { label: http:\//www.example.com}
+```

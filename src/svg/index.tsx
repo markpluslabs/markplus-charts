@@ -71,7 +71,7 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       height={height}
       viewBox={`0 0 ${width} ${height}`}
     >
-      {ast.links.some((l) => l.props.direction !== 'none') && (
+      {ast.links.some((l) => l.props.arrowHeads !== 'none') && (
         <defs>
           <marker
             id="arrowhead"
