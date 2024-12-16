@@ -23,7 +23,12 @@ export const generateAst = (input: string): Ast => {
   }
 
   // CST to AST
-  const ast: Ast = normalize(visitor.visit(cst));
-  ast.createIndex();
+  const ast: Ast = visitor.visit(cst);
   return ast;
+};
+
+export const normalizeAst = (ast: Ast): Ast => {
+  const newAst = normalize(ast);
+  newAst.createIndex();
+  return newAst;
 };
