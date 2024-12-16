@@ -78,7 +78,7 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
     stroke: 'black',
     strokeWidth: astNode.borderWidth,
   };
-  switch (astNode.props.shape ?? 'rect') {
+  switch (astNode.props.shape) {
     case 'rect': {
       const svgProps = commonProps as typeof commonProps & {
         rx?: string;

@@ -11,6 +11,7 @@ spacing: 64
 nodePadding: 32
 borderWidth: 2
 linkStyle: dashed
+nodeShape: circle
 
 A{label: Christmas; radius: 8; padding: 8}
 B{label: Go shopping}

@@ -19,6 +19,7 @@ export const normalize = (ast: Ast): Ast => {
     n.borderWidth = parseInt(
       n.props.borderWidth ?? ast.props.borderWidth ?? '2',
     );
+    n.props.shape = n.props.shape ?? ast.props.nodeShape ?? 'rect';
   });
   ast.links.forEach((l) => {
     l.props.style = l.props.style ?? ast.props.linkStyle ?? 'solid';

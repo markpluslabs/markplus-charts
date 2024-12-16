@@ -101,36 +101,43 @@ A {
 }
 ```
 
----
-
-## Node Settings
-
-First of all, here are all the settings that applies to nodes to override global settings:
-
-- `padding` overrrides global `nodePadding`
-- `borderWidth` overrides global `borderWidth`
-
-### Shape
+### nodeShape
 
 ```
-A {
-  shape: rect
-}
+nodeShape: rect
 ```
 
-**Default**: `rect`
+Default shape for all nodes.
 
-Defines the node shape. Options are:
+Options are:
 
 - `rect`
 - `circle`
 - `ellipse`
 - `diamond`
 
+This value could be overriden per node:
+
+```
+A {
+  shape: circle
+}
+```
+
+---
+
+## Node Settings
+
+Here are all the settings that applies to nodes to override global settings:
+
+- `padding` overrrides global `nodePadding`
+- `borderWidth` overrides global `borderWidth`
+- `shape` overrides global `nodeShape`
+
 ---
 
 ## Link Settings
 
-First of all, here are all the settings that applies to nodes to override global settings:
+Here are all the settings that applies to nodes to override global settings:
 
 - `style` overrrides global `linkStyle`
