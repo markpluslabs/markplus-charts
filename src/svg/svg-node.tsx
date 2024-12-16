@@ -84,7 +84,7 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
         rx?: string;
         ry?: string;
       };
-      svgProps.rx = svgProps.ry = astNode.props.radius;
+      svgProps.rx = svgProps.ry = astNode.props.rectRadius;
       return <RectShape frame={frame} svgProps={svgProps} />;
     }
     case 'circle':

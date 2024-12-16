@@ -11,10 +11,11 @@ spacing: 64
 nodePadding: 32
 borderWidth: 2
 linkStyle: dashed
-nodeShape: circle
 arrowHeads: none
+rectRadius: 8
+nodeShape: rect
 
-A{label: Christmas; radius: 8; padding: 8}
+A{label: Christmas; rectRadius: 8; padding: 8}
 B{label: Go shopping}
 C{label: Let me\\nthink; shape: diamond}
 // You will need to escape "//":

@@ -147,6 +147,21 @@ This value could be overriden per link:
 A ->{ arrowHeads: both } B
 ```
 
+### rectRadius
+
+```
+rectRadius: 0
+```
+
+This option can be specified when the node shape is `rect`.
+It will make the rectangle to have round corners if you specify a value greater than 0.
+
+This value could be overriden per node:
+
+```
+A { rectRadius: 8 }
+```
+
 ---
 
 ## Node Settings
@@ -165,15 +180,6 @@ A { label: User A }
 
 Label of the node. If not specified, the node ID (`A` in the sample about) will be used as label.
 Label will show in the center of the node.
-
-### radius
-
-```
-A {radius: 8}
-```
-
-This option can be specified when the node shape is `rect`.
-It will make the rectangle to have round corners.
 
 ---
 
