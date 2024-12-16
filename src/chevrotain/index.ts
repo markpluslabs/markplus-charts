@@ -22,7 +22,7 @@ export const generateAst = (input: string): Ast => {
   }
 
   // CST to AST
-  const ast = visitor.visit(cst);
+  const ast: Ast = visitor.visit(cst);
   ast.createIndex();
   return ast;
 };

@@ -1,7 +1,5 @@
 ## Global Settings
 
-### Sample
-
 ### Direction
 
 ```
