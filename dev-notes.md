@@ -29,17 +29,15 @@ bun release
 - how to handle syntax error
 - subgraph
 - write doc
-- global config
-  - direction, line style...etc
 - chrome extension to generate structure for an article
 - support colors
-  - node fill, node border, link, node text, label text, label background...ect
+  - node fill, node border, link, node text, label text, label background...etc.
 - some elk sample shows very smooth links
 - line end to terminate a propValue
 - sequence diagram is easier
-- name it charts.md?
 - support theme: light/dark/auto
   - use <style> in <svg>
+  - or just a preset of colors
 - generate flowchart for charGPT output
 - supachart.io
 

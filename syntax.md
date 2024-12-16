@@ -8,7 +8,8 @@ direction: right
 
 **Default**: `right`
 
-Sets the overall flowchart direction. Options include:
+Sets the overall flowchart direction.
+Options are:
 
 - `right`
 - `down`
@@ -23,7 +24,8 @@ routingStyle: orthogonal
 
 **Default**: `orthogonal`
 
-Defines the style for routing links between nodes. Options are:
+Defines the style for routing links between nodes.
+Options are:
 
 - `orthogonal`
 - `splines`
@@ -38,7 +40,7 @@ spacing: 64
 **Default**: `64`  
 **Minimum**: `16`
 
-This setting defines the space between adjacent nodes.
+Defines the space between adjacent nodes.
 
 ### Node Padding
 
@@ -65,6 +67,27 @@ Padding values can be set as:
 
 - A single number for uniform vertical and horizontal padding.
 - Two numbers where the first applies to vertical padding, and the second to horizontal padding.
+
+### linkStyle
+
+```
+linkStyle: dashed
+```
+
+**Default: ** `solid`
+
+Defines the link style.
+Options are:
+
+- `solid`
+- `dashed`
+- `dotted`
+
+This value could be overriden per link:
+
+```
+A ->{style: dotted} B
+```
 
 ---
 

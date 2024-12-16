@@ -3,6 +3,8 @@ export interface AstProps {
 }
 export interface AstNode {
   id: string;
+  vPadding: number;
+  hPadding: number;
   props: AstProps;
 }
 export interface AstLink {

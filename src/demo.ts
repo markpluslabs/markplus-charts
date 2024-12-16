@@ -9,6 +9,7 @@ direction: down
 routingStyle: splines
 spacing: 64
 nodePadding: 32 16
+linkStyle: dashed
 
 A{label: Christmas; radius: 8; padding: 8}
 B{label: Go shopping}

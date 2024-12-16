@@ -34,4 +34,4 @@ const svgStr = generate('A -> B');
 
 ## Chart syntax
 
-Refer to [docs](./docs.md)
+Refer to [syntax](./syntax.md)

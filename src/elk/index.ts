@@ -2,7 +2,6 @@ import ELK, { ElkExtendedEdge, ElkNode } from 'elkjs';
 
 import Ast from '../chevrotain/ast';
 import CONSTS from '../consts';
-import { normalizePadding } from './normalizer';
 
 const getTextSize = (text: string) => {
   const lines = text.split('\n');
@@ -39,25 +38,15 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
     spacing = 64;
   }
   spacing = Math.max(spacing, 16);
-  const [vPaddingG, hPaddingG] = normalizePadding(ast.props.nodePadding);
   const elkNode = await elk.layout(
     {
       id: 'root',
       children: ast.nodes.map((n, idx) => {
         const label = n.props.label || n.id;
-        const regularShaped = ['circle', 'diamond'].includes(n.props.shape); // width === height
-        let vPadding = 16;
-        let hPadding = 32;
-        if (
-          (n.props.padding ?? ast.props.nodePadding) === ast.props.nodePadding
-        ) {
-          [vPadding, hPadding] = [vPaddingG, hPaddingG];
-        } else {
-          [vPadding, hPadding] = normalizePadding(n.props.padding);
-        }
         let { width, height } = getTextSize(label);
-        width += hPadding * 2;
-        height += vPadding * 2;
+        width += n.hPadding * 2;
+        height += n.vPadding * 2;
+        const regularShaped = ['circle', 'diamond'].includes(n.props.shape); // width === height
         if (regularShaped) {
           width = height = Math.max(width, height);
         }

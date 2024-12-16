@@ -1,5 +1,6 @@
 import Ast from './ast';
 import lexer from './lexer';
+import { normalize } from './normalizer';
 import parser from './parser';
 import visitor from './visitor';
 
@@ -22,7 +23,7 @@ export const generateAst = (input: string): Ast => {
   }
 
   // CST to AST
-  const ast: Ast = visitor.visit(cst);
+  const ast: Ast = normalize(visitor.visit(cst));
   ast.createIndex();
   return ast;
 };
