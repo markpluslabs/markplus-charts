@@ -76,7 +76,7 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
   const commonProps = {
     fill: 'none',
     stroke: 'black',
-    strokeWidth: 2,
+    strokeWidth: astNode.borderWidth,
   };
   switch (astNode.props.shape ?? 'rect') {
     case 'rect': {

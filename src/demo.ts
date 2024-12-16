@@ -8,7 +8,8 @@ const main = async () => {
 direction: down
 routingStyle: splines
 spacing: 64
-nodePadding: 32 16
+nodePadding: 32
+borderWidth: 2
 linkStyle: dashed
 
 A{label: Christmas; radius: 8; padding: 8}

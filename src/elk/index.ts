@@ -44,8 +44,8 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
       children: ast.nodes.map((n, idx) => {
         const label = n.props.label || n.id;
         let { width, height } = getTextSize(label);
-        width += n.hPadding * 2;
-        height += n.vPadding * 2;
+        width += n.hPadding * 2 + n.borderWidth * 2;
+        height += n.vPadding * 2 + n.borderWidth * 2;
         const regularShaped = ['circle', 'diamond'].includes(n.props.shape); // width === height
         if (regularShaped) {
           width = height = Math.max(width, height);

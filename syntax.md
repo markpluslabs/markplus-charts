@@ -1,12 +1,16 @@
+# MarkPlus Charts Syntax
+
+## Conventions for this document
+
+All sample values in this document represent default values unless explicitly stated as overrides.
+
 ## Global Settings
 
-### Direction
+### direction
 
 ```
 direction: right
 ```
-
-**Default**: `right`
 
 Sets the overall flowchart direction.
 Options are:
@@ -16,13 +20,11 @@ Options are:
 - `left`
 - `up`
 
-### Routing Style
+### routingStyle
 
 ```
 routingStyle: orthogonal
 ```
-
-**Default**: `orthogonal`
 
 Defines the style for routing links between nodes.
 Options are:
@@ -31,25 +33,21 @@ Options are:
 - `splines`
 - `polyline`
 
-### Spacing
+### spacing
 
 ```
 spacing: 64
 ```
 
-**Default**: `64`  
 **Minimum**: `16`
 
 Defines the space between adjacent nodes.
 
-### Node Padding
+### nodePadding
 
 ```
-nodePadding: 16 32
+nodePadding: 32
 ```
-
-**Default**: `16 32`  
-**Minimum**: `0`
 
 Sets global padding for all nodes, controlling the space between text inside a node and its edges. This padding may affect the overall node size.
 
@@ -71,10 +69,8 @@ Padding values can be set as:
 ### linkStyle
 
 ```
-linkStyle: dashed
+linkStyle: solid
 ```
-
-**Default: ** `solid`
 
 Defines the link style.
 Options are:
@@ -89,9 +85,30 @@ This value could be overriden per link:
 A ->{style: dotted} B
 ```
 
+### borderWidth
+
+```
+borderWidth: 2
+```
+
+Sets the border width for all nodes.
+
+This value could be overriden per node:
+
+```
+A {
+  borderWidth: 8
+}
+```
+
 ---
 
 ## Node Settings
+
+First of all, here are all the settings that applies to nodes to override global settings:
+
+- `padding` overrrides global `nodePadding`
+- `borderWidth` overrides global `borderWidth`
 
 ### Shape
 
@@ -110,15 +127,10 @@ Defines the node shape. Options are:
 - `ellipse`
 - `diamond`
 
-### Padding
+---
 
-```
-A {
-  padding: 16 32
-}
-```
+## Link Settings
 
-**Default**: `16 32`  
-**Minimum**: `0`
+First of all, here are all the settings that applies to nodes to override global settings:
 
-This setting overrides the global `nodePadding` for individual nodes. For details, see the [Global Node Padding](#node-padding) section.
+- `style` overrrides global `linkStyle`

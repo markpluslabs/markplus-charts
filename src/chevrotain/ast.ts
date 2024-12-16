@@ -5,6 +5,7 @@ export interface AstNode {
   id: string;
   vPadding: number;
   hPadding: number;
+  borderWidth: number;
   props: AstProps;
 }
 export interface AstLink {

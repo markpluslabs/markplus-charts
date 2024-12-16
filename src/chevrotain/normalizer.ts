@@ -14,7 +14,10 @@ const normalizePadding = (paddingStr: string): [number, number] => {
 export const normalize = (ast: Ast): Ast => {
   ast.nodes.forEach((n) => {
     [n.vPadding, n.hPadding] = normalizePadding(
-      n.props.padding ?? ast.props.nodePadding ?? '16 32',
+      n.props.padding ?? ast.props.nodePadding ?? '32',
+    );
+    n.borderWidth = parseInt(
+      n.props.borderWidth ?? ast.props.borderWidth ?? '2',
     );
   });
   ast.links.forEach((l) => {
