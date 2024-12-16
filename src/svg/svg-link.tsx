@@ -22,10 +22,10 @@ const SvgLink = (props: { points: Point[]; astLink: AstLink }): string => {
       fill="none"
       stroke="black"
       markerEnd={
-        astLink.props.direction !== 'none' ? 'url(#arrowhead)' : undefined
+        astLink.props.arrowHeads !== 'none' ? 'url(#arrowhead)' : undefined
       }
       markerStart={
-        astLink.props.direction === 'both' ? 'url(#arrowhead)' : undefined
+        astLink.props.arrowHeads === 'both' ? 'url(#arrowhead)' : undefined
       }
     />
   );

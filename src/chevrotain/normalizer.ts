@@ -23,6 +23,7 @@ export const normalize = (ast: Ast): Ast => {
   });
   ast.links.forEach((l) => {
     l.props.style = l.props.style ?? ast.props.linkStyle ?? 'solid';
+    l.props.arrowHeads = l.props.arrowHeads ?? ast.props.arrowHeads ?? 'end';
   });
   return ast;
 };

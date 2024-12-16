@@ -12,6 +12,7 @@ nodePadding: 32
 borderWidth: 2
 linkStyle: dashed
 nodeShape: circle
+arrowHeads: none
 
 A{label: Christmas; radius: 8; padding: 8}
 B{label: Go shopping}
@@ -30,7 +31,7 @@ B ->{style: dashed} C
 C ->{label: One; style: dotted} D
 C ->{label: Two} E
 C ->{label: Three} F
-F ->{direction:both} A
+F ->{arrowHeads:both} A
 `;
 
   const svgStr = await generate(input, true);

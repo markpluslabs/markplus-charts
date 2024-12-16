@@ -4,6 +4,8 @@
 
 All sample values in this document represent default values unless explicitly stated as overrides.
 
+You don't need to explicitly specify the settings if you are OK with the default values.
+
 ## Global Settings
 
 ### direction
@@ -124,6 +126,27 @@ A {
 }
 ```
 
+### arrowHeads
+
+```
+arrowHeads: end
+```
+
+Where to show an arrow head on links. By default it will show at the `end` of the link.
+Set it to `none` to disable arrow heads. Set it to `both` to show arrow heads at both ends.
+
+Options ares:
+
+- `end`
+- `none`
+- `both`
+
+This value could be overriden per link:
+
+```
+A ->{ arrowHeads: both } B
+```
+
 ---
 
 ## Node Settings
@@ -141,3 +164,4 @@ Here are all the settings that applies to nodes to override global settings:
 Here are all the settings that applies to nodes to override global settings:
 
 - `style` overrrides global `linkStyle`
+- `arrowHeads`overrides global `arrowHeads`
