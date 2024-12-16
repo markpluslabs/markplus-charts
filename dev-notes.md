@@ -3,37 +3,17 @@
 Run tests:
 
 ```
-vitest run
-```
-
-Build demo website:
-
-```
-bun packle
-```
-
-Server demo website:
-
-```
-bun serve public
-```
-
-Release demo website to GitHub Pages:
-
-```
-bun release
+bun vitest run
 ```
 
 ## Todo
 
 - how to handle syntax error
 - subgraph
-- write doc
 - chrome extension to generate structure for an article
 - support colors
   - node fill, node border, link, node text, label text, label background...etc.
 - some elk sample shows very smooth links
-- line end to terminate a propValue
 - sequence diagram is easier
 - support theme: light/dark/auto
   - use <style> in <svg>
