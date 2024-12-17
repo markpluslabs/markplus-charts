@@ -187,6 +187,26 @@ A ->{label: hello; bgColor: lightgray} B
 
 And it changes the link's label's background color.
 
+### fgColor
+
+```
+fgColor: black
+```
+
+The overall foreground color for the whole chart.
+
+This value could be overriden per node:
+
+```
+A { fgColor: darkblue }
+```
+
+This value could be overriden per link:
+
+```
+A ->{label: hello; bgColor: darkblue} B
+```
+
 ---
 
 ## Node Settings

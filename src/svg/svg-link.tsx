@@ -20,7 +20,7 @@ const SvgLink = (props: { points: Point[]; astLink: AstLink }): string => {
         .join(' ')
         .substring(1)}`}
       fill="none"
-      stroke="black"
+      stroke={astLink.props.fgColor}
       markerEnd={
         astLink.props.arrowHeads !== 'none' ? 'url(#arrowhead)' : undefined
       }

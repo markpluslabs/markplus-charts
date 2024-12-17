@@ -15,6 +15,7 @@ arrowHeads: none
 rectRadius: 8
 nodeShape: rect
 bgColor: skyblue
+fgColor: purple
 
 A{label: Christmas; rectRadius: 8; padding: 8; bgColor: lightgreen}
 B{label: Go shopping}

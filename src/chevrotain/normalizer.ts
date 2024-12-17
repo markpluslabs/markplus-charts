@@ -22,11 +22,13 @@ export const normalize = (ast: Ast): Ast => {
     n.props.shape = n.props.shape ?? ast.props.nodeShape ?? 'rect';
     n.props.rectRadius = n.props.rectRadius ?? ast.props.rectRadius ?? '0';
     n.props.bgColor = n.props.bgColor ?? ast.props.bgColor ?? 'none';
+    n.props.fgColor = n.props.fgColor ?? ast.props.fgColor ?? 'black';
   });
   ast.links.forEach((l) => {
     l.props.style = l.props.style ?? ast.props.linkStyle ?? 'solid';
     l.props.arrowHeads = l.props.arrowHeads ?? ast.props.arrowHeads ?? 'end';
     l.props.bgColor = l.props.bgColor ?? ast.props.bgColor ?? 'lightgray';
+    l.props.fgColor = l.props.fgColor ?? ast.props.fgColor ?? 'black';
   });
   return ast;
 };
