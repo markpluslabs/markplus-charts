@@ -27,9 +27,16 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       height: parseFloat(n.height!.toFixed(1)),
     };
     // node shape
-    shapes.push(<NodeShape frame={frame} astNode={ast.getNode(n.id)!} />);
+    const astNode = ast.getNode(n.id)!;
+    shapes.push(<NodeShape frame={frame} astNode={astNode} />);
     // node label text
-    shapeTexts.push(<SvgText text={n.labels![0].text!} frame={frame} />);
+    shapeTexts.push(
+      <SvgText
+        text={n.labels![0].text!}
+        frame={frame}
+        color={astNode.props.fgColor}
+      />,
+    );
   }
 
   for (const e of elkNode.edges ?? []) {
@@ -71,7 +78,13 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       />,
     );
     // label text
-    labelTexts.push(<SvgText text={label.text!} frame={frame} />);
+    labelTexts.push(
+      <SvgText
+        text={label.text!}
+        frame={frame}
+        color={astLink.props.fgColor}
+      />,
+    );
   }
 
   return (

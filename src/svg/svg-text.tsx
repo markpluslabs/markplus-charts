@@ -4,7 +4,11 @@ import { jsx } from 'jsx2str';
 import CONSTS from '../consts';
 import { Rect } from './interfaces';
 
-const SvgText = (props: { text: string; frame: Rect }): string => {
+const SvgText = (props: {
+  text: string;
+  frame: Rect;
+  color: string;
+}): string => {
   const { text, frame } = props;
   const lines = text.split('\n');
   const totalTextHeight = lines.length * CONSTS.LINE_HEIGHT;
@@ -17,6 +21,7 @@ const SvgText = (props: { text: string; frame: Rect }): string => {
       fontFamily={CONSTS.FONT_FAMILY}
       fontSize={CONSTS.FONT_SIZE}
       textAnchor="middle"
+      fill={props.color}
     >
       {lines.map((line, index) => (
         <tspan
