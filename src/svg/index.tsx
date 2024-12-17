@@ -5,7 +5,7 @@ import { jsx } from 'jsx2str';
 import Ast from '../chevrotain/ast';
 import { Point } from './interfaces';
 import SvgLink from './svg-link';
-import { NodeShape, TextSpan } from './svg-node';
+import { NodeShape, RectShape } from './svg-node';
 import SvgText from './svg-text';
 
 const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
@@ -61,7 +61,7 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       height: parseFloat(height!.toFixed(1)),
     };
     labels.push(
-      <TextSpan
+      <RectShape
         frame={frame}
         svgProps={{
           stroke: 'none',

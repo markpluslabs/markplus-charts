@@ -4,7 +4,10 @@ import { jsx } from 'jsx2str';
 import { AstNode } from '../chevrotain/ast';
 import { Rect, SvgProps } from './interfaces';
 
-const RectShape = (props: { frame: Rect; svgProps: SvgProps }): string => {
+export const RectShape = (props: {
+  frame: Rect;
+  svgProps: SvgProps;
+}): string => {
   const { frame, svgProps } = props;
   const strokeWidth = svgProps.strokeWidth as number;
   return (
@@ -91,11 +94,4 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
     case 'diamond':
       return <DiamondShape frame={frame} svgProps={commonProps} />;
   }
-};
-
-export const TextSpan = (props: {
-  frame: Rect;
-  svgProps: SvgProps;
-}): string => {
-  return <RectShape frame={props.frame} svgProps={props.svgProps} />;
 };
