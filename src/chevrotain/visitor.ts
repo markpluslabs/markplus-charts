@@ -43,7 +43,7 @@ class Visitor extends BaseVisitor {
     if (ctx.fromNodeProps) {
       fromNodeProps = this.visit(ctx.fromNodeProps[0]);
     }
-    nodes.push({ id: fromNodeId, props: fromNodeProps });
+    nodes.push({ id: fromNodeId, props: fromNodeProps } as AstNode);
 
     let link: AstLink | undefined = undefined;
     if (ctx.link) {
@@ -52,7 +52,7 @@ class Visitor extends BaseVisitor {
       if (ctx.toNodeProps) {
         toNodeProps = this.visit(ctx.toNodeProps[0]);
       }
-      nodes.push({ id: toNodeId, props: toNodeProps });
+      nodes.push({ id: toNodeId, props: toNodeProps } as AstNode);
 
       let linkProps = {};
       if (ctx.linkProps) {
