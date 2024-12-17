@@ -74,7 +74,7 @@ export const DiamondShape = (props: {
 export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
   const { frame, astNode } = props;
   const commonProps = {
-    fill: 'none',
+    fill: astNode.props.bgColor,
     stroke: 'black',
     strokeWidth: astNode.borderWidth,
   };

@@ -173,6 +173,12 @@ Transparent background may not look very well in some dark-themed pages. Since t
 
 `none` or not specified at all means background is transparent.
 
+This value could be overriden per node:
+
+```
+A { bgColor: gray }
+```
+
 ---
 
 ## Node Settings
@@ -182,6 +188,8 @@ Here are all the settings that applies to nodes to override global settings:
 - `padding` overrrides global `nodePadding`
 - `borderWidth` overrides global `borderWidth`
 - `shape` overrides global `nodeShape`
+- `rectRadius` overrides global `rectRadius`
+- `bgColor` overrides global `bgColor`
 
 ### Label
 

@@ -16,7 +16,7 @@ rectRadius: 8
 nodeShape: rect
 bgColor: skyblue
 
-A{label: Christmas; rectRadius: 8; padding: 8}
+A{label: Christmas; rectRadius: 8; padding: 8; bgColor: lightgreen}
 B{label: Go shopping}
 C{label: Let me\\nthink; shape: diamond}
 // You will need to escape "//":

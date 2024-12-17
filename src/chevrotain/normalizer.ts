@@ -21,6 +21,7 @@ export const normalize = (ast: Ast): Ast => {
     );
     n.props.shape = n.props.shape ?? ast.props.nodeShape ?? 'rect';
     n.props.rectRadius = n.props.rectRadius ?? ast.props.rectRadius ?? '0';
+    n.props.bgColor = n.props.bgColor ?? ast.props.bgColor ?? 'none';
   });
   ast.links.forEach((l) => {
     l.props.style = l.props.style ?? ast.props.linkStyle ?? 'solid';
