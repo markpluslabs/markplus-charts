@@ -11,8 +11,6 @@ bun vitest run
 - how to handle syntax error
 - subgraph
 - chrome extension to generate structure for an article
-- support colors
-  - node fill, node border, link, node text, label text, label background...etc.
 - some elk sample shows very smooth links
 - sequence diagram is easier
 - support theme: light/dark/auto

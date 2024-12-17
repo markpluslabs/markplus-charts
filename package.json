@@ -1,6 +1,6 @@
 {
   "name": "markplus-charts",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "src/index.tsx",
   "types": "src/index.tsx",
