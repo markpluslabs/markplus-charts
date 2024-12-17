@@ -4,10 +4,7 @@ import { jsx } from 'jsx2str';
 import { AstNode } from '../chevrotain/ast';
 import { Rect, SvgProps } from './interfaces';
 
-const RectShape = (props: {
-  frame: Rect;
-  svgProps: { [key: string]: number | string };
-}): string => {
+const RectShape = (props: { frame: Rect; svgProps: SvgProps }): string => {
   const { frame, svgProps } = props;
   const strokeWidth = svgProps.strokeWidth as number;
   return (
@@ -96,11 +93,9 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
   }
 };
 
-export const TextSpan = (props: { frame: Rect }): string => {
-  return (
-    <RectShape
-      frame={props.frame}
-      svgProps={{ fill: 'lightgray', stroke: 'none', strokeWidth: 0 }}
-    />
-  );
+export const TextSpan = (props: {
+  frame: Rect;
+  svgProps: SvgProps;
+}): string => {
+  return <RectShape frame={props.frame} svgProps={props.svgProps} />;
 };

@@ -34,6 +34,7 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
 
   for (const e of elkNode.edges ?? []) {
     // link
+    const astLink = ast.getLink(e.id)!;
     const points: Point[] = e
       .sections!.reduce<Point[]>(
         (r, s) => [...r, s.startPoint, ...(s.bendPoints ?? []), s.endPoint],
@@ -45,7 +46,7 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       }))
       // remove adjacent duplicates
       .filter((p, i, a) => i === 0 || p.x !== a[i - 1].x || p.y !== a[i - 1].y);
-    links.push(<SvgLink points={points} astLink={ast.getLink(e.id)!} />);
+    links.push(<SvgLink points={points} astLink={astLink} />);
 
     // label
     if (!(e.labels && e.labels.length > 0)) {
@@ -59,7 +60,16 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       width: parseFloat(width!.toFixed(1)),
       height: parseFloat(height!.toFixed(1)),
     };
-    labels.push(<TextSpan frame={frame} />);
+    labels.push(
+      <TextSpan
+        frame={frame}
+        svgProps={{
+          stroke: 'none',
+          strokeWidth: 0,
+          fill: astLink.props.bgColor,
+        }}
+      />,
+    );
     // label text
     labelTexts.push(<SvgText text={label.text!} frame={frame} />);
   }

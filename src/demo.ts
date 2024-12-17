@@ -31,7 +31,7 @@ Z{label: stand alone}
 A -> B
 B ->{style: dashed} C
 C ->{label: One; style: dotted} D
-C ->{label: Two} E
+C ->{label: Two; bgColor: lightyellow} E
 C ->{label: Three} F
 F ->{arrowHeads:both} A
 `;
