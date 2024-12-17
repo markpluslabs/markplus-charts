@@ -106,8 +106,9 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
             refX="10"
             refY="3.5"
             orient="auto-start-reverse"
+            fill="context-stroke"
           >
-            <polygon points="0 0, 10 3.5, 0 7" fill="black" />
+            <polygon points="0 0, 10 3.5, 0 7" />
           </marker>
         </defs>
       )}
