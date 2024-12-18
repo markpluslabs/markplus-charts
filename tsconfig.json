@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react",
+    "outDir": "./lib",
+    "declaration": true
   },
   "files": ["./src/index.tsx", "./src/@types/index.d.ts"]
 }

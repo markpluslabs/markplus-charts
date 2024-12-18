@@ -13,23 +13,15 @@ While I appreciate the capabilities of Mermaid and Chart.js, their heavy depende
 ## Install
 
 ```
-bun add markplus-charts
+yarn add add markplus-charts
 ```
-
-## TypeScript first library
-
-This is a TypeScript first library.
-Which means, you will need to use TypeScript to use this library.
-
-Because I am so tired of the ESM vs CommonJS war.
-If I release JavaScript code, you will have this or that kind of issues.
 
 ## Usage
 
 ```ts
 import { generate } from 'markplus-charts';
 
-const svgStr = generate('A -> B');
+const svgStr = await generate('A -> B');
 ```
 
 ## Chart syntax

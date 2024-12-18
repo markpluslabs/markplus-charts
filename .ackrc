@@ -1,4 +1,4 @@
---ignore-file=match:/^bun\.lockb$/
+--ignore-file=match:/^yarn\.lock$/
 --ignore-file=match:/^demo\.svg$/
 --ignore-dir=public
 --ignore-dir=lib

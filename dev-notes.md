@@ -3,7 +3,7 @@
 Run tests:
 
 ```
-bun vitest run
+yarn vitest run
 ```
 
 ## Todo
