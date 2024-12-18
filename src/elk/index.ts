@@ -12,9 +12,7 @@ const getTextSize = (text: string) => {
 };
 
 export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
-  const elk = new ELK({
-    workerUrl: require.resolve('elkjs/lib/elk-worker.js'),
-  });
+  const elk = new ELK();
   if (debug) {
     console.log(JSON.stringify(ast, null, 2));
     const temp = elk.layout.bind(elk);
@@ -148,6 +146,5 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
       },
     },
   );
-  elk.terminateWorker();
   return elkNode;
 };
