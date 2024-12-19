@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'jsx2str';
 
-import { AstLink } from '../chevrotain/ast';
-import { Point } from './interfaces';
+import { AstLink } from '../chevrotain/ast.js';
+import { Point } from './interfaces.js';
 
 const SvgLink = (props: { points: Point[]; astLink: AstLink }): string => {
   const { points, astLink } = props;

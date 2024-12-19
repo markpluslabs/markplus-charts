@@ -3,7 +3,9 @@
     "esModuleInterop": true,
     "jsx": "react",
     "outDir": "./lib",
-    "declaration": true
+    "declaration": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
   },
   "files": ["./src/index.tsx", "./src/@types/index.d.ts"]
 }

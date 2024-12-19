@@ -1,4 +1,4 @@
-import Ast from './ast';
+import Ast from './ast.js';
 
 const normalizePadding = (paddingStr: string): [number, number] => {
   let [vPadding, hPadding] = (paddingStr ?? '16 32')

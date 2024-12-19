@@ -1,8 +1,8 @@
-import Ast from './ast';
-import lexer from './lexer';
-import { normalize } from './normalizer';
-import parser from './parser';
-import visitor from './visitor';
+import Ast from './ast.js';
+import lexer from './lexer.js';
+import { normalize } from './normalizer.js';
+import parser from './parser.js';
+import visitor from './visitor.js';
 
 export const generateAst = (input: string): Ast => {
   // lexing

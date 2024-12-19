@@ -1,7 +1,7 @@
 import { CstNode } from 'chevrotain';
 
-import Ast, { AstLink, AstNode, AstProps } from './ast';
-import parser from './parser';
+import Ast, { AstLink, AstNode, AstProps } from './ast.js';
+import parser from './parser.js';
 
 const BaseVisitor = parser.getBaseCstVisitorConstructor();
 

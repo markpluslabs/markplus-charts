@@ -2,11 +2,11 @@
 import { ElkNode } from 'elkjs';
 import { jsx } from 'jsx2str';
 
-import Ast from '../chevrotain/ast';
-import { Point } from './interfaces';
-import SvgLink from './svg-link';
-import { NodeShape, RectShape } from './svg-node';
-import SvgText from './svg-text';
+import Ast from '../chevrotain/ast.js';
+import { Point } from './interfaces.js';
+import SvgLink from './svg-link.js';
+import { NodeShape, RectShape } from './svg-node.js';
+import SvgText from './svg-text.js';
 
 const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
   const { ast, elkNode } = props;

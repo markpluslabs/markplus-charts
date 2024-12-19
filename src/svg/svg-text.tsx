@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'jsx2str';
 
-import CONSTS from '../consts';
-import { Rect } from './interfaces';
+import CONSTS from '../consts.js';
+import { Rect } from './interfaces.js';
 
 const SvgText = (props: {
   text: string;

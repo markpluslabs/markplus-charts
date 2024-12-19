@@ -7,7 +7,7 @@ import {
   Node0,
   PropKey,
   PropValue,
-} from './lexer';
+} from './lexer.js';
 
 class Parser extends CstParser {
   constructor() {

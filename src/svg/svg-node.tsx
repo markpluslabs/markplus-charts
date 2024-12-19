@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'jsx2str';
 
-import { AstNode } from '../chevrotain/ast';
-import { Rect, SvgProps } from './interfaces';
+import { AstNode } from '../chevrotain/ast.js';
+import { Rect, SvgProps } from './interfaces.js';
 
 export const RectShape = (props: {
   frame: Rect;

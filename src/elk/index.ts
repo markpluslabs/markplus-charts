@@ -1,7 +1,7 @@
 import ELK, { ElkExtendedEdge, ElkNode } from 'elkjs';
 
-import Ast from '../chevrotain/ast';
-import CONSTS from '../consts';
+import Ast from '../chevrotain/ast.js';
+import CONSTS from '../consts.js';
 
 const getTextSize = (text: string) => {
   const lines = text.split('\n');
@@ -12,7 +12,7 @@ const getTextSize = (text: string) => {
 };
 
 export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
-  const elk = new ELK();
+  const elk = new ELK.default();
   if (debug) {
     console.log(JSON.stringify(ast, null, 2));
     const temp = elk.layout.bind(elk);

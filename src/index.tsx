@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, options } from 'jsx2str';
 
-import { generateAst, normalizeAst } from './chevrotain';
-import { layout } from './elk';
-import Svg from './svg';
+import { generateAst, normalizeAst } from './chevrotain/index.js';
+import { layout } from './elk/index.js';
+import Svg from './svg/index.js';
 
 export const generate = async (
   input: string,
