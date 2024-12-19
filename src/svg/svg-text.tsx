@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { jsx } from 'jsx2str';
 
 import CONSTS from '../consts.js';

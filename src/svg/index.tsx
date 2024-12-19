@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import { ElkNode } from 'elkjs';
 import { jsx } from 'jsx2str';
 
