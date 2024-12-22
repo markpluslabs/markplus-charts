@@ -8,7 +8,6 @@ yarn vitest run
 
 ## Todo
 
-- how to handle syntax error
 - subgraph
 - chrome extension to generate structure for an article
 - some elk sample shows very smooth links
