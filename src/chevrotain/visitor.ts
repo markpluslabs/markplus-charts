@@ -1,7 +1,7 @@
-import { CstNode } from 'chevrotain';
+import { CstNode } from "chevrotain";
 
-import Ast, { AstLink, AstNode, AstProps } from './ast.js';
-import parser from './parser.js';
+import Ast, { AstLink, AstNode, AstProps } from "./ast.js";
+import parser from "./parser.js";
 
 const BaseVisitor = parser.getBaseCstVisitorConstructor();
 
@@ -28,7 +28,7 @@ class Visitor extends BaseVisitor {
       });
       if (link) {
         while (ast.links.find((l) => l.id === link.id)) {
-          link.id += '-';
+          link.id += "-";
         }
         ast.links.push(link);
       }
@@ -77,13 +77,13 @@ class Visitor extends BaseVisitor {
   }
 
   property(ctx) {
-    const propKey = ctx.propKey[0].image.replace(/:$/, '').trim();
+    const propKey = ctx.propKey[0].image.replace(/:$/, "").trim();
     const propValue = ctx.propValue[0].image
       .trim()
-      .replace(/\\;/g, ';')
-      .replace(/\\n/g, '\n')
-      .replace(/\\}/g, '}')
-      .replace(/\\\//g, '/');
+      .replace(/\\;/g, ";")
+      .replace(/\\n/g, "\n")
+      .replace(/\\}/g, "}")
+      .replace(/\\\//g, "/");
     return { [propKey]: propValue };
   }
 }

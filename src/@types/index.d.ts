@@ -1,9 +1,9 @@
-import 'elkjs'; // required to extend the module typings
+import "elkjs"; // required to extend the module typings
 
-declare module 'elkjs' {
+declare module "elkjs" {
   interface ElkNode {
     properties?: {
-      portConstraints: 'FIXED_POS';
+      portConstraints: "FIXED_POS";
       partition: 0 | 1;
     };
   }

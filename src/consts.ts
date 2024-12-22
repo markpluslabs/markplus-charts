@@ -1,5 +1,5 @@
 const CONSTS = {
-  FONT_FAMILY: 'Courier New',
+  FONT_FAMILY: "Courier New",
   FONT_SIZE: 16,
 
   get CHARACTER_WIDTH() {

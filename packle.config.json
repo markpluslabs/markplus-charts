@@ -1,7 +1,0 @@
-[
-  {
-    "target": "node",
-    "outDir": "./lib",
-    "jsEntries": ["./src/index.tsx", "./src/@types/index.d.ts"]
-  }
-]

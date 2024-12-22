@@ -1,7 +1,7 @@
-import { jsx } from 'jsx2str';
+import { jsx } from "jsx2str";
 
-import CONSTS from '../consts.js';
-import { Rect } from './interfaces.js';
+import CONSTS from "../consts.js";
+import { Rect } from "./interfaces.js";
 
 const SvgText = (props: {
   text: string;
@@ -9,7 +9,7 @@ const SvgText = (props: {
   color: string;
 }): string => {
   const { text, frame } = props;
-  const lines = text.split('\n');
+  const lines = text.split("\n");
   const totalTextHeight = lines.length * CONSTS.LINE_HEIGHT;
   const centerY = frame.y + frame.height / 2;
   const startY = centerY - totalTextHeight / 2 + CONSTS.BASELINE_HEIGHT;

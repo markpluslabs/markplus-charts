@@ -1,6 +1,6 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync } from "fs";
 
-import { generate } from '.';
+import { generate } from ".";
 
 const main = async () => {
   const input = `
@@ -38,6 +38,6 @@ F ->{arrowHeads:both} A
 `;
 
   const svgStr = await generate(input, true);
-  writeFileSync('demo.svg', svgStr);
+  writeFileSync("demo.svg", svgStr);
 };
 main();

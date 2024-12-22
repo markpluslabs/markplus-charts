@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx, options } from 'jsx2str';
+import { jsx, options } from "jsx2str";
 
-import { generateAst, normalizeAst } from './chevrotain/index.js';
-import { layout } from './elk/index.js';
-import Svg from './svg/index.js';
+import { generateAst, normalizeAst } from "./chevrotain/index.js";
+import { layout } from "./elk/index.js";
+import Svg from "./svg/index.js";
 
 export const generate = async (
   input: string,
@@ -13,7 +13,7 @@ export const generate = async (
   const elkNode = await layout(ast, debug);
   const oldVal = options.formatOutput;
   options.formatOutput = debug;
-  const svgStr = (<Svg ast={ast} elkNode={elkNode} />) as string;
+  const svgStr = <Svg ast={ast} elkNode={elkNode} /> as string;
   options.formatOutput = oldVal;
   return svgStr;
 };

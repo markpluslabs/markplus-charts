@@ -1,11 +1,11 @@
-import { ElkNode } from 'elkjs';
-import { jsx } from 'jsx2str';
+import { ElkNode } from "elkjs";
+import { jsx } from "jsx2str";
 
-import Ast from '../chevrotain/ast.js';
-import { Point } from './interfaces.js';
-import SvgLink from './svg-link.js';
-import { NodeShape, RectShape } from './svg-node.js';
-import SvgText from './svg-text.js';
+import Ast from "../chevrotain/ast.js";
+import { Point } from "./interfaces.js";
+import SvgLink from "./svg-link.js";
+import { NodeShape, RectShape } from "./svg-node.js";
+import SvgText from "./svg-text.js";
 
 const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
   const { ast, elkNode } = props;
@@ -70,7 +70,7 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       <RectShape
         frame={frame}
         svgProps={{
-          stroke: 'none',
+          stroke: "none",
           strokeWidth: 0,
           fill: astLink.props.bgColor,
         }}
@@ -93,10 +93,10 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       height={height}
       viewBox={`0 0 ${width} ${height}`}
     >
-      {ast.props.bgColor && ast.props.bgColor !== 'none' && (
+      {ast.props.bgColor && ast.props.bgColor !== "none" && (
         <rect width="100%" height="100%" fill={ast.props.bgColor} />
       )}
-      {ast.links.some((l) => l.props.arrowHeads !== 'none') && (
+      {ast.links.some((l) => l.props.arrowHeads !== "none") && (
         <defs>
           <marker
             id="arrowhead"

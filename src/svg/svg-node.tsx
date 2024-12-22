@@ -1,7 +1,7 @@
-import { jsx } from 'jsx2str';
+import { jsx } from "jsx2str";
 
-import { AstNode } from '../chevrotain/ast.js';
-import { Rect, SvgProps } from './interfaces.js';
+import { AstNode } from "../chevrotain/ast.js";
+import { Rect, SvgProps } from "./interfaces.js";
 
 export const RectShape = (props: {
   frame: Rect;
@@ -59,12 +59,18 @@ export const DiamondShape = (props: {
   const strokeWidth = svgProps.strokeWidth as number;
   return (
     <polygon
-      points={
-        `${(x + width / 2).toFixed(1)},${(y + (strokeWidth / 2) * 2 ** 0.5).toFixed(1)}` +
-        ` ${(x + width - (strokeWidth / 2) * 2 ** 0.5).toFixed(1)},${(y + height / 2).toFixed(1)}` +
-        ` ${(x + width / 2).toFixed(1)},${(y + height - (strokeWidth / 2) * 2 ** 0.5).toFixed(1)} ` +
-        `${(x + (strokeWidth / 2) * 2 ** 0.5).toFixed(1)},${(y + height / 2).toFixed(1)}`
-      }
+      points={`${(x + width / 2).toFixed(1)},${
+        (y + (strokeWidth / 2) * 2 ** 0.5).toFixed(1)
+      }` +
+        ` ${(x + width - (strokeWidth / 2) * 2 ** 0.5).toFixed(1)},${
+          (y + height / 2).toFixed(1)
+        }` +
+        ` ${(x + width / 2).toFixed(1)},${
+          (y + height - (strokeWidth / 2) * 2 ** 0.5).toFixed(1)
+        } ` +
+        `${(x + (strokeWidth / 2) * 2 ** 0.5).toFixed(1)},${
+          (y + height / 2).toFixed(1)
+        }`}
       {...svgProps}
     />
   );
@@ -78,7 +84,7 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
     strokeWidth: astNode.borderWidth,
   };
   switch (astNode.props.shape) {
-    case 'rect': {
+    case "rect": {
       const svgProps = commonProps as typeof commonProps & {
         rx?: string;
         ry?: string;
@@ -86,11 +92,11 @@ export const NodeShape = (props: { frame: Rect; astNode: AstNode }): string => {
       svgProps.rx = svgProps.ry = astNode.props.rectRadius;
       return <RectShape frame={frame} svgProps={svgProps} />;
     }
-    case 'circle':
+    case "circle":
       return <CircleShape frame={frame} svgProps={commonProps} />;
-    case 'ellipse':
+    case "ellipse":
       return <EllipseShape frame={frame} svgProps={commonProps} />;
-    case 'diamond':
+    case "diamond":
       return <DiamondShape frame={frame} svgProps={commonProps} />;
   }
 };

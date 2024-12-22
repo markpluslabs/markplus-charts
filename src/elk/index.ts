@@ -1,12 +1,12 @@
-import ELK, { ElkExtendedEdge, ElkNode } from 'elkjs';
+import ELK, { ElkExtendedEdge, ElkNode } from "elkjs";
 
-import Ast from '../chevrotain/ast.js';
-import CONSTS from '../consts.js';
+import Ast from "../chevrotain/ast.js";
+import CONSTS from "../consts.js";
 
 const getTextSize = (text: string) => {
-  const lines = text.split('\n');
-  const width =
-    CONSTS.CHARACTER_WIDTH * Math.max(...lines.map((line) => line.length));
+  const lines = text.split("\n");
+  const width = CONSTS.CHARACTER_WIDTH *
+    Math.max(...lines.map((line) => line.length));
   const height = CONSTS.LINE_HEIGHT * lines.length;
   return { width, height };
 };
@@ -24,27 +24,27 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
     };
   }
   let direction = ast.props.direction?.toUpperCase();
-  if (!['UP', 'DOWN', 'LEFT', 'RIGHT'].includes(direction)) {
-    direction = 'RIGHT';
+  if (!["UP", "DOWN", "LEFT", "RIGHT"].includes(direction)) {
+    direction = "RIGHT";
   }
   let routingStyle = ast.props.routingStyle?.toUpperCase();
-  if (!['ORTHOGONAL', 'POLYLINE', 'SPLINES'].includes(routingStyle)) {
-    routingStyle = 'ORTHOGONAL';
+  if (!["ORTHOGONAL", "POLYLINE", "SPLINES"].includes(routingStyle)) {
+    routingStyle = "ORTHOGONAL";
   }
-  let spacing = parseInt(ast.props.spacing ?? '64');
+  let spacing = parseInt(ast.props.spacing ?? "64");
   if (isNaN(spacing)) {
     spacing = 64;
   }
   spacing = Math.max(spacing, 16);
   const elkNode = await elk.layout(
     {
-      id: 'root',
+      id: "root",
       children: ast.nodes.map((n, idx) => {
         const label = n.props.label || n.id;
         let { width, height } = getTextSize(label);
         width += n.hPadding * 2 + n.borderWidth * 2;
         height += n.vPadding * 2 + n.borderWidth * 2;
-        const regularShaped = ['circle', 'diamond'].includes(n.props.shape); // width === height
+        const regularShaped = ["circle", "diamond"].includes(n.props.shape); // width === height
         if (regularShaped) {
           width = height = Math.max(width, height);
         }
@@ -76,32 +76,32 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
             },
           ],
           properties: {
-            portConstraints: 'FIXED_POS',
+            portConstraints: "FIXED_POS",
             partition: idx > 0 ? 1 : 0, // first node always first
           },
         };
         return r;
       }),
       edges: ast.links.map((e) => {
-        let sourcePort = '';
-        let targetPort = '';
+        let sourcePort = "";
+        let targetPort = "";
         switch (direction) {
-          case 'DOWN': {
+          case "DOWN": {
             sourcePort = `${e.from}_d`;
             targetPort = `${e.to}_u`;
             break;
           }
-          case 'UP': {
+          case "UP": {
             sourcePort = `${e.from}_u`;
             targetPort = `${e.to}_d`;
             break;
           }
-          case 'LEFT': {
+          case "LEFT": {
             sourcePort = `${e.from}_l`;
             targetPort = `${e.to}_r`;
             break;
           }
-          case 'RIGHT': {
+          case "RIGHT": {
             sourcePort = `${e.from}_r`;
             targetPort = `${e.to}_l`;
             break;
@@ -126,23 +126,23 @@ export const layout = async (ast: Ast, debug = false): Promise<ElkNode> => {
     },
     {
       layoutOptions: {
-        algorithm: 'layered',
-        'elk.direction': direction,
+        algorithm: "layered",
+        "elk.direction": direction,
         edgeRouting: routingStyle,
-        'spacing.baseValue': String(spacing),
-        'edgeLabels.inline': 'true',
+        "spacing.baseValue": String(spacing),
+        "edgeLabels.inline": "true",
 
         // to preserve the order of nodes in the same layer
-        'crossingMinimization.forceNodeModelOrder': 'true',
+        "crossingMinimization.forceNodeModelOrder": "true",
         // below is required: https://github.com/kieler/elkjs/issues/304
-        'considerModelOrder.strategy': 'NODES_AND_EDGES',
+        "considerModelOrder.strategy": "NODES_AND_EDGES",
 
         // to make first node always appear in first layer
-        'partitioning.activate': 'true',
+        "partitioning.activate": "true",
 
         // todo: https://github.com/kieler/elkjs/issues/304
         // to make long edges choose the shorter path. This is not needed in future versions of ELK
-        'considerModelOrder.longEdgeStrategy': 'DUMMY_NODE_UNDER',
+        "considerModelOrder.longEdgeStrategy": "DUMMY_NODE_UNDER",
       },
     },
   );
