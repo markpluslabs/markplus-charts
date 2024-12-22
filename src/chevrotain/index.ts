@@ -3,13 +3,14 @@ import lexer from "./lexer.js";
 import { normalize } from "./normalizer.js";
 import parser from "./parser.js";
 import visitor from "./visitor.js";
+import { formatLexingErrors, formatParsingErrors } from "./errors.js";
 
 export const generateAst = (input: string): Ast => {
   // lexing
   const lexingResult = lexer.tokenize(input);
   if (lexingResult.errors.length > 0) {
     throw new Error(
-      "Lexing errors: " + JSON.stringify(lexingResult.errors, null, 2),
+      formatLexingErrors(lexingResult.errors, input),
     );
   }
 
@@ -18,7 +19,7 @@ export const generateAst = (input: string): Ast => {
   const cst = parser.parse();
   if (parser.errors.length > 0) {
     throw new Error(
-      "Parsing errors: " + JSON.stringify(parser.errors, null, 2),
+      formatParsingErrors(parser.errors, input),
     );
   }
 

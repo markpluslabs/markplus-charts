@@ -1,10 +1,14 @@
 {
   "name": "markplus-charts",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "module",
+  "scripts": {
+    "prepublishOnly": "tsc",
+    "postpublish": "rm -rf lib"
+  },
   "dependencies": {
     "chevrotain": "^11.0.3",
     "elkjs": "^0.9.3",

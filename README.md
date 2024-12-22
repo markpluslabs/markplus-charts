@@ -21,7 +21,11 @@ yarn add add markplus-charts
 ```ts
 import { generate } from 'markplus-charts';
 
-const svgStr = await generate('A -> B');
+try {
+  const svgStr = await generate('A -> B');
+} catch(e) {
+  console.log(e.message);
+}
 ```
 
 ## Chart syntax
