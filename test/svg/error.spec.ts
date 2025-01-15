@@ -9,7 +9,6 @@ describe("errors", () => {
       await generate("A -> ❌");
     } catch (e) {
       error = true;
-      console.log(e.message);
       expect(e.message).toMatch("Lexing error at ");
     }
     expect(error).toBe(true);
@@ -21,7 +20,6 @@ describe("errors", () => {
       await generate("A ->");
     } catch (e) {
       error = true;
-      console.log(e.message);
       expect(e.message).toMatch("Parsing error at ");
     }
     expect(error).toBe(true);

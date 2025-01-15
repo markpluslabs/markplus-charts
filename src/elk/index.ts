@@ -3,10 +3,40 @@ import ELK, { ElkExtendedEdge, ElkNode } from "elkjs";
 import Ast from "../chevrotain/ast.js";
 import CONSTS from "../consts.js";
 
+function getStringWidth(str: string): number {
+  let totalWidth = 0;
+
+  for (const char of str) {
+    // Get the Unicode code point of the character
+    const codePoint = char.codePointAt(0);
+
+    // Check if the character is in the full-width or wide ranges
+    if (
+      // Full-width ASCII variants (U+FF01 to U+FF60, U+FFE0 to U+FFE6)
+      (codePoint >= 0xFF01 && codePoint <= 0xFF60) ||
+      (codePoint >= 0xFFE0 && codePoint <= 0xFFE6) ||
+      // CJK Unified Ideographs (U+4E00 to U+9FFF)
+      (codePoint >= 0x4E00 && codePoint <= 0x9FFF) ||
+      // Hangul Syllables (U+AC00 to U+D7AF)
+      (codePoint >= 0xAC00 && codePoint <= 0xD7AF) ||
+      // Emoji and other wide characters
+      (codePoint >= 0x1F600 && codePoint <= 0x1F64F) || // Emoticons
+      (codePoint >= 0x1F300 && codePoint <= 0x1F5FF) || // Miscellaneous Symbols and Pictographs
+      (codePoint >= 0x1F900 && codePoint <= 0x1F9FF) // Supplemental Symbols and Pictographs
+    ) {
+      totalWidth += 2; // Full-width or wide character
+    } else {
+      totalWidth += 1; // Narrow or half-width character
+    }
+  }
+
+  return totalWidth;
+}
+
 const getTextSize = (text: string) => {
   const lines = text.split("\n");
   const width = CONSTS.CHARACTER_WIDTH *
-    Math.max(...lines.map((line) => line.length));
+    Math.max(...lines.map((line) => getStringWidth(line)));
   const height = CONSTS.LINE_HEIGHT * lines.length;
   return { width, height };
 };
