@@ -86,6 +86,32 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
     );
   }
 
+  // global background color
+  let bgColor = null;
+  if (ast.props.bgColor && ast.props.bgColor !== "none") {
+    bgColor = <rect width="100%" height="100%" fill={ast.props.bgColor} />;
+  }
+
+  // arrow head definition
+  let arrowHead = null;
+  if (ast.links.some((l) => l.props.arrowHeads !== "none")) {
+    arrowHead = (
+      <defs>
+        <marker
+          id="arrowhead"
+          markerWidth="10"
+          markerHeight="7"
+          refX="10"
+          refY="3.5"
+          orient="auto-start-reverse"
+          fill="context-stroke"
+        >
+          <polygon points="0 0, 10 3.5, 0 7" />
+        </marker>
+      </defs>
+    );
+  }
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -93,24 +119,8 @@ const Svg = (props: { ast: Ast; elkNode: ElkNode }): string => {
       height={height}
       viewBox={`0 0 ${width} ${height}`}
     >
-      {ast.props.bgColor && ast.props.bgColor !== "none" && (
-        <rect width="100%" height="100%" fill={ast.props.bgColor} />
-      )}
-      {ast.links.some((l) => l.props.arrowHeads !== "none") && (
-        <defs>
-          <marker
-            id="arrowhead"
-            markerWidth="10"
-            markerHeight="7"
-            refX="10"
-            refY="3.5"
-            orient="auto-start-reverse"
-            fill="context-stroke"
-          >
-            <polygon points="0 0, 10 3.5, 0 7" />
-          </marker>
-        </defs>
-      )}
+      {bgColor}
+      {arrowHead}
       {shapes}
       {shapeTexts}
       {links}

@@ -24,4 +24,18 @@ describe("errors", () => {
     }
     expect(error).toBe(true);
   });
+
+  test("parsing empty", async () => {
+    let error = false;
+    try {
+      const r = await generate("");
+      expect(r.includes("false")).toBeFalsy();
+      expect(r).toBe(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" viewBox="0 0 0 0"></svg>',
+      );
+    } catch (e) {
+      error = true;
+    }
+    expect(error).toBe(false);
+  });
 });

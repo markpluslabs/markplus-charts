@@ -16,7 +16,7 @@ class Visitor extends BaseVisitor {
     if (ctx.globalProps) {
       ast.props = this.visit(ctx.globalProps[0]);
     }
-    ctx.statements.forEach((c: CstNode) => {
+    ctx.statements?.forEach((c: CstNode) => {
       const { nodes, link } = this.visit(c);
       nodes.forEach((n) => {
         const existingNode = ast.nodes.find((m) => m.id === n.id);
