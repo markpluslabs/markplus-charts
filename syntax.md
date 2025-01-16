@@ -2,11 +2,16 @@
 
 ## Conventions for this document
 
-All sample values in this document represent default values unless explicitly stated as overrides.
+All sample values in this document represent default values unless explicitly
+stated as overrides.
 
-You don't need to explicitly specify the settings if you are OK with the default values.
+You don't need to explicitly specify the settings if you are OK with the default
+values.
 
 ## Global Settings
+
+Global settings needs to be declared at the beginning, before the declaration of
+any nodes or links.
 
 ### direction
 
@@ -14,8 +19,7 @@ You don't need to explicitly specify the settings if you are OK with the default
 direction: right
 ```
 
-Sets the overall flowchart direction.
-Options are:
+Sets the overall flowchart direction. Options are:
 
 - `right`
 - `down`
@@ -28,8 +32,7 @@ Options are:
 routingStyle: orthogonal
 ```
 
-Defines the style for routing links between nodes.
-Options are:
+Defines the style for routing links between nodes. Options are:
 
 - `orthogonal`
 - `splines`
@@ -51,7 +54,8 @@ Defines the space between adjacent nodes.
 nodePadding: 32
 ```
 
-Sets global padding for all nodes, controlling the space between text inside a node and its edges. This padding may affect the overall node size.
+Sets global padding for all nodes, controlling the space between text inside a
+node and its edges. This padding may affect the overall node size.
 
 You can override this setting for individual nodes:
 
@@ -61,12 +65,15 @@ A {
 }
 ```
 
-**Note:** Padding assumes a rectangular node shape. For non-rectangular shapes, they are fully contained within this rectangle. If padding is too small for non-rectangular shapes, text may not fit properly.
+**Note:** Padding assumes a rectangular node shape. For non-rectangular shapes,
+they are fully contained within this rectangle. If padding is too small for
+non-rectangular shapes, text may not fit properly.
 
 Padding values can be set as:
 
 - A single number for uniform vertical and horizontal padding.
-- Two numbers where the first applies to vertical padding, and the second to horizontal padding.
+- Two numbers where the first applies to vertical padding, and the second to
+  horizontal padding.
 
 ### linkStyle
 
@@ -74,8 +81,7 @@ Padding values can be set as:
 linkStyle: solid
 ```
 
-Defines the link style.
-Options are:
+Defines the link style. Options are:
 
 - `solid`
 - `dashed`
@@ -132,8 +138,9 @@ A {
 arrowHeads: end
 ```
 
-Where to show an arrow head on links. By default it will show at the `end` of the link.
-Set it to `none` to disable arrow heads. Set it to `both` to show arrow heads at both ends.
+Where to show an arrow head on links. By default it will show at the `end` of
+the link. Set it to `none` to disable arrow heads. Set it to `both` to show
+arrow heads at both ends.
 
 Options ares:
 
@@ -153,8 +160,8 @@ A ->{ arrowHeads: both } B
 rectRadius: 0
 ```
 
-This option can be specified when the node shape is `rect`.
-It will make the rectangle to have round corners if you specify a value greater than 0.
+This option can be specified when the node shape is `rect`. It will make the
+rectangle to have round corners if you specify a value greater than 0.
 
 This value could be overriden per node:
 
@@ -169,7 +176,9 @@ bgColor: none
 ```
 
 The overall background color for the whole chart. By default it is transparent.
-Transparent background may not look very well in some dark-themed pages. Since the background color or foreground color will be too similar. In such case, you can specify a `bgColor`, such as `white`.
+Transparent background may not look very well in some dark-themed pages. Since
+the background color or foreground color will be too similar. In such case, you
+can specify a `bgColor`, such as `white`.
 
 `none` or not specified at all means background is transparent.
 
@@ -225,8 +234,8 @@ Here are all the settings that applies to nodes to override global settings:
 A { label: User A }
 ```
 
-Label of the node. If not specified, the node ID (`A` in the sample about) will be used as label.
-Label will show in the center of the node.
+Label of the node. If not specified, the node ID (`A` in the sample about) will
+be used as label. Label will show in the center of the node.
 
 ---
 
@@ -243,8 +252,7 @@ Here are all the settings that applies to nodes to override global settings:
 A ->{label: ❤️} B
 ```
 
-Show a label on the link.
-It is optional.
+Show a label on the link. It is optional.
 
 ---
 
