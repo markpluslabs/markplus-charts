@@ -15,12 +15,12 @@ const Comment = createToken({
 // very first node
 export const Node0 = createToken({
   name: "Node0",
-  pattern: /[a-zA-Z0-9_]+/,
+  pattern: /(?:[^\s{}:/;>-]|-(?!>))+/,
   push_mode: "statements_mode",
 });
 export const Node = createToken({
   name: "Node",
-  pattern: /[a-zA-Z0-9_]+/,
+  pattern: /(?:[^\s{}:/;>-]|-(?!>))+/,
 });
 
 const LCurly = createToken({

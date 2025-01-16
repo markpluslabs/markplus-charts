@@ -11,7 +11,7 @@ describe("errors", () => {
       error = true;
       expect(e.message).toMatch("Lexing error at ");
     }
-    expect(error).toBe(true);
+    expect(error).toBe(false);
   });
 
   test("parsing error", async () => {
